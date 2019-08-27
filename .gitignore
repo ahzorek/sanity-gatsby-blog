@@ -6,3 +6,7 @@
 
 # lerna files
 /lerna-debug.log
+
+# Tokens
+
+/web/.env.development
