@@ -752,9 +752,9 @@
     universal-user-agent "^3.0.0"
     url-template "^2.0.8"
 
-"@sanity/cli@^0.142.0":
-  version "0.142.0"
-  resolved "https://registry.npmjs.org/@sanity/cli/-/cli-0.142.0.tgz#7a502a22a3f03fecd70c293e1b0c6dfff47f396f"
+"@sanity/cli@^0.142.2":
+  version "0.142.2"
+  resolved "https://registry.npmjs.org/@sanity/cli/-/cli-0.142.2.tgz#186c592b7906cb1e6064ebe94d5dd3521e2a7ffa"
 
 "@types/events@*":
   version "3.0.0"
