@@ -7,12 +7,12 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Title'
+      title: 'Titulo'
     },
     {
       name: 'description',
       type: 'text',
-      title: 'Description',
+      title: 'Descrição',
       description: 'Describe your blog for search engines and social media.'
     },
     {
