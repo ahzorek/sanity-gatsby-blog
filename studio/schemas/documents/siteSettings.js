@@ -1,25 +1,25 @@
 export default {
   name: 'siteSettings',
   type: 'document',
-  title: 'Site Settings',
+  title: 'Configurações do Site',
   __experimental_actions: ['update', /* 'create', 'delete', */ 'publish'],
   fields: [
     {
       name: 'title',
       type: 'string',
-      title: 'Titulo'
+      title: 'Título'
     },
     {
       name: 'description',
       type: 'text',
       title: 'Descrição',
-      description: 'Describe your blog for search engines and social media.'
+      description: 'Descrição do site que vai ser indexada em buscadores e redes sociais.'
     },
     {
       name: 'keywords',
       type: 'array',
       title: 'Keywords',
-      description: 'Add keywords that describes your blog.',
+      description: 'Palavras-chave para o site.',
       of: [{type: 'string'}],
       options: {
         layout: 'tags'
@@ -28,8 +28,7 @@ export default {
     {
       name: 'author',
       type: 'reference',
-      description: 'Publish an author and set a reference to them here.',
-      title: 'Author',
+      title: 'Autores',
       to: [{type: 'author'}]
     }
   ]

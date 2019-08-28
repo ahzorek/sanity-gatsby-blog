@@ -1,18 +1,18 @@
 export default {
   name: 'author',
   type: 'document',
-  title: 'Author',
+  title: 'Autor',
   fields: [
     {
       name: 'name',
       type: 'string',
-      title: 'Name'
+      title: 'Nome'
     },
     {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Some frontends will require a slug to be set to be able to show the person',
+      description: 'A slug é necessária para gerar links relacionados ao autor.',
       options: {
         source: 'name',
         maxLength: 96
@@ -26,7 +26,7 @@ export default {
     {
       name: 'bio',
       type: 'bioPortableText',
-      title: 'Biography'
+      title: 'Texto Bio'
     }
   ],
   preview: {

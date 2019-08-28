@@ -1,11 +1,11 @@
 export default {
   widgets: [
-    {
-      name: 'sanity-tutorials',
-      options: {
-        templateRepoId: 'sanity-io/sanity-template-gatsby-blog'
-      }
-    },
+    // {
+    //   name: 'sanity-tutorials',
+    //   options: {
+    //     templateRepoId: 'sanity-io/sanity-template-gatsby-blog'
+    //   }
+    // },
     {name: 'structure-menu'},
     {
       name: 'project-info',
@@ -15,7 +15,7 @@ export default {
             name: 'netlify',
             options: {
               description:
-                'NOTE: Because these sites are static builds, they need to be re-deployed to see the changes when documents are published.',
+                'ATENÇÃO: Como o Gatsby é um gerador de sites estáticos, a cada publicação efetiva deverá ser rodada uma nova *deploy* do Hibernativos. Isso pode ser feito pelo botão abaixo.',
               sites: [
                 {
                   buildHookId: '5d645b1084ba3e01875421c1',
@@ -25,7 +25,7 @@ export default {
                 },
                 {
                   buildHookId: '5d645b1050a7c6018c36d479',
-                  title: 'Blog Website',
+                  title: 'Hibernativos',
                   name: 'sanity-gatsby-blog-web-rz54g4t2',
                   apiId: '42a3f18e-eaee-4f3d-8781-5b26f76f294b'
                 }
@@ -46,7 +46,7 @@ export default {
     {name: 'project-users', layout: {height: 'auto'}},
     {
       name: 'document-list',
-      options: {title: 'Recent blog posts', order: '_createdAt desc', types: ['post']},
+      options: {title: 'Postagens recentes', order: '_createdAt desc', types: ['post']},
       layout: {width: 'medium'}
     }
   ]

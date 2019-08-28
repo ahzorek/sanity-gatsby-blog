@@ -3,13 +3,13 @@ import {format} from 'date-fns'
 export default {
   name: 'post',
   type: 'document',
-  title: 'Blog Post',
+  title: 'Artigo',
   fields: [
     {
       name: 'title',
       type: 'string',
-      title: 'Title',
-      description: 'Titles should be catchy, descriptive, and not too long'
+      title: 'Título',
+      description: 'Títulos devem ser curtos, criativos e chamativos.'
     },
     {
       name: 'slug',
