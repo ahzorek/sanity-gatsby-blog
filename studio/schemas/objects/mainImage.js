@@ -1,7 +1,7 @@
 export default {
   name: 'mainImage',
   type: 'image',
-  title: 'Image',
+  title: 'Imagem',
   options: {
     hotspot: true
   },
@@ -9,7 +9,7 @@ export default {
     {
       name: 'caption',
       type: 'string',
-      title: 'Caption',
+      title: 'Legenda',
       options: {
         isHighlighted: true
       }
@@ -17,9 +17,9 @@ export default {
     {
       name: 'alt',
       type: 'string',
-      title: 'Alternative text',
-      description: 'Important for SEO and accessiblity.',
-      validation: Rule => Rule.error('You have to fill out the alternative text.').required(),
+      title: 'Texto Alternativo',
+      description: 'Importante para SEO e acessibilidade da página.',
+      validation: Rule => Rule.error('Você precisa preencher o Texto Alt.').required(),
       options: {
         isHighlighted: true
       }

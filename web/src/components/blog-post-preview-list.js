@@ -2,6 +2,7 @@ import {Link} from 'gatsby'
 import React from 'react'
 import BlogPostPreview from './blog-post-preview'
 
+
 import styles from './blog-post-preview-list.module.css'
 
 function BlogPostPreviewGrid (props) {
@@ -18,7 +19,7 @@ function BlogPostPreviewGrid (props) {
       </ul>
       {props.browseMoreHref && (
         <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref}>Browse more</Link>
+          <Link to={props.browseMoreHref}>Ver mais</Link>
         </div>
       )}
     </div>

@@ -48,6 +48,10 @@ export default {
     {
       type: 'mainImage',
       options: {hotspot: true}
+    },
+    {
+      type: 'bodyImage',
+      options: {hotspot: true}
     }
   ]
 }

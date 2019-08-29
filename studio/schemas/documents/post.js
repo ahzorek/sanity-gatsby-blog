@@ -15,7 +15,6 @@ export default {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Some frontends will require a slug to be set to be able to show the post',
       options: {
         source: 'title',
         maxLength: 96
@@ -24,24 +23,46 @@ export default {
     {
       name: 'publishedAt',
       type: 'datetime',
-      title: 'Published at',
-      description: 'This can be used to schedule post for publishing'
+      title: 'Data de publicação',
+      description: 'Pode ser usado para agendar publicações no futuro.',
+      options: {
+        calendarTodayLabel: 'Agora',
+        timeStep: 1
+      }
+    },
+    {
+      title: 'Foi Atualizado?',
+      name: 'isUpdated',
+      type: 'boolean',
+      hidden: false,
+      description: 'Determina se houve atualização no artigo após a publicação e adiciona a informação junto da data.',
+      options: {
+          isHighlighted: true
+      }
+    },
+    {
+      name: 'viewFormat',
+      title: 'Formato de visualização',
+      type: 'reference',
+      to: {
+        type: 'viewFormat'
+      }
     },
     {
       name: 'mainImage',
       type: 'mainImage',
-      title: 'Main image'
+      title: 'Imagem de Capa'
     },
     {
       name: 'excerpt',
       type: 'excerptPortableText',
-      title: 'Excerpt',
+      title: 'Resumo',
       description:
-        'This ends up on summary pages, on Google, when people share your post in social media.'
+        'Será usado para SEO e redes sociais.'
     },
     {
       name: 'authors',
-      title: 'Authors',
+      title: 'Autores',
       type: 'array',
       of: [
         {
@@ -65,7 +86,17 @@ export default {
     {
       name: 'body',
       type: 'bodyPortableText',
-      title: 'Body'
+      title: 'Corpo'
+    },
+    {
+      name: 'keywords',
+      type: 'array',
+      title: 'Keywords',
+      description: 'Palavras-chave para o post. Usado em SEO e na organização do site, possivelmente. Adicione a palavra e pressione "Enter/Return" para confirmar.',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags'
+      }
     }
   ],
   orderings: [
@@ -105,13 +136,13 @@ export default {
       slug: 'slug',
       media: 'mainImage'
     },
-    prepare ({title = 'No title', publishedAt, slug = {}, media}) {
+    prepare ({title = 'Sem título', publishedAt, slug = {}, media}) {
       const dateSegment = format(publishedAt, 'YYYY/MM')
       const path = `/${dateSegment}/${slug.current}/`
       return {
         title,
         media,
-        subtitle: publishedAt ? path : 'Missing publishing date'
+        subtitle: publishedAt ? path : 'Falta uma data para a publicação'
       }
     }
   }

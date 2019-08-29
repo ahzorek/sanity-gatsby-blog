@@ -1,7 +1,7 @@
 {
   "root": true,
   "project": {
-    "name": "Hibernativos com Sanity"
+    "name": "Hibernativos"
   },
   "api": {
     "projectId": "z6gr4qrq",
@@ -16,7 +16,8 @@
     "@sanity/desk-tool",
     "dashboard-widget-structure-menu",
     "dashboard-widget-document-list",
-    "dashboard-widget-netlify"
+    "dashboard-widget-netlify",
+    "@sanity/color-input"
   ],
   "parts": [
     {

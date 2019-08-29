@@ -12,6 +12,7 @@ export const query = graphql`
     post: sanityPost(id: {eq: $id}) {
       id
       publishedAt
+      _updatedAt
       categories {
         _id
         title
