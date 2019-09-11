@@ -97,11 +97,7 @@ class FullCover extends Component {
 
   render() {
     const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = this.props
-    const bgSrc = getFluidGatsbyImage(
-      mainImage.asset._id, 
-      { maxWidth: self.innerWidth && self.innerWidth > self.innerHeight ? self.innerWidth : self.innerHeight || 1200 }, 
-      clientConfig.sanity
-    )
+    const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1600 }, clientConfig.sanity )
     const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
     const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
 
