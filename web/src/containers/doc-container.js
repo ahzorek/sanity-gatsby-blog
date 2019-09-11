@@ -1,5 +1,5 @@
 import {graphql, StaticQuery} from 'gatsby'
-import React, {useState} from 'react'
+import React, {useState, Component } from 'react'
 import Layout from '../components/layout'
 
 const query = graphql`
@@ -10,14 +10,7 @@ const query = graphql`
   }
 `
 
-function LayoutContainer (props) {
-  const [showNav, setShowNav] = useState(false)
-  function handleShowNav () {
-    setShowNav(true)
-  }
-  function handleHideNav () {
-    setShowNav(false)
-  }
+function DocContainer (props) {
   return (
     <StaticQuery
       query={query}
@@ -30,10 +23,7 @@ function LayoutContainer (props) {
         return (
           <Layout
             {...props}
-            showNav={showNav}
             siteTitle={data.site.title}
-            onHideNav={handleHideNav}
-            onShowNav={handleShowNav}
           />
         )
       }}
@@ -41,4 +31,4 @@ function LayoutContainer (props) {
   )
 }
 
-export default LayoutContainer
+export default DocContainer

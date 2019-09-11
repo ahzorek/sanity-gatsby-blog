@@ -5,7 +5,9 @@ import BlogPostPreviewGrid from '../components/blog-post-preview-grid'
 import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
-import Layout from '../containers/layout'
+import DocContainer from '../containers/doc-container'
+import Header from '../components/header'
+
 
 import {responsiveTitle1} from '../components/typography.module.css'
 
@@ -16,6 +18,8 @@ export const query = graphql`
         node {
           id
           publishedAt
+          isUpdated
+          _updatedAt
           mainImage {
             ...SanityImage
             alt
@@ -36,22 +40,23 @@ const ArchivePage = props => {
 
   if (errors) {
     return (
-      <Layout>
+      <DocContainer>
         <GraphQLErrorList errors={errors} />
-      </Layout>
+      </DocContainer>
     )
   }
 
   const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
 
   return (
-    <Layout>
+    <DocContainer>
       <SEO title='Arquivo' />
+      <Header siteTitle={'Hibernativos'} />
       <Container>
         <h1 className={responsiveTitle1}>Arquivo</h1>
         {postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes} />}
       </Container>
-    </Layout>
+    </DocContainer>
   )
 }
 

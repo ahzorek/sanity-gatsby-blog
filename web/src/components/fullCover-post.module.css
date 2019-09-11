@@ -1,0 +1,90 @@
+@import '../styles/custom-media.css';
+@import '../styles/custom-properties.css';
+
+.root {}
+
+.mainContent {
+  padding: 2em 0;
+
+  @nest & a {
+    color: var(--color-base);
+
+    @media (hover: hover) {
+      @nest &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  @nest & h2, & h3, & h4, & h5, & h6 {
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem 2em;
+  }
+
+  @nest & figure {
+    margin: 0;
+    padding: 0;
+
+    @nest & img {
+      max-width: 100%;
+    }
+  }
+  @nest & p, & li, & h2, & h3, & h4, & h5, & h6 {
+    max-width: 680px;
+    text-align: left;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+  }
+  @nest & p, & li {
+    font-family: Georgia,Cambria,Times,serif;
+    font-style: normal;
+    font-size: 21px;
+    letter-spacing: -.003em;
+    margin: 0 auto;
+  }
+  @nest & p {
+    padding: 1rem 2em;
+    font-weight: 400;
+    line-height: 1.58;
+  }
+  /* @nest & p:first-child {
+    padding: 4rem 2rem 1.5rem;
+  } */
+  @nest & p:first-child:first-letter {
+    float: left;
+    font-size: 7rem;
+    line-height: 4rem;
+    padding-top: 16px;
+    padding-right: 10px;
+    padding-left: 2px;
+    border-radius: 3px;
+  }
+}
+
+.publishedAt {
+  composes: small from './typography.module.css';
+  margin: 2rem 0 0;
+  color: var(--color-gray);
+}
+
+.categories {
+  border-top: 1px solid var(--color-very-light-gray);
+  margin: 2rem 0 3rem;
+
+  @nest & ul {
+    list-style: none;
+    margin: 0.75rem 0;
+    padding: 0;
+  }
+
+  @nest & ul li {
+    padding: 0.25rem 0;
+  }
+}
+
+.categoriesHeadline {
+  composes: base from './typography.module.css';
+  margin: 0.5rem 0 0;
+}

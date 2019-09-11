@@ -18,7 +18,7 @@ export function filterOutDocsPublishedInTheFuture ({publishedAt}) {
 }
 
 export function getBlogUrl (publishedAt, slug) {
-  return `/blog/${format(parseISO(publishedAt), 'yyyy/MM')}/${slug.current || slug}/`
+  return `/${format(parseISO(publishedAt), 'MM/yyyy')}/${slug.current || slug}/`
 }
 
 export function buildImageObj (source = {asset: {}}) {

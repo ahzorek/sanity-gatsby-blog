@@ -1,6 +1,3 @@
-import {format, parseISO} from 'date-fns'
-import { ptBR } from 'date-fns/locale'
-
 import {Link} from 'gatsby'
 import React from 'react'
 import {buildImageObj, cn, getBlogUrl} from '../lib/helpers'
@@ -37,7 +34,7 @@ function BlogPostPreview (props) {
           </div>
         )}
         <div className={styles.date}>
-          <DisplayDate postdate={props.publishedAt} isUpdate={true} update={props._updatedAt} />
+          <DisplayDate postdate={props.publishedAt} isUpdate={props.isUpdated} update={props._updatedAt} />
         </div>
       </div>
     </Link>

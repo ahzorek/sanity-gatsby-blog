@@ -5,13 +5,17 @@ import PortableText from './portableText'
 import DisplayDate from './displayDate'
 import Container from './container'
 import AuthorList from './author-list'
+import { Link } from 'gatsby'
+import PostNav from './post-nav'
+
 
 import styles from './blog-post.module.css'
 
 function BlogPost (props) {
-  const {_rawBody, authors, categories, title, mainImage, publishedAt, _updatedAt} = props
+  const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = props
   return (
     <article className={styles.root}>
+      <PostNav title={title} category={categories[0]} pos={0} />
       {mainImage && mainImage.asset && (
         <div className={styles.mainImage}>
           <img
@@ -32,20 +36,20 @@ function BlogPost (props) {
             {_rawBody && <PortableText blocks={_rawBody} />}
           </div>
           <aside className={styles.metaContent}>
-
             {publishedAt && (
               <div className={styles.publishedAt}>
-                <DisplayDate postdate={publishedAt} isUpdate={false} update={_updatedAt} />
+                <DisplayDate postdate={publishedAt} isUpdate={isUpdated ? isUpdated : false} update={_updatedAt} />
               </div>
             )}
-
-            {authors && <AuthorList items={authors} title='Authors' />}
+            {authors && <AuthorList items={authors} title='Publicado por' />}
             {categories && (
               <div className={styles.categories}>
-                <h3 className={styles.categoriesHeadline}>Categories</h3>
+                <h3 className={styles.categoriesHeadline}>Marcado como</h3>
                 <ul>
-                  {categories.map(category => (
-                    <li key={category._id}>{category.title}</li>
+                  {categories.map(category => (  
+                    <li key={category.id}>
+                      <Link to={`/${category._rawSlug.current}`}>{category.title}</Link>
+                    </li>
                   ))}
                 </ul>
               </div>

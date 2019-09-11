@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import styled from 'styled-components'
 
 const SwitchWrapper = styled.span`
@@ -24,20 +23,16 @@ const HibernativosTitle = styled.h1`
   }
 `
 const Logo = (props) => {
-  const { color } = props
+  const { color, name: siteName } = props
   return (
-    <>
-      <Link to={`/`} style={{ textDecoration: 'none' }}>
-        <LogoWrapper>
-          <SwitchWrapper>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 86">
-              <path style={{fill: color}} d="M59.7 62.3L48 43.2V2.4A2.4 2.4 0 0 0 45.6 0H2.4A2.4 2.4 0 0 0 0 2.4v81.2A2.4 2.4 0 0 0 2.4 86h44.2l.3-.2h.1l.7-.7 12-19.6A4 4 0 0 0 60 64a3.7 3.7 0 0 0-.3-1.7zM4.8 4.8h38.4v36.8H4.8zm0 47.6l7 11.4-7 11.4zM48 75.2l-3.7 6H6.7l9.1-14.8h37.5zm0-14H15.8L6.7 46.3h37.6l3.7 6.1 5.3 8.8z"/>
-            </svg>
-          </SwitchWrapper>
-          <HibernativosTitle fontcolor={color}>Hibernativos</HibernativosTitle>
-        </LogoWrapper>
-      </Link>
-    </>
+    <LogoWrapper>
+      <SwitchWrapper>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 86">
+          <path style={{fill: color, vectorEffect: 'non-scaling-stroke'}} d="M59.7 62.3L48 43.2V2.4A2.4 2.4 0 0 0 45.6 0H2.4A2.4 2.4 0 0 0 0 2.4v81.2A2.4 2.4 0 0 0 2.4 86h44.2l.3-.2h.1l.7-.7 12-19.6A4 4 0 0 0 60 64a3.7 3.7 0 0 0-.3-1.7zM4.8 4.8h38.4v36.8H4.8zm0 47.6l7 11.4-7 11.4zM48 75.2l-3.7 6H6.7l9.1-14.8h37.5zm0-14H15.8L6.7 46.3h37.6l3.7 6.1 5.3 8.8z"/>
+        </svg>
+      </SwitchWrapper>
+      <HibernativosTitle fontcolor={color}>{siteName || "Hibernativos"}</HibernativosTitle>
+    </LogoWrapper>
   )
 }
 export default Logo

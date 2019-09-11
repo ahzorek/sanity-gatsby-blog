@@ -9,7 +9,8 @@ import BlogPostPreviewList from '../components/blog-post-preview-list'
 import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
-import Layout from '../containers/layout'
+import DocContainer from '../containers/doc-container'
+import Header from '../components/header'
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -49,6 +50,7 @@ export const query = graphql`
         node {
           id
           publishedAt
+          isUpdated
           _updatedAt
           mainImage {
             ...SanityImage
@@ -68,13 +70,13 @@ export const query = graphql`
 const IndexPage = props => {
   const {data, errors} = props
 
-  // if (errors) {
-  //   return (
-  //     <Layout>
-  //       <GraphQLErrorList errors={errors} />
-  //     </Layout>
-  //   )
-  // }
+  if (errors) {
+    return (
+      <DocContainer>
+        <GraphQLErrorList errors={errors} />
+      </DocContainer>
+    )
+  }
 
   const site = (data || {}).site
   const postNodes = (data || {}).posts
@@ -90,14 +92,15 @@ const IndexPage = props => {
   }
 
   return (
-    <Layout>
+    <DocContainer>
       <SEO
         title={site.title}
         description={site.description}
         keywords={site.keywords}
       />
+      <Header siteTitle={site.title} />
       <Container>
-        <h1 hidden>Welcome to {site.title}</h1>
+        <h1 hidden>Bem-vindx ao {site.title}</h1>
         {postNodes && (
           <BlogPostPreviewList
             title='Últimos Artigos'
@@ -106,7 +109,7 @@ const IndexPage = props => {
           />
         )}
       </Container>
-    </Layout>
+    </DocContainer>
   )
 }
 

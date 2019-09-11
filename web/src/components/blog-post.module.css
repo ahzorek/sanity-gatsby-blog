@@ -64,7 +64,7 @@
 
 .publishedAt {
   composes: small from './typography.module.css';
-  margin: 2rem 0 3rem;
+  margin: 2rem 0 0;
   color: var(--color-gray);
 }
 

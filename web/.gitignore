@@ -55,6 +55,8 @@ typings/
 .cache/
 public
 
+/pages/lab.js
+
 # Mac files
 .DS_Store
 
