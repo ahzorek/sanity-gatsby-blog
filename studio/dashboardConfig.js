@@ -20,13 +20,13 @@ export default {
                 {
                   buildHookId: '5d645b1084ba3e01875421c1',
                   title: 'Sanity Studio',
-                  name: 'sanity-gatsby-blog-studio-onpxarq7',
+                  name: 'hibernativos-studio',
                   apiId: '849263ca-8391-4328-918d-6330e74e21c1'
                 },
                 {
                   buildHookId: '5d645b1050a7c6018c36d479',
                   title: 'Hibernativos',
-                  name: 'sanity-gatsby-blog-web-rz54g4t2',
+                  name: 'hibernativos',
                   apiId: '42a3f18e-eaee-4f3d-8781-5b26f76f294b'
                 }
               ]
@@ -39,7 +39,7 @@ export default {
             value: 'https://github.com/ahzorek/sanity-gatsby-blog',
             category: 'Code'
           },
-          {title: 'Frontend', value: 'https://sanity-gatsby-blog-web-rz54g4t2.netlify.com', category: 'apps'}
+          {title: 'Frontend', value: 'https://hibernativos.ml', category: 'apps'}
         ]
       }
     },
