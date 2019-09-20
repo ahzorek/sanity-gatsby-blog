@@ -1,4 +1,4 @@
-import {Link} from 'gatsby'
+import {Link} from '../lib/link'
 import React from 'react'
 import BlogPostPreview from './blog-post-preview'
 
@@ -18,7 +18,7 @@ function BlogPostPreviewGrid (props) {
       </ul>
       {props.browseMoreHref && (
         <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref}>Browse more</Link>
+          <Link to={props.browseMoreHref} color={'#232323'}>Ver mais</Link>
         </div>
       )}
     </div>

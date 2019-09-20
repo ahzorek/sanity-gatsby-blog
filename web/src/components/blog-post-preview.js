@@ -2,8 +2,9 @@ import {Link} from 'gatsby'
 import React from 'react'
 import {buildImageObj, cn, getBlogUrl} from '../lib/helpers'
 import {imageUrlFor} from '../lib/image-url'
-import PortableText from './portableText'
 import DisplayDate from './displayDate'
+
+import PortableText from './portableText'
 
 import styles from './blog-post-preview.module.css'
 import {responsiveTitle3} from './typography.module.css'
@@ -28,11 +29,11 @@ function BlogPostPreview (props) {
       </div>
       <div className={styles.text}>
         <h3 className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
-        {props._rawExcerpt && (
+        {/* {props._rawExcerpt && (
           <div className={styles.excerpt}>
             <PortableText blocks={props._rawExcerpt} />
           </div>
-        )}
+        )} */}
         <div className={styles.date}>
           <DisplayDate postdate={props.publishedAt} isUpdate={props.isUpdated} update={props._updatedAt} />
         </div>

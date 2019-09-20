@@ -35,6 +35,7 @@ export default ({node}) => {
     { maxWidth: node.isFullWidth ? 1600 : 720 },
     clientConfig.sanity
   )
+
   return (
     <figure>
       { node.isFullWidth ? <ImageFull fluid={fluidProps} alt={node.alt} /> : <ImageCrop fluid={fluidProps} alt={node.alt} /> }

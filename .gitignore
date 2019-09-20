@@ -7,6 +7,8 @@
 /web/package-lock.json
 /studio/package-lock.json
 
+/web/pages/lab
+
 # lerna files
 /lerna-debug.log
 

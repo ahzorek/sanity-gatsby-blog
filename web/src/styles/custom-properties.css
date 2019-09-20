@@ -7,8 +7,8 @@
   --color-light-gray: #b4bcc7;
   --color-very-light-gray: #e7ebed;
   --color-white: #fff;
-  --color-accent: #ff1563;
-  --color-base: #121516;
+  --color-accent: rgb(233, 44, 70);
+  --color-base: rgb(110,110,110);
 
   /* Typography */
   --unit: 16;

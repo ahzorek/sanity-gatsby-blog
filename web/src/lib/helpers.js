@@ -42,3 +42,41 @@ export function toPlainText (blocks) {
     })
     .join('\n\n')
 }
+
+export function hexToRGB(hex) {
+  if(hex[0] !== '#' && hex.length !== 6 && hex.length !== 3){
+    console.error('Received as HEX color:', hex)
+  }
+  const hexNum = hex[0] === '#' ? hex.slice([1]) : hex
+  let bigint = parseInt(hexNum, 16),
+      r = (bigint >> 16) & 255,
+      g = (bigint >> 8) & 255,
+      b = bigint & 255
+  return [r,g,b]
+}
+
+export function convertToDueToneToMatrixString(x,y) {
+
+  const color1 = hexToRGB(x)
+  const color2 = hexToRGB(y)
+  
+  let c1   = {}
+  c1.red   = color1[0] / 256
+  c1.green = color1[1] / 256
+  c1.blue  = color1[2] / 256
+  
+  let c2   = {}
+  c2.red   = color2[0] / 256
+  c2.green = color2[1] / 256
+  c2.blue  = color2[2] / 256
+  
+  let value = []
+  value = value.concat([c1.red - c2.red, 0, 0, 0, c2.red])
+  value = value.concat([c1.green - c2.green, 0, 0, 0, c2.green])
+  value = value.concat([c1.blue - c2.blue, 0, 0, 0, c2.blue])
+  value = value.concat([0, 0, 0, 1, 0])
+
+  return value.join(' ')
+}
+
+export const tmdb = "e552afa43f0a855512b415a7ea01196f"

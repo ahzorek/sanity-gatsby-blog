@@ -13,9 +13,17 @@ import styles from './blog-post.module.css'
 
 function BlogPost (props) {
   const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = props
+  const colors = { paper: 'rgb(252,250,251)', ink: 'rgb(38,35,35)' }
+
   return (
     <article className={styles.root}>
-      <PostNav title={title} category={categories[0]} pos={0} />
+      <PostNav 
+        title={title} 
+        category={categories[0]} 
+        pos={0} 
+        colors={colors}
+        darkMode={{func: false, status: false}}
+      />
       {mainImage && mainImage.asset && (
         <div className={styles.mainImage}>
           <img

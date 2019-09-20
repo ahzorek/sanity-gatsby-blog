@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import styled from 'styled-components' 
-import { Link } from 'gatsby'
+import { Link } from '../lib/link'
 
 import Logo from '../images/logo'
 import styles from './header.module.css'
-
-//import SearchField from '../SearchField'
 
 const Bar = styled.nav`
   display: flex;
   justify-content: space-between;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   align-items: center;
   width: 100%;
   height: 70px;
-  background-color: rgba(252,252,252,.92);
+  background-color: ${props => props.colors.bg};
+  color: ${props => props.colors.color};
   padding: 4px 20px 0;
   box-sizing: border-box;
   transition: transform 250ms ease-in-out;
@@ -58,26 +57,25 @@ const SwitchInput = styled.input`
   display:none;
 `
 const SwitchLabel = styled.label`
-  transform: scale(.6);
-	width: 60px;
+  transform: scale(.7);
+	width: 70px;
 	height: 35px;
 	position: relative;
-	background: ${props => props.config.bg};
-	border-radius: 20px;
+	background: ${props => props.colors.ink};
+	border-radius: 10px;
 	display: inline-block;
 	transition: all 400ms ease-in-out 0s;
   &::before {
     content:'';
     top:50%;
-    /* right: ${props => props.config.right}; */
+    right: ${props => props.config};
     width:23px;
     height:23px;
-    /* background: ${props => props.config.color}; */
-    border-radius: 20px;
+    background: ${props => props.colors.paper};
+    border-radius: 6px;
     position:absolute;
     margin-top:-11.5px;
     transition:inherit;
-    transition: all 400ms ease-in-out 0s;
   }
 `
 
@@ -107,7 +105,7 @@ class PostNav extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.pos)
+    //console.log(this.props.pos)
     this.setState({ navPos: this.props.pos })
     window.addEventListener('scroll', this.handleScroll)
   }
@@ -129,47 +127,46 @@ class PostNav extends Component {
   } 
 
   render() {
-    const { title, category } = this.props 
+    const { title, category, colors: {ink, paper}, darkMode: { func: handleDark, status } } = this.props 
+    const switchPos = status ? '4px': '40px'
+    const navColors = status ? {bg: 'rgba(13, 14, 14, 0.98)', color: 'rgb(230, 240, 240)'} : {bg: 'rgba(252,252,252,.92)', color: 'rgb(23,23,23)'}
 
-    // const switchProps = darkswitch ? { 
-    //   right: '3px', 
-    //   color: theme.bgColor1, 
-    //   bg: theme.contentColor 
-    // } 
-    // : { 
-    //   right: '38px', 
-    //   color: theme.bgColor1, 
-    //   bg: theme.contentColor 
-    // } 
 
     return (
-        <Bar style={{top: 0, transform: `translateY(${this.state.navPos}px)`}}>
+        <Bar colors={navColors}  style={{top: 0, transform: `translateY(${this.state.navPos}px)`}}>
           {/* LEFT */}
           <SideSlot className={styles.branding}>
-            <Link to='/'><Logo color={category.catColor ? category.catColor.hex : '#000000'} /></Link>
+            <Link to='/' color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'}><Logo color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'} /></Link>
           </SideSlot>
   
           {/* CENTER */}
           <CenterSlot>
-            <Link to={`/${category._rawSlug.current}`} style={{ textDecoration: 'none' }}>
-              <Subject color={category.catColor ? category.catColor.hex : '#000000'} >{category.title}</Subject>
+            <Link 
+              to={`/${category._rawSlug.current}`} 
+              style={{ textDecoration: 'none' }} 
+              color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'}
+            >
+              <Subject color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'} >{category.title}</Subject>
             </Link>      
             <NavTitle title={title}>{title}</NavTitle>
           </CenterSlot>
   
           {/* RIGHT */}
           <SideSlot style ={{justifyContent: 'flex-end'}} >
-            {/* <form>
+            {handleDark && 
+              <form>
               <SwitchInput
-                onChange={(e) => this.props.mode()}
+                onChange={(e) => handleDark()}
                 id="switch"
                 type="checkbox"
               />
               <SwitchLabel
-                config={switchProps} 
+                config={switchPos}
+                colors={{ink, paper}}
                 htmlFor="switch">
               </SwitchLabel>
-            </form> */}
+            </form>
+            }
           </SideSlot>
         </Bar>
       )

@@ -1,5 +1,5 @@
 import React from 'react'
-import {format, formatDistanceToNow, differenceInDays, parseISO} from 'date-fns'
+import {format, formatDistanceToNow, differenceInDays, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
 const DisplayDate = ({postdate, update, isUpdate}) => {

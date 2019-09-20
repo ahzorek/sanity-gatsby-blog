@@ -10,8 +10,6 @@ import clientConfig from '../../client-config'
 import styles from './fullCover-post.module.css'
 
 const CoverWrapper = styled.div`
-	position: relative;
-	background-color: white;
 	min-height: 500px;
 	width: 100vw;
 	height: 100vh;
@@ -53,9 +51,17 @@ const Author = styled.span`
 	color: #fff;
 `
 const MainContent = styled.div`
-    color: rgb(38,35,35);
-    background-color: rgb(252,250,251);
+    color: ${props => props.colors.ink};
+    background-color: ${props => props.colors.paper};
+    min-height: 800px;
     box-sizing: border-box;
+    transition: all 250ms ease-in-out;
+
+    > :link {
+      & :hover {
+        color: red;
+      }
+    }
 `
 
 const Subject = styled.span`
@@ -100,10 +106,17 @@ class FullCover extends Component {
     const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1600 }, clientConfig.sanity )
     const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
     const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
+    const colors = this.state.darkMode ? { paper: 'rgb(23, 22, 22)', ink: 'rgb(252,250,251)'} : { paper: 'rgb(252,250,251)', ink: 'rgb(38,35,35)' }
 
     return (
-      <article>
-        <PostNav title={title} category={categories[0]} pos={-70} />
+      <article style={{overflow: 'hidden'}}>
+        <PostNav 
+          title={title} 
+          category={categories[0]} 
+          pos={-70}
+          colors={colors} 
+          darkMode={{func: this.handleDarkMode, status: this.state.darkMode }} 
+         />
         {mainImage && mainImage.asset !== null &&
           <CoverWrapper bg={{bgSrc, posX, posY}}>
             <ContentWrapper>
@@ -116,7 +129,7 @@ class FullCover extends Component {
             </ContentWrapper>
           </CoverWrapper>
         }
-        <MainContent className={styles.mainContent}>{_rawBody && <PortableText blocks={_rawBody} />}</MainContent>
+        <MainContent colors={colors} className={styles.mainContent}>{_rawBody && <PortableText blocks={_rawBody} />}</MainContent>
       </article>
     )
   }

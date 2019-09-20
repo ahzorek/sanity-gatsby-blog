@@ -24,7 +24,7 @@ const TopicsTemplate = props => {
         <GraphQLErrorList errors={errors} />
       </Container>
     )}
-    <Header siteTitle={'Hibernativos'} />
+    <Header siteTitle={data.site.title || 'Hibernativos'} />
     {data && (
       <Container>
         {postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes} />}
@@ -36,6 +36,11 @@ const TopicsTemplate = props => {
 
 export const query = graphql`
   query TopicsQuery($id: String!) {
+    site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
+      title
+      description
+      keywords
+    }
     topic: sanityCategory(id: {eq: $id}) {
       id
       title

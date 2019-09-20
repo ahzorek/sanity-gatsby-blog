@@ -9,8 +9,16 @@ const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   plugins: [
-    'gatsby-plugin-postcss',
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    'gatsby-plugin-transition-link',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-postcss',
     'gatsby-plugin-styled-components',
     {
       resolve: 'gatsby-source-sanity',

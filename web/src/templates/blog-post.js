@@ -14,7 +14,10 @@ const BlogPostTemplate = props => {
   const post = data && data.post
 
   const viewFormat = post.viewFormat ? post.viewFormat._rawViewFormat.current : false
-  
+  const readTime = Math.ceil((toPlainText(post._rawBody).split(" ").length) / 150);
+
+  console.log('~', readTime, (readTime > 1 ?'minutos': 'minuto'))
+
   return (
     <DocContainer>
       {errors && <SEO title='GraphQL Error' />}

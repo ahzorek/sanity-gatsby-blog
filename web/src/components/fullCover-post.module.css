@@ -7,7 +7,8 @@
   padding: 2em 0;
 
   @nest & a {
-    color: var(--color-base);
+    /* color: var(--color-base); */
+    color: rgb(110,110,110);
 
     @media (hover: hover) {
       @nest &:hover {

@@ -52,6 +52,12 @@ export default {
     {
       type: 'bodyImage',
       options: {hotspot: true}
+    },
+    {
+      type: 'movieID'
+    },
+    {
+      type: 'tvID'
     }
   ]
 }
