@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {format, parseISO} from 'date-fns'
 import styled from 'styled-components'
-import StarRatings from 'react-star-ratings';
+import axios from 'axios'
+import StarRatings from 'react-star-ratings'
 import {tmdb} from '../lib/helpers'
 
 const Wrapper = styled.div`
@@ -85,20 +86,18 @@ class MovieReview extends Component {
     
   componentDidMount(){
     const { id: movieID } = this.props.node
-    fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${tmdb}&language=pt-BR`)
-      .then(response => response.json()).then(data => { 
-        //console.log(data)
-        this.setState({
-          title: data.title,
-          poster: data.poster_path,
-          release: data.release_date,
-          sinopse: data.overview,
-          runtime: data.runtime,
-          score: data.vote_average,
-          genre: data.genres.map(g => g.name).join(', '),
-          hasInfo: true
-        })                  
-    })
+    const url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${tmdb}&language=pt-BR`
+    axios.get(url).then(response => this.setState({
+      title: response.data.title,
+      poster: response.data.poster_path,
+      release: response.data.release_date,
+      sinopse: response.data.overview,
+      runtime: response.data.runtime,
+      score: response.data.vote_average,
+      genre: response.data.genres.map(g => g.name).join(', '),
+      hasInfo: true
+      })                  
+    )
   }
   
   fillMovieInfo(){

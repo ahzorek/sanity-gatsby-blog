@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {format, parseISO} from 'date-fns'
 import styled from 'styled-components'
-import StarRatings from 'react-star-ratings';
+import axios from 'axios'
+import StarRatings from 'react-star-ratings'
 import {tmdb} from '../lib/helpers'
 
 const Wrapper = styled.div`
@@ -118,69 +119,67 @@ const LogoNetwork = styled.img`
 `
 
 class TvReview extends Component {
-  state = { 
+  state = {
       hasInfo: false,
-      data: '', 
-      title: '', 
-      poster: '', 
-      release: '', 
-      desc: '', 
-      score: '', 
-      genre: '', 
-      eps: '', 
-      seasons: '', 
-      network: ''
+      title: '',
+      poster: '',
+      release: '',
+      desc: '',
+      score: '',
+      genre: '',
+      eps: '',
+      seasons: '',
+      network: '',
+      homepage: ''
     }
-    
+
   componentDidMount(){
     const { id } = this.props.node
-    fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${tmdb}&language=pt-BR`)
-      .then(response => response.json()).then(data => { 
-        // console.log(data)
-        this.setState({
-          title: data.name,
-          data: data,
-          poster: data.poster_path,
-          release: data.first_air_date,
-          desc: data.overview ? data.overview : 'Não disponível.',
-          eps: data.number_of_episodes,
-          seasons: data.number_of_seasons,
-          score: data.vote_average,
-          genre: data.genres.map(g => g.name).join(', '),
-          network: data.networks ? data.networks[0] : false,
-          hasInfo: true
-        })                  
-    })
+    const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${tmdb}&language=pt-BR`
+    axios.get(url).then(response => this.setState({
+        title: response.data.name,
+        poster: response.data.poster_path,
+        release: response.data.first_air_date,
+        desc: response.data.overview ? response.data.overview : 'Não disponível.',
+        eps: response.data.number_of_episodes,
+        seasons: response.data.number_of_seasons,
+        score: response.data.vote_average,
+        genre: response.data.genres.map(g => g.name).join(', '),
+        network: response.data.networks ? response.data.networks[0] : false,
+        homepage: response.data.homepage ? response.data.homepage : false,
+        hasInfo: true
+      })
+    )
   }
-  
+
   fillMovieInfo(){
-    const { title, data, poster, release, desc, score, genre, eps, seasons, network } = this.state
+    const { title, poster, release, desc, score, genre, eps, seasons, network, homepage } = this.state
     const { rating: rate, id } = this.props.node
 
     return (
       <Wrapper className="clear">
         <TvTitle>{title}</TvTitle>
         {network && <LogoNetwork alt={network.name} src={`https://image.tmdb.org/t/p/w200${network.logo_path}`}/>}
-          { poster !== null && 
+          { poster !== null &&
           <PosterBox>
             <Poster alt={`Poster de ${title}`} src={`https://image.tmdb.org/t/p/w400/${poster}`}/>
-            { data.homepage && 
-              <a href={data.homepage}>
+            { homepage &&
+              <a href={homepage}>
                 <PlayButton viewBox="0 0 142.448 142.448">
                   <g>
-                    <path fill="#f7f7f7" d="M142.411,68.9C141.216,31.48,110.968,1.233,73.549,0.038c-20.361-0.646-39.41,7.104-53.488,21.639   C6.527,35.65-0.584,54.071,0.038,73.549c1.194,37.419,31.442,67.667,68.861,68.861c0.779,0.025,1.551,0.037,2.325,0.037   c19.454,0,37.624-7.698,51.163-21.676C135.921,106.799,143.033,88.377,142.411,68.9z M111.613,110.336   c-10.688,11.035-25.032,17.112-40.389,17.112c-0.614,0-1.228-0.01-1.847-0.029c-29.532-0.943-53.404-24.815-54.348-54.348   c-0.491-15.382,5.122-29.928,15.806-40.958c10.688-11.035,25.032-17.112,40.389-17.112c0.614,0,1.228,0.01,1.847,0.029   c29.532,0.943,53.404,24.815,54.348,54.348C127.91,84.76,122.296,99.306,111.613,110.336z" />  
+                    <path fill="#f7f7f7" d="M142.411,68.9C141.216,31.48,110.968,1.233,73.549,0.038c-20.361-0.646-39.41,7.104-53.488,21.639   C6.527,35.65-0.584,54.071,0.038,73.549c1.194,37.419,31.442,67.667,68.861,68.861c0.779,0.025,1.551,0.037,2.325,0.037   c19.454,0,37.624-7.698,51.163-21.676C135.921,106.799,143.033,88.377,142.411,68.9z M111.613,110.336   c-10.688,11.035-25.032,17.112-40.389,17.112c-0.614,0-1.228-0.01-1.847-0.029c-29.532-0.943-53.404-24.815-54.348-54.348   c-0.491-15.382,5.122-29.928,15.806-40.958c10.688-11.035,25.032-17.112,40.389-17.112c0.614,0,1.228,0.01,1.847,0.029   c29.532,0.943,53.404,24.815,54.348,54.348C127.91,84.76,122.296,99.306,111.613,110.336z" />
                     <path fill="#f7f7f7" d="M94.585,67.086L63.001,44.44c-3.369-2.416-8.059-0.008-8.059,4.138v45.293   c0,4.146,4.69,6.554,8.059,4.138l31.583-22.647C97.418,73.331,97.418,69.118,94.585,67.086z"/>
                   </g>
 
                 </PlayButton>
               </a>}
-          </PosterBox>}             
+          </PosterBox>}
           <InfoArea>
             <SubTitle>Sobre</SubTitle>
               <Text>{desc}</Text>
             <SubTitle>Gênero</SubTitle>
               <Text>{genre}</Text>
-            {release !== null && 
+            {release !== null &&
             <div>
               <SubTitle>Primeira Exibição</SubTitle>
                 <Text>{format(parseISO(release), "dd'/'MM'/'Y")}</Text>
@@ -192,20 +191,20 @@ class TvReview extends Component {
           {rate && <>
             <SubTitle>Nota Hibernativos</SubTitle>
               <div style={{padding: '.6rem 0 2rem 0'}}>
-              <StarRatings 
-                  name="Nota-Hibernativos" 
-                  rating={rate / 2} 
+              <StarRatings
+                  name="Nota-Hibernativos"
+                  rating={rate / 2}
                   starRatedColor='rgb(180,120,80)'
                   starDimension='18px'
                   starSpacing='3px'
-              />  
+              />
               </div>
           </>}
           <SubTitle>Nota TMDB</SubTitle>
             <div style={{padding: '.6rem 0 2rem 0'}}>
-            <StarRatings 
-                  name="Nota-TMDB" 
-                  rating={score / 2} 
+            <StarRatings
+                  name="Nota-TMDB"
+                  rating={score / 2}
                   starRatedColor='rgb(130,130,130)'
                   starDimension='18px'
                   starSpacing='3px'

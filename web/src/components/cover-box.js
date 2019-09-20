@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {StaticQuery, graphql, Link} from 'gatsby'
 import styled from 'styled-components'
+import axios from 'axios'
 import {tmdb, getBlogUrl} from '../lib/helpers'
 
 const Poster = styled.img`
@@ -15,11 +16,10 @@ class Cover extends Component {
   componentWillMount(){
     const {id, tmdb, media} = this.props
     const path = media === 'tvID'? 'tv' : 'movie'
-    fetch(`https://api.themoviedb.org/3/${path}/${id}?api_key=${tmdb}&language=pt-BR`)
-    .then(response => response.json())
-      .then(data => { this.setState({ show: data })
-    })
+    const url = `https://api.themoviedb.org/3/${path}/${id}?api_key=${tmdb}&language=pt-BR`
+    axios.get(url).then(response => this.setState({ show: response.data }))
   }
+  
   render(){
     const { show } = this.state
     return (
