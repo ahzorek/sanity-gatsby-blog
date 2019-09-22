@@ -5,14 +5,14 @@ import axios from 'axios'
 import StarRatings from 'react-star-ratings'
 import {tmdb} from '../lib/helpers'
 
-const Wrapper = styled.div`
+const Wrapper = styled.aside`
   font-family: sans-serif !important;
   display: grid;
   grid-gap: 1.8em;
   box-sizing: border-box;
   max-width: 800px;
   margin: 2.8rem auto;
-  padding: 2.2rem;
+  padding: 1rem 2.2rem;
   border: solid 0.25pt rgba(136, 136, 136, 0.2);
   background-color: rgba(220,220,220,.025);
   grid-template-areas: "title"
@@ -29,12 +29,13 @@ const MovieTitle = styled.h2`
     grid-area: title;
     font-size: 2.2rem;
     margin: 2rem 0;
-    padding: 2rem 0 .5rem;
+    padding: 0 0 .5rem;
   }`
 
 const Poster = styled.img`
   width: 100%;
   max-width: 400px;
+  max-height: 400px;
   margin: 0 auto;
   border-radius: 2px;
   box-shadow: 0 0 20px 5px rgba(40, 40, 40, .2);
@@ -105,7 +106,7 @@ class MovieReview extends Component {
     const { rating: rate, id: movieID } = this.props.node
 
     return (
-      <Wrapper className="clear">
+      <Wrapper hidden>
         <MovieTitle>{title} ({format(parseISO(release), "yyyy")})</MovieTitle>
           { poster !== null && 
           <Poster alt={`Poster de ${title}`} src={`https://image.tmdb.org/t/p/w400/${poster}`}/>

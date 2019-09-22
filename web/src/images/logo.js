@@ -23,12 +23,17 @@ const HibernativosTitle = styled.h1`
   }
 `
 const Logo = (props) => {
-  const { color, name: siteName } = props
+  const { color, color2, name: siteName } = props
+  const fill = color2 === undefined ? 'transparent' : color2
   return (
     <LogoWrapper>
       <SwitchWrapper>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 86">
-          <path style={{fill: color, vectorEffect: 'non-scaling-stroke'}} d="M59.7 62.3L48 43.2V2.4A2.4 2.4 0 0 0 45.6 0H2.4A2.4 2.4 0 0 0 0 2.4v81.2A2.4 2.4 0 0 0 2.4 86h44.2l.3-.2h.1l.7-.7 12-19.6A4 4 0 0 0 60 64a3.7 3.7 0 0 0-.3-1.7zM4.8 4.8h38.4v36.8H4.8zm0 47.6l7 11.4-7 11.4zM48 75.2l-3.7 6H6.7l9.1-14.8h37.5zm0-14H15.8L6.7 46.3h37.6l3.7 6.1 5.3 8.8z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 60">
+          <path fill={color} d="M41.62,43.46,33.48,30.17V1.67A1.68,1.68,0,0,0,31.8,0H1.67A1.67,1.67,0,0,0,0,1.67V58.33A1.67,1.67,0,0,0,1.67,60h30.2a1.06,1.06,0,0,0,.31,0l.19-.05.14-.06a1.55,1.55,0,0,0,.22-.12l0,0a1.6,1.6,0,0,0,.48-.49l8.37-13.66a2.47,2.47,0,0,0,0-2.08ZM3.35,3.33H30.13V29H3.35Zm0,33.23L8.21,44.5,3.35,52.44ZM33.48,52.44l-2.59,4.23H4.67L11,46.33H37.22Zm0-9.77H11L4.67,32.33H30.89l2.59,4.23,3.74,6.11Z"/>
+          <rect fill={fill} x="3.35" y="3.33" width="26.78" height="25.67"/>
+          <polygon fill={fill} points="37.22 42.67 11 42.67 4.66 32.33 30.89 32.33 37.22 42.67"/>
+          <polygon fill={fill} points="37.22 46.33 11 46.33 4.67 56.67 30.89 56.67 37.22 46.33"/>
+          <polygon fill={fill} points="3.35 52.44 3.35 36.56 8.21 44.5 3.35 52.44"/>
         </svg>
       </SwitchWrapper>
       <HibernativosTitle fontcolor={color}>{siteName || "Hibernativos"}</HibernativosTitle>

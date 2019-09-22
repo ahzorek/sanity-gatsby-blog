@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {graphql} from 'gatsby'
-import Container from '../components/container'
-import GraphQLErrorList from '../components/graphql-error-list'
-import BlogPost from '../components/blog-post'
-import FullCover from '../components/fullCover-post'
 
+import Basic from '../components/Basic'
+import FullCover from '../components/FullCover'
+import SimpleCover from '../components/SimpleCover'
 import SEO from '../components/seo'
 import DocContainer from '../containers/doc-container'
 import {toPlainText} from '../lib/helpers'
@@ -12,27 +11,38 @@ import {toPlainText} from '../lib/helpers'
 const BlogPostTemplate = props => {
   const {data, errors} = props
   const post = data && data.post
+  const viewFormat = post.viewFormat._rawViewFormat.current
 
-  const viewFormat = post.viewFormat ? post.viewFormat._rawViewFormat.current : false
   const readTime = Math.ceil((toPlainText(post._rawBody).split(" ").length) / 150);
+  //console.log('~', readTime, (readTime > 1 ?'minutos': 'minuto'))
 
-  console.log('~', readTime, (readTime > 1 ?'minutos': 'minuto'))
+  switch(viewFormat){
+    case 'fullCover':
+        return (
+          <DocContainer>
+            {errors && <SEO title='GraphQL Error' />}
+            {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
+            <FullCover {...post} />
+          </DocContainer>
+        )
+    case 'simpleCover':
+        return (
+          <DocContainer>
+            {errors && <SEO title='GraphQL Error' />}
+            {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
+            <SimpleCover {...post} />
+          </DocContainer>
+        )
+    case 'basic':
+        return (
+          <DocContainer>
+            {errors && <SEO title='GraphQL Error' />}
+            {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
+            <Basic {...post} />
+          </DocContainer>
+        )
 
-  return (
-    <DocContainer>
-      {errors && <SEO title='GraphQL Error' />}
-      {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
-
-      {errors && (
-        <Container>
-          <GraphQLErrorList errors={errors} />
-        </Container>
-      )}
-
-      {post && viewFormat === 'fullCover' ? <FullCover {...post} /> : <BlogPost {...post} />}
-
-    </DocContainer>
-  )
+  }
 }
 
 export const query = graphql`

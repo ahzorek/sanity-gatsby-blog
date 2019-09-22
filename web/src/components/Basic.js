@@ -8,10 +8,9 @@ import AuthorList from './author-list'
 import { Link } from 'gatsby'
 import PostNav from './post-nav'
 
-
 import styles from './blog-post.module.css'
 
-function BlogPost (props) {
+function Basic (props) {
   const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = props
   const colors = { paper: 'rgb(252,250,251)', ink: 'rgb(38,35,35)' }
 
@@ -69,4 +68,4 @@ function BlogPost (props) {
   )
 }
 
-export default BlogPost
+export default Basic

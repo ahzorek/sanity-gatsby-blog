@@ -148,7 +148,7 @@ class PostNav extends Component {
             >
               <Subject color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'} >{category.title}</Subject>
             </Link>      
-            <NavTitle title={title}>{title}</NavTitle>
+            <NavTitle ariaHidden={'true'} title={title}>{title}</NavTitle>
           </CenterSlot>
   
           {/* RIGHT */}

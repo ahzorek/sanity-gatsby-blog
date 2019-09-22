@@ -5,14 +5,14 @@ import axios from 'axios'
 import StarRatings from 'react-star-ratings'
 import {tmdb} from '../lib/helpers'
 
-const Wrapper = styled.div`
+const Wrapper = styled.aside`
   display: grid;
   grid-gap: 1.8em;
   box-sizing: border-box;
   font-family: sans-serif !important;
   max-width: 800px;
   margin: 2.8rem auto;
-  padding: 2.2rem;
+  padding: 1rem 2.2rem;
   border: solid 0.25pt rgba(136, 136, 136, 0.2);
   background-color: rgba(220,220,220,.025);
   grid-template-areas: "title"
@@ -31,7 +31,7 @@ const TvTitle = styled.h2`
     grid-area: title;
     font-size: 2.2rem;
     margin: 2rem 0;
-    padding: 2rem 0 .5rem;
+    padding: 0 0 .5rem;
   }`
 const PosterBox = styled.div`
   position: relative;
@@ -69,14 +69,14 @@ const Poster = styled.img`
   }
 `
 
-const InfoArea = styled.div`
+const InfoArea = styled.dl`
   grid-area: info;
 `
-const RatingArea = styled.div`
+const RatingArea = styled.dl`
   position: relative;
   grid-area: rating;
 `
-const SubTitle = styled.h4`
+const SubTitle = styled.dt`
   text-transform: uppercase;
   &&{
     font-weight: 600;
@@ -86,7 +86,7 @@ const SubTitle = styled.h4`
     }
 
 `
-const Text = styled.p`
+const Text = styled.dd`
   &&{
     font-family: sans-serif;
     line-height: 1.2;
@@ -157,7 +157,7 @@ class TvReview extends Component {
     const { rating: rate, id } = this.props.node
 
     return (
-      <Wrapper className="clear">
+      <Wrapper hidden>
         <TvTitle>{title}</TvTitle>
         {network && <LogoNetwork alt={network.name} src={`https://image.tmdb.org/t/p/w200${network.logo_path}`}/>}
           { poster !== null &&
@@ -170,7 +170,6 @@ class TvReview extends Component {
                     <path fill="#f7f7f7" d="M142.411,68.9C141.216,31.48,110.968,1.233,73.549,0.038c-20.361-0.646-39.41,7.104-53.488,21.639   C6.527,35.65-0.584,54.071,0.038,73.549c1.194,37.419,31.442,67.667,68.861,68.861c0.779,0.025,1.551,0.037,2.325,0.037   c19.454,0,37.624-7.698,51.163-21.676C135.921,106.799,143.033,88.377,142.411,68.9z M111.613,110.336   c-10.688,11.035-25.032,17.112-40.389,17.112c-0.614,0-1.228-0.01-1.847-0.029c-29.532-0.943-53.404-24.815-54.348-54.348   c-0.491-15.382,5.122-29.928,15.806-40.958c10.688-11.035,25.032-17.112,40.389-17.112c0.614,0,1.228,0.01,1.847,0.029   c29.532,0.943,53.404,24.815,54.348,54.348C127.91,84.76,122.296,99.306,111.613,110.336z" />
                     <path fill="#f7f7f7" d="M94.585,67.086L63.001,44.44c-3.369-2.416-8.059-0.008-8.059,4.138v45.293   c0,4.146,4.69,6.554,8.059,4.138l31.583-22.647C97.418,73.331,97.418,69.118,94.585,67.086z"/>
                   </g>
-
                 </PlayButton>
               </a>}
           </PosterBox>}

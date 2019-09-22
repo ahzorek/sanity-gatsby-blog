@@ -5,28 +5,28 @@ import {getFluidGatsbyImage} from 'gatsby-source-sanity'
 import PortableText from './portableText'
 import DisplayDate from './displayDate'
 import PostNav from './post-nav'
-
+import { dark, light } from '../lib/color_modes'
+import MainContent from './layouts/main-content'
 import clientConfig from '../../client-config'
-import styles from './fullCover-post.module.css'
+import BackgroundImage from 'gatsby-background-image'
+// import styles from './fullCover-post.module.css'
 
-const CoverWrapper = styled.div`
+const CoverWrapper = styled(BackgroundImage)`
 	min-height: 500px;
 	width: 100vw;
-	height: 100vh;
 	top: 0;
-	z-index: 0;
 	display: flex;
 	justify-content: space-around;
 	align-items: flex-end;
-	background-image: 
-	linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0)),
-	${props => `url(${props.bg.bgSrc.src})`},
-    ${props => `url(${props.bg.bgSrc.srcWebp})`};
-	background-size: cover;
-  background-attachment: fixed;
-  background-position-x: ${props => props.bg.posX};
+  @supports (display: grid) {
+    background-size: cover;
+    background-attachment: fixed;
+    background-position-x: ${props => props.bg.posX};   
+    height: 100vh;
+ 
+  }
 `
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.section`
 	width: 100%;
 	max-width: 1000px;
 	margin: 0 auto;
@@ -50,19 +50,6 @@ const Author = styled.span`
 	margin: 0 5px 0 0;
 	color: #fff;
 `
-const MainContent = styled.div`
-    color: ${props => props.colors.ink};
-    background-color: ${props => props.colors.paper};
-    min-height: 800px;
-    box-sizing: border-box;
-    transition: all 250ms ease-in-out;
-
-    > :link {
-      & :hover {
-        color: red;
-      }
-    }
-`
 
 const Subject = styled.span`
 	display: inline-block;
@@ -81,7 +68,6 @@ class FullCover extends Component {
   handleDarkMode = () => {
     this.setState({ darkMode: !this.state.darkMode })
     localStorage.setItem('dark__mode', !this.state.darkMode)
-    // console.log(localStorage.getItem('dark__mode'))
     }
   biggerFont = () => {
     this.state.fontSize < 24 && this.setState({fontSize: this.state.fontSize + 2})
@@ -94,7 +80,6 @@ class FullCover extends Component {
 
   componentDidMount(){
     localStorage.getItem('dark__mode') &&
-      // console.log(localStorage.getItem('dark__mode'))
       this.setState({ darkMode: JSON.parse(localStorage.getItem('dark__mode')) })
     localStorage.getItem('font__size') &&
       this.setState({fontSize: parseInt(localStorage.getItem('font__size'))})
@@ -103,10 +88,16 @@ class FullCover extends Component {
 
   render() {
     const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = this.props
-    const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1600 }, clientConfig.sanity )
+    const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
     const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
     const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
-    const colors = this.state.darkMode ? { paper: 'rgb(23, 22, 22)', ink: 'rgb(252,250,251)'} : { paper: 'rgb(252,250,251)', ink: 'rgb(38,35,35)' }
+    const colors = this.state.darkMode ? dark : light
+    const __color = categories[0].catColor ? categories[0].catColor.hex : `rgba(123, 123, 123, .95)`
+    const fluidBG_colored = [
+      bgSrc,
+      `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`
+    ].reverse()
+  
 
     return (
       <article style={{overflow: 'hidden'}}>
@@ -118,7 +109,13 @@ class FullCover extends Component {
           darkMode={{func: this.handleDarkMode, status: this.state.darkMode }} 
          />
         {mainImage && mainImage.asset !== null &&
-          <CoverWrapper bg={{bgSrc, posX, posY}}>
+          <CoverWrapper 
+            bg={{bgSrc, posX, posY}}
+            Tag="section"
+            className={'background'}
+            fluid={fluidBG_colored}
+            backgroundColor={__color}
+            >
             <ContentWrapper>
               <Subject>{categories[0].title}</Subject>
               <Title>{title}</Title>
@@ -129,7 +126,9 @@ class FullCover extends Component {
             </ContentWrapper>
           </CoverWrapper>
         }
-        <MainContent colors={colors} className={styles.mainContent}>{_rawBody && <PortableText blocks={_rawBody} />}</MainContent>
+        <MainContent colors={colors} link={__color}>
+          {_rawBody && <PortableText blocks={_rawBody} />}
+        </MainContent>
       </article>
     )
   }
