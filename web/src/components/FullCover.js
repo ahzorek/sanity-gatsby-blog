@@ -18,13 +18,12 @@ const CoverWrapper = styled(BackgroundImage)`
 	display: flex;
 	justify-content: space-around;
 	align-items: flex-end;
-  @supports (display: grid) {
-    background-size: cover;
-    background-attachment: fixed;
-    background-position-x: ${props => props.bg.posX};   
-    height: 100vh;
- 
-  }
+  background-size: cover;
+  background-attachment: fixed;
+  background-position-x: ${props => props.bg.posX};   
+  height: 100vh;
+
+
 `
 const ContentWrapper = styled.section`
 	width: 100%;
@@ -40,7 +39,7 @@ const Title = styled.h1`
 	font-size: 6vw;
   margin: 1rem 0 1.6rem;
   line-height: 1.2em;
-	@media (max-width: 0420px) { font-size: 2rem }
+	@media (max-width: 420px) { font-size: 2rem }
 	@media (min-width: 1230px) { font-size: 74px }
 `
 const Author = styled.span`

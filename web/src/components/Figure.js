@@ -9,25 +9,20 @@ const Caption = styled.figcaption`
   font-size: .8rem;
   box-sizing: border-box;
   max-width: ${props => props.width};
-  margin: auto auto 2.4rem;
-  padding: .5rem;
+  margin: 0 auto 1.4rem;
+  padding: 0 .5rem;
   overflow: hidden;
 `
 
-const ImageCrop = styled(Img)`
+const Image = styled(Img)`
   box-sizing: border-box;
-  max-width: 700px;
-  padding: 1.25rem;
-  margin: 2.6rem auto 0;
+  max-width: ${props => props.width ? '100%' : '700px'};
+  padding: ${props => props.width ? '0' : '1.25rem'};;
+  margin: 2.6rem auto 1.2rem;
   box-shadow: 0 4px 12px 0 rgba(0,-1,0,.05);
-`
-
-const ImageFull = styled(Img)`
-  box-sizing: border-box;
-  max-width: 900px;
-  margin: 2.6rem auto 0;
   overflow: hidden;
 `
+
 
 export default ({node}) => {
   const fluidProps = getFluidGatsbyImage(
@@ -38,7 +33,7 @@ export default ({node}) => {
 
   return (
     <figure style={{padding: 0, margin: 0}}>
-      { node.isFullWidth ? <ImageFull fluid={fluidProps} alt={node.alt} /> : <ImageCrop fluid={fluidProps} alt={node.alt} /> }
+      <Image width={node.isFullWidth} fluid={fluidProps} alt={node.alt} />
       { node.showCaption && <Caption width={node.isFullWidth ? '100%' : '700px'}>{node.caption}</Caption>}
     </figure>
   )

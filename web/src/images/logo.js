@@ -10,10 +10,14 @@ const LogoWrapper = styled.div`
   max-width: 180px;
   align-items: center;
   justify-content: space-around;
+  @media (max-width: 700px) {
+    max-width: 42px;
+  }
 
 `
 const HibernativosTitle = styled.h1`
-  font-size: 22px;
+  font-size: 1.4rem;
+  line-height: 1;
   font-weight: 600;
   font-family: BWHaasGrotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: ${props => props.fontcolor};

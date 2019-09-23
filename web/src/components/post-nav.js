@@ -12,16 +12,16 @@ const Bar = styled.nav`
   z-index: 2;
   align-items: center;
   width: 100%;
-  height: 70px;
+  height: 60px;
   background-color: ${props => props.colors.bg};
   color: ${props => props.colors.color};
-  padding: 4px 20px 0;
+  padding: 0 20px;
   box-sizing: border-box;
   transition: transform 250ms ease-in-out;
   box-shadow: 0 4px 12px 0 rgba(0,-1,0,.05);
   -webkit-backdrop-filter: blur(5px);
   @media (min-width: 1024px) {
-    padding: 4px 100px 0;
+    padding: 0 100px;
   }
 `
 const SideSlot = styled.span`
@@ -54,40 +54,37 @@ const NavTitle = styled.span`
   }
 `
 const SwitchInput = styled.input`
-  display:none;
 `
 const SwitchLabel = styled.label`
-  transform: scale(.7);
-	width: 70px;
-	height: 35px;
+	width: 50px;
+	height: 26px;
 	position: relative;
 	background: ${props => props.colors.ink};
-	border-radius: 10px;
+	border-radius: 13px;
 	display: inline-block;
 	transition: all 400ms ease-in-out 0s;
   &::before {
     content:'';
-    top:50%;
     right: ${props => props.config};
-    width:23px;
-    height:23px;
+    width: 20px;
+    height: 18px;
     background: ${props => props.colors.paper};
-    border-radius: 6px;
+    border-radius: 10px;
     position:absolute;
-    margin-top:-11.5px;
-    transition:inherit;
+    margin-top: 4px;
+    transition: inherit;
   }
 `
 
 const Subject = styled.span`
   display: inline-block;
   font-size: 10pt; 
-  border-width: 1.25pt;
+  border-width: 1pt;
   border-style: solid;
   border-color: ${props => props.color};
-  border-radius: 0.15rem;
+  border-radius: 2pt;
 	font-weight: 600;
-  padding: .4rem .25rem;
+  padding: 2pt;
   color: ${props => props.color};
   transition: all 190ms ease;
   &:hover {
@@ -105,7 +102,6 @@ class PostNav extends Component {
   }
 
   componentDidMount() {
-    //console.log(this.props.pos)
     this.setState({ navPos: this.props.pos })
     window.addEventListener('scroll', this.handleScroll)
   }
@@ -118,17 +114,17 @@ class PostNav extends Component {
     const { lastY } = this.state; 
     const currentY = window.scrollY;
 
-    if (currentY > lastY) { this.setState({ navPos: -70}) } 
-    else if (currentY === 0) { this.setState({ navPos: this.props.pos}) } 
-    else { this.setState({ navPos: 0 }) }
+    if ((lastY - currentY) < 0) { this.setState({ navPos: -70}) } 
+      else if (currentY === 0) { this.setState({ navPos: this.props.pos}) } 
+      else { this.setState({ navPos: 0 }) }
 
     this.setState({ lastY: currentY })
-    if (window.scrollY <= 0) { this.setState({ navPos: this.props.pos }) }
+      if (window.scrollY <= 0) { this.setState({ navPos: this.props.pos }) }
   } 
 
   render() {
     const { title, category, colors: {ink, paper}, darkMode: { func: handleDark, status } } = this.props 
-    const switchPos = status ? '4px': '40px'
+    const switchPos = status ? '4px': '24px'
     const navColors = status ? {bg: 'rgba(13, 14, 14, 0.98)', color: 'rgb(230, 240, 240)'} : {bg: 'rgba(252,252,252,.92)', color: 'rgb(23,23,23)'}
 
 
@@ -154,8 +150,8 @@ class PostNav extends Component {
           {/* RIGHT */}
           <SideSlot style ={{justifyContent: 'flex-end'}} >
             {handleDark && 
-              <form>
-              <SwitchInput
+              <form style={{display: 'flex'}}>
+              <input style={{display: 'none'}}
                 onChange={(e) => handleDark()}
                 id="switch"
                 type="checkbox"
