@@ -2,23 +2,23 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import {StaticQuery, graphql} from 'gatsby'
 import CoverBox from '../../components/cover-box'
+import layout from '../../components/layout'
 import ImageRenderer from '../../components/image-renderer'
 import {Link} from '../../lib/link'
 
 import '../../styles/layout.css'
 
-const BigDiv = styled.div`
-height: 100%;
-padding: 5rem;
-`
 const MyTitle = styled.h1`
-margin: 0 !important;
-font-size: 4em;
+  font-family: BWHaasGrotesk;
+  margin: 0 !important;
+  font-size: 4em;
 `
+
+
 class lab extends Component {
   render() {
     return (
-      <BigDiv>
+      <layout style={{padding: '5rem 5rem'}} >
         <MyTitle>This is a very big test.</MyTitle>
         <CoverBox contentType={'movieID'} />   
         <CoverBox contentType={'tvID'} />
@@ -34,7 +34,7 @@ class lab extends Component {
         /> 
         <Link to={'/'} anim={'fade'} color={'#ff0000'}>Teste</Link>
 
-      </BigDiv>
+      </layout>
     )
   }
 }

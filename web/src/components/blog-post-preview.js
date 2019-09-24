@@ -28,7 +28,7 @@ function BlogPostPreview (props) {
         )}
       </div>
       <div className={styles.text}>
-        <h3 className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
+        <h3 style={{fontFamily: 'BWHaasGrotesk'}} className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
         {/* {props._rawExcerpt && (
           <div className={styles.excerpt}>
             <PortableText blocks={props._rawExcerpt} />
