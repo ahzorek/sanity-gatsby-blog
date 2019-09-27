@@ -39,6 +39,7 @@ const Title = styled.h1`
 	@media (min-width: 1230px) { font-size: 3.6rem }
 `
 const CoverImage = styled(Img)`
+  position: relative;
   max-width: 860px;
   max-height: 520px;
   margin: 0 auto;

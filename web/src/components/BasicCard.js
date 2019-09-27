@@ -28,16 +28,16 @@ const Card = styled.li`
     & a {
       transition: all 200ms ease-in;
       color: ${props => `rgb(
-        ${props.color.r || 140},
-        ${props.color.g || 140},
-        ${props.color.b || 140})`
+        ${props.color.r || 128},
+        ${props.color.g || 128},
+        ${props.color.b || 128})`
       };
     }
     & :last-child:hover{
       background-color: ${props => `rgb(
-        ${props.color.r || 140},
-        ${props.color.g || 140},
-        ${props.color.b || 140})`
+        ${props.color.r || 128},
+        ${props.color.g || 128},
+        ${props.color.b || 128})`
       };
       & a {
         color: white;
@@ -70,9 +70,9 @@ const Category = styled.span`
   border-radius: .1rem;
   color: rgb(240,240,252);
   background-color: ${props => `rgb(
-        ${props.color.r || 140},
-        ${props.color.g || 140},
-        ${props.color.b || 140})`
+        ${props.color.r || 128},
+        ${props.color.g || 128},
+        ${props.color.b || 128})`
       };
 `
 const Author = styled.span`

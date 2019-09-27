@@ -8,6 +8,15 @@ const Wrapper = styled.main`
     box-sizing: border-box;
     transition: all 250ms ease-in-out;
     padding: 2em 0;
+    & p:first-child:first-letter {
+        float: left;
+        font-size: 7rem;
+        line-height: 4rem;
+        padding-top: 16px;
+        padding-right: 10px;
+        padding-left: 2px;
+        border-radius: 3px;
+    }
     & h1, h2, h3, h4, h5, h6 {
       text-align: left;
       max-width: 680px;
@@ -31,23 +40,19 @@ const Wrapper = styled.main`
       list-style-type: square;
       padding: 0 1rem;
     }
-    & p:first-child:first-letter {
-        float: left;
-        font-size: 7rem;
-        line-height: 4rem;
-        padding-top: 16px;
-        padding-right: 10px;
-        padding-left: 2px;
-        border-radius: 3px;
-    }
     & a {
-      color: ${props => props.link};
+      color: ${props => props.colors.link};
       text-decoration: none;
-      & :hover {
+      padding: .4rem;
+      margin: -.4rem;
+      transition: all 400ms ease-out;
+      & :hover, :focus {
         text-decoration: underline;
-        filter: hue-rotate(120deg);
-
-
+        background-color: ${props => props.colors.link};
+        color: ${props => props.colors.paper}; 
+        padding: .2rem;
+        margin: -.2rem;
+        transition: all 300ms ease-in;
       }
     }
 `

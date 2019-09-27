@@ -104,7 +104,7 @@ class PostNav extends Component {
   render() {
     const { title, category, colors: {paper}, darkMode: { func: handleDark, status } } = this.props 
     const navColors = status ? {bg: 'rgba(13, 14, 14, 0.98)', color: 'rgb(230, 240, 240)'} : {bg: 'rgba(252,252,252,.92)', color: 'rgb(23,23,23)'}
-    const accentColor = category.catColor ? category.catColor.hex : 'rgb(125,125,125)'
+    const accentColor = category.catColor ? category.catColor.hex : 'rgb(128,128,128)'
 
     return (
         <Bar colors={navColors} style={{top: 0, transform: `translateY(${this.state.navPos}px)`}}>

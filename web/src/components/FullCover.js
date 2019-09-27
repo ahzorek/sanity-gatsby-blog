@@ -91,7 +91,7 @@ class FullCover extends Component {
     const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
     const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
     const colors = this.state.darkMode ? dark : light
-    const __color = categories[0].catColor ? categories[0].catColor.hex : `rgba(123, 123, 123, .95)`
+    const __color = Object.values(mainImage.asset.metadata)[0].vibrant.color
     const fluidBG_colored = [
       bgSrc,
       `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`

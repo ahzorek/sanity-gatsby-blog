@@ -17,6 +17,8 @@ const HibernativosTitle = styled.h1`
   font-weight: 600;
   font-family: BWHaasGrotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: ${props => props.fontcolor};
+  margin-block-start: 0;
+  margin-block-end: 0;
   margin-left: 5px;
   @media (max-width: 700px) {
     display: none;
