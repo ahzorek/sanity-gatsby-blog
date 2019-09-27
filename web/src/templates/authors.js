@@ -26,7 +26,7 @@ const AuthorTemplate = props => {
       </Container>
     )}
     
-    <Header siteTitle={'Hibernativos'} />
+    <Header />
 
     {author && (
       <Container>
@@ -56,17 +56,10 @@ export const query = graphql`
     posts: allSanityPost(sort: {fields: _createdAt, order: DESC}, filter: {authors: {elemMatch: {author: {id: {eq: $id}}}}}){
       edges {
         node {
-          title
-          slug {
-            current
-          }
-          categories {
-            title
-            slug {
-              current
-            }
-          }
           id
+          title
+          slug { current }
+          _rawExcerpt
           publishedAt
           isUpdated
           _updatedAt
@@ -74,7 +67,11 @@ export const query = graphql`
             ...SanityImage
             alt
           }
-          _rawExcerpt
+          categories {
+            title
+            color: _rawCatColor
+            slug { current }
+          }
         }
       }
     }

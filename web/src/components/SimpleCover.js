@@ -9,8 +9,7 @@ import { dark, light } from '../lib/color_modes'
 import MainContent from './layouts/main-content'
 import clientConfig from '../../client-config'
 import Img from 'gatsby-image'
-import { bg } from 'date-fns/locale'
-import { node } from 'prop-types'
+
 // import styles from './fullCover-post.module.css'
 
 const ContentWrapper = styled.section`
@@ -36,7 +35,7 @@ const Title = styled.h1`
   margin: 0 auto 2rem;
   max-width: 620px;
   line-height: 1.2;
-	@media (max-width: 0420px) { font-size: 1.8rem }
+	@media (max-width: 420px) { font-size: 1.8rem }
 	@media (min-width: 1230px) { font-size: 3.6rem }
 `
 const CoverImage = styled(Img)`
@@ -110,7 +109,7 @@ class SimpleCover extends Component {
               <Title>{title}</Title>
               <figure style={{margin: 'auto'}}>
                 <CoverImage fluid={bgSrc} alt={title} />
-                <CoverCaption>{mainImage.alt}</CoverCaption>
+                <CoverCaption>{mainImage.caption}</CoverCaption>
               </figure>
               {/* <DisplayDate postdate={publishedAt} isUpdate={isUpdated ? isUpdated : false} update={_updatedAt} />
               <Author>

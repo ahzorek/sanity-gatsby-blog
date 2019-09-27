@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from '../lib/link'
 
 import Logo from '../images/logo'
+import Switch from './Switch'
 import styles from './header.module.css'
 
 const Bar = styled.nav`
@@ -53,28 +54,6 @@ const NavTitle = styled.span`
     padding-left: 1rem;
   }
 `
-const SwitchInput = styled.input`
-`
-const SwitchLabel = styled.label`
-	width: 50px;
-	height: 26px;
-	position: relative;
-	background: ${props => props.colors.ink};
-	border-radius: 13px;
-	display: inline-block;
-	transition: all 400ms ease-in-out 0s;
-  &::before {
-    content:'';
-    right: ${props => props.config};
-    width: 20px;
-    height: 18px;
-    background: ${props => props.colors.paper};
-    border-radius: 10px;
-    position:absolute;
-    margin-top: 4px;
-    transition: inherit;
-  }
-`
 
 const Subject = styled.span`
   display: inline-block;
@@ -123,16 +102,15 @@ class PostNav extends Component {
   } 
 
   render() {
-    const { title, category, colors: {ink, paper}, darkMode: { func: handleDark, status } } = this.props 
-    const switchPos = status ? '4px': '24px'
+    const { title, category, colors: {paper}, darkMode: { func: handleDark, status } } = this.props 
     const navColors = status ? {bg: 'rgba(13, 14, 14, 0.98)', color: 'rgb(230, 240, 240)'} : {bg: 'rgba(252,252,252,.92)', color: 'rgb(23,23,23)'}
-
+    const accentColor = category.catColor ? category.catColor.hex : 'rgb(125,125,125)'
 
     return (
-        <Bar colors={navColors}  style={{top: 0, transform: `translateY(${this.state.navPos}px)`}}>
+        <Bar colors={navColors} style={{top: 0, transform: `translateY(${this.state.navPos}px)`}}>
           {/* LEFT */}
           <SideSlot className={styles.branding}>
-            <Link to='/' color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'}><Logo color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'} /></Link>
+            <Link to='/' color={accentColor}><Logo color={accentColor} /></Link>
           </SideSlot>
   
           {/* CENTER */}
@@ -140,9 +118,9 @@ class PostNav extends Component {
             <Link 
               to={`/${category._rawSlug.current}`} 
               style={{ textDecoration: 'none' }} 
-              color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'}
+              color={accentColor}
             >
-              <Subject color={category.catColor ? category.catColor.hex : 'rgb(125,125,125)'} >{category.title}</Subject>
+              <Subject color={accentColor} >{category.title}</Subject>
             </Link>      
             <NavTitle ariaHidden={'true'} title={title}>{title}</NavTitle>
           </CenterSlot>
@@ -150,18 +128,7 @@ class PostNav extends Component {
           {/* RIGHT */}
           <SideSlot style ={{justifyContent: 'flex-end'}} >
             {handleDark && 
-              <form style={{display: 'flex'}}>
-              <input style={{display: 'none'}}
-                onChange={(e) => handleDark()}
-                id="switch"
-                type="checkbox"
-              />
-              <SwitchLabel
-                config={switchPos}
-                colors={{ink, paper}}
-                htmlFor="switch">
-              </SwitchLabel>
-            </form>
+              <Switch status={status} baseColor={paper} accentColor={accentColor} functionToRun={handleDark}/>
             }
           </SideSlot>
         </Bar>

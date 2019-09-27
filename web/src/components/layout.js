@@ -21,7 +21,7 @@ const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle}) => {
       <GlobalStyle />
       {/* <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} /> */}
               
-      <div className={styles.content}>
+      <div style={{backgroundColor: 'rgb(235,236,238)'}} className={styles.content}>
         {children}
       </div>
   

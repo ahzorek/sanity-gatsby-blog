@@ -3,9 +3,9 @@
 
 # Dependency directories
 /node_modules
-/package-lock.json
-/web/package-lock.json
-/studio/package-lock.json
+
+node_cheat_sheet.txt
+
 
 /web/pages/lab
 

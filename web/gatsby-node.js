@@ -6,6 +6,22 @@ async function createBlogPostPages (graphql, actions, reporter) {
     {
       allSanityPost( filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } } ) {
         edges {
+          next {
+            id
+            title
+            URLDate: publishedAt(formatString: "MM/YYYY")
+            slug {
+              current
+            }
+          }
+          previous {
+            id
+            title
+            URLDate: publishedAt(formatString: "MM/YYYY")
+            slug {
+              current
+            }
+          }
           node {
             id
             publishedAt
@@ -52,14 +68,14 @@ async function createBlogPostPages (graphql, actions, reporter) {
     .filter(edge => !isFuture(parseISO(edge.node.publishedAt)))
     .forEach((edge, index) => {
       const {id, URLDate, slug = {}} = edge.node
+      const { next, previous } = edge
       const path = `/${URLDate}/${slug.current}/`
 
       reporter.info(`Criando a página ${index} em: ${path}`)
-
       createPage({
         path,
         component: require.resolve('./src/templates/blog-post.js'),
-        context: {id}
+        context: { id, next, previous }
       })
     })
 

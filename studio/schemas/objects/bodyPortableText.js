@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default {
   name: 'bodyPortableText',
   type: 'array',
@@ -18,12 +20,27 @@ export default {
         {title: 'H4', value: 'h4'},
         {title: 'Quote', value: 'blockquote'}
       ],
-      lists: [{title: 'Bullet', value: 'bullet'}, {title: 'Number', value: 'number'}],
+      lists: [
+        {title: 'Bullet', value: 'bullet'}, 
+        {title: 'Number', value: 'number'}
+      ],
       // Marks let you mark up inline text in the block editor.
       marks: {
         // Decorators usually describe a single property – e.g. a typographic
         // preference or highlighting by editors.
-        decorators: [{title: 'Strong', value: 'strong'}, {title: 'Emphasis', value: 'em'}],
+        decorators: [
+          {title: 'Strong', value: 'strong'}, 
+          {title: 'Emphasis', value: 'em'},
+          { title: "Code", value: "code" },
+          { title: "Underline", value: "underline" },
+          { title: "Strike", value: "strike-through" },
+          {title: 'Sup', value: 'sup',
+            blockEditor: { 
+              icon: () => 'ˆª',
+              render: props => <sup>{props.children}</sup> 
+            }
+          }
+        ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
           {

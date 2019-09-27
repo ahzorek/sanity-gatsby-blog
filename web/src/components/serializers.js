@@ -11,6 +11,9 @@ const serializers = {
     bodyImage: Figure,
     movieID:  MovieReview,
     tvID: TvReview
+  },
+  marks: {
+    sup: ({children}) => <sup>{children[0]}</sup>
   }
 }
 

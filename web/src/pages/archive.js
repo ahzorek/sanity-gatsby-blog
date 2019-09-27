@@ -50,6 +50,11 @@ export const query = graphql`
           publishedAt
           isUpdated
           _updatedAt
+          categories {
+          title
+          color: _rawCatColor
+          slug: _rawSlug
+          }
           mainImage {
             ...SanityImage
             alt

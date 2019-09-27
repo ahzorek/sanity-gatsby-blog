@@ -10,7 +10,7 @@ const Header = ({siteTitle}) => (
   <div className={styles.root}>
     <div className={styles.wrapper}>
       <div className={styles.branding}>
-        <Link to='/' color={'#232323'}><Logo name={siteTitle} color={"#202020"} /></Link>
+        <Link to='/' color={'#232323'}><Logo color={"#202020"} /></Link>
       </div>
 
       <button className={styles.toggleNavButton}>

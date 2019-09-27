@@ -80,3 +80,9 @@ export function convertToDueToneToMatrixString(x,y) {
 }
 
 export const tmdb = "e552afa43f0a855512b415a7ea01196f"
+
+export const Widths = {
+  XLarge: '1280px',
+  Large: '860px',
+  Medium: '520px',
+}

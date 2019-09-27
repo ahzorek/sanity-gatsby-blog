@@ -14,6 +14,8 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+        name: `fonts`,
+        path: `${__dirname}/src/fonts`
       },
     },
     'gatsby-plugin-transition-link',
@@ -28,6 +30,20 @@ module.exports = {
         watchMode: !isProd,
         overlayDrafts: !isProd
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Hibernativos`,
+        short_name: `Hibernativos`,
+        lang: `pt-BR`,
+        start_url: `/`,
+        background_color: `#f6f6f7`,
+        theme_color: `#202020`,
+        display: `minimal-ui`,
+        icon: `src/images/icon.svg`, // This path is relative to the root of the site.
+      },
+    },
+    `gatsby-plugin-offline`,
   ]
 }

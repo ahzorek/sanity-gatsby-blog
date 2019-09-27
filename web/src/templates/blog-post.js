@@ -10,39 +10,23 @@ import {toPlainText} from '../lib/helpers'
 
 const BlogPostTemplate = props => {
   const {data, errors} = props
+  const {next, previous} = props.pageContext
   const post = data && data.post
   const viewFormat = post.viewFormat._rawViewFormat.current
-
   const readTime = Math.ceil((toPlainText(post._rawBody).split(" ").length) / 150);
+  
   //console.log('~', readTime, (readTime > 1 ?'minutos': 'minuto'))
 
-  switch(viewFormat){
-    case 'fullCover':
-        return (
-          <DocContainer>
-            {errors && <SEO title='GraphQL Error' />}
-            {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
-            <FullCover {...post} />
-          </DocContainer>
-        )
-    case 'simpleCover':
-        return (
-          <DocContainer>
-            {errors && <SEO title='GraphQL Error' />}
-            {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
-            <SimpleCover {...post} />
-          </DocContainer>
-        )
-    case 'basic':
-        return (
-          <DocContainer>
-            {errors && <SEO title='GraphQL Error' />}
-            {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
-            <Basic {...post} />
-          </DocContainer>
-        )
+  return (
+    <DocContainer>
+      {errors && <SEO title='GraphQL Error' />}
+      {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
+      { viewFormat === 'fullCover' && <FullCover {...post} /> }
+      { viewFormat === 'simpleCover' && <SimpleCover {...post} /> }
+      { viewFormat === 'basic' && <Basic {...post} /> }
+    </DocContainer>
 
-  }
+  )
 }
 
 export const query = graphql`
@@ -55,6 +39,7 @@ export const query = graphql`
       mainImage {
         ...SanityImage
         alt
+        caption
       }
       title
       slug {

@@ -48,7 +48,7 @@ const IndexPage = props => {
         {postNodes && (
           <BlogPostPreviewGrid
             title='Últimos Artigos'
-            nodes={postNodes.slice([2])}
+            nodes={postNodes.slice([0])}
             browseMoreHref='/archive/'
           />
         )}
@@ -120,6 +120,9 @@ export const query = graphql`
       edges {
         node {
           id
+          title
+          slug { current }
+          _rawExcerpt
           publishedAt
           isUpdated
           _updatedAt
@@ -127,10 +130,10 @@ export const query = graphql`
             ...SanityImage
             alt
           }
+          categories {
           title
-          _rawExcerpt
-          slug {
-            current
+          color: _rawCatColor
+          slug: _rawSlug
           }
         }
       }

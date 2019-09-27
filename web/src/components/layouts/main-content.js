@@ -14,9 +14,9 @@ const Wrapper = styled.main`
       margin: inherit;
       margin-left: auto;
       margin-right: auto;
-
-
+      padding: 1rem 2rem .5rem;
     }
+
     & p, li {
       font-family: Georgia,Cambria,Times,serif;
       font-style: normal;
@@ -25,6 +25,11 @@ const Wrapper = styled.main`
       text-align: left;
       max-width: 680px;
       margin: 1rem auto;
+      padding: 0 2rem;
+    }
+    & li {
+      list-style-type: square;
+      padding: 0 1rem;
     }
     & p:first-child:first-letter {
         float: left;
