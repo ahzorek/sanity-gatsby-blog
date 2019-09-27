@@ -43,7 +43,6 @@ module.exports = {
         display: `minimal-ui`,
         icon: `src/images/icon.svg`, // This path is relative to the root of the site.
       },
-    },
-    `gatsby-plugin-offline`,
+    }
   ]
 }
