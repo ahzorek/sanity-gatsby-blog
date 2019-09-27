@@ -4,9 +4,6 @@ import { createGlobalStyle } from 'styled-components'
 import '../styles/layout.css'
 import styles from './layout.module.css'
 
-const GlobalStyle = createGlobalStyle`
-  @import '../styles/custom-fonts.css';
-`
 const query = graphql`
   query SiteTitleQuery {
     site: sanitySiteSettings(_id: {regex: "/(drafts.|)siteSettings/"}) {
@@ -18,7 +15,6 @@ const query = graphql`
 const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle}) => {
   return(
     <Fragment>
-      <GlobalStyle />
       {/* <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} /> */}
               
       <div style={{backgroundColor: 'rgb(235,236,238)'}} className={styles.content}>

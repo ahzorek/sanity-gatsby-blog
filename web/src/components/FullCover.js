@@ -22,15 +22,12 @@ const CoverWrapper = styled(BackgroundImage)`
   background-attachment: fixed;
   background-position-x: ${props => props.bg.posX};   
   height: 100vh;
-
-
 `
 const ContentWrapper = styled.section`
 	width: 100%;
 	max-width: 1000px;
 	margin: 0 auto;
 	padding: 4rem 2em;
-	font-family: sans-serif;
 	color: rgb(240,240,240);
 	text-shadow: 0 0 1.6rem rgba(0,0,0,.2);
 	z-index: 1;
@@ -49,7 +46,6 @@ const Author = styled.span`
 	margin: 0 5px 0 0;
 	color: #fff;
 `
-
 const Subject = styled.span`
 	display: inline-block;
 	text-transform: uppercase;
@@ -57,7 +53,6 @@ const Subject = styled.span`
 	font-size: 1rem;
 	color: rgb(250,250,250);
 `
-
 class FullCover extends Component {
   state = {
     darkMode: false,
@@ -92,11 +87,10 @@ class FullCover extends Component {
     const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
     const colors = this.state.darkMode ? dark : light
     const __color = Object.values(mainImage.asset.metadata)[0].vibrant.color
-    const fluidBG_colored = [
-      bgSrc,
-      `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`
-    ].reverse()
-  
+    // const fluidBG_colored = [
+    //   bgSrc,
+    //   `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`
+    // ].reverse()
 
     return (
       <article style={{overflow: 'hidden'}}>
@@ -112,7 +106,7 @@ class FullCover extends Component {
             bg={{bgSrc, posX, posY}}
             Tag="section"
             className={'background'}
-            fluid={fluidBG_colored}
+            fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}
             backgroundColor={__color}
             >
             <ContentWrapper>

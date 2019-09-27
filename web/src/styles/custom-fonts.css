@@ -5,7 +5,7 @@
     url('../fonts/BWHaasGrotesk-55Roman.eot') format('eot');
     font-style: normal;
     font-weight: 500; 
-    font-display: swap; 
+    font-display: fallback; 
   }
 
 @font-face {
@@ -14,7 +14,7 @@
     url('../fonts/BWHaasGrotesk-75Bold.woff') format('woff');
     font-style: normal;
     font-weight: 700;  
-    font-display: swap;
+    font-display: fallback;
 }
 @font-face {
     font-family: 'BWHaasGrotesk';
@@ -22,5 +22,5 @@
     url('../fonts/BWHaasGrotesk-95Black.woff') format('woff');
     font-style: normal;
     font-weight: 900;  
-    font-display: swap;
+    font-display: fallback;
 }
