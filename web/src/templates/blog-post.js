@@ -3,6 +3,7 @@ import {graphql} from 'gatsby'
 
 import Basic from '../components/Basic'
 import FullCover from '../components/FullCover'
+import HalfCover from '../components/HalfCover'
 import SimpleCover from '../components/SimpleCover'
 import SEO from '../components/seo'
 import DocContainer from '../containers/doc-container'
@@ -21,9 +22,10 @@ const BlogPostTemplate = props => {
     <DocContainer>
       {errors && <SEO title='GraphQL Error' />}
       {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
-      { viewFormat === 'fullCover' && <FullCover {...post} /> }
-      { viewFormat === 'simpleCover' && <SimpleCover {...post} /> }
       { viewFormat === 'basic' && <Basic {...post} /> }
+      { viewFormat === 'fullCover' && <FullCover {...post} /> }
+      { viewFormat === 'halfCover' && <HalfCover {...post} /> }
+      { viewFormat === 'simpleCover' && <SimpleCover {...post} /> }
     </DocContainer>
 
   )

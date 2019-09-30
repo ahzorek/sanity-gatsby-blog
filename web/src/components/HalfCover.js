@@ -8,52 +8,56 @@ import PostNav from './post-nav'
 import { dark, light } from '../lib/color_modes'
 import MainContent from './layouts/main-content'
 import clientConfig from '../../client-config'
+import Author from './author'
 import BackgroundImage from 'gatsby-background-image'
-// import styles from './fullCover-post.module.css'
 
-const CoverWrapper = styled(BackgroundImage)`
-	min-height: 500px;
-	width: 100vw;
-	top: 0;
+const Wrapper = styled.header`
+  display: grid;
+  grid-template-areas: "photo info";
+  height: 100vh;
+  background-color: ${props => props.colors.paper};
+  color: ${props => props.colors.ink};
+  & a {
+    color: ${props => props.colors.ink};
+    & :hover {
+      color: ${props => props.colors.link};
+    }
+  }
+`
+const Photo = styled(BackgroundImage)`
+	width: 55vw;
 	display: flex;
-	justify-content: space-around;
-	align-items: flex-end;
   background-size: cover;
-  background-attachment: fixed;
-  background-position-x: ${props => props.bg.posX};   
+  background-position-x: ${props => props.pos.X};   
+  background-position-y: ${props => props.pos.Y};   
+  height: 1000px;
   height: 100vh;
 `
-const ContentWrapper = styled.section`
-	width: 100%;
-	max-width: 1000px;
-	margin: 0 auto;
-	padding: 4rem 2em;
-	color: rgb(240,240,240);
-	text-shadow: 0 0 1.6rem rgba(0,0,0,.2);
-	z-index: 1;
+const PostInfo = styled.section`
+  grid-area: info;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  max-width: 600px;
+  padding: 0 1.6rem;
+  z-index: 2;
 `
 const Title = styled.h1`
-	font-size: 6vw;
-  margin: 1rem 0 1.6rem;
-  line-height: 1.2em;
-	@media (max-width: 420px) { font-size: 2rem }
-	@media (min-width: 1230px) { font-size: 74px }
-`
-const Author = styled.span`
-	font-family: Georgia,Cambria,Times,serif;
 	font-weight: 400;
-	font-style: italic;
-	margin: 0 5px 0 0;
-	color: #fff;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 3rem;
 `
+// const Author = styled.span`
+// 	font-family: Georgia,Cambria,Times,serif;
+// 	font-weight: 400;
+// 	font-style: italic;
+// `
 const Subject = styled.span`
 	display: inline-block;
 	text-transform: uppercase;
-	font-weight: 400;
-	font-size: 1rem;
-	color: rgb(250,250,250);
+  font-weight: 600;
 `
-class FullCover extends Component {
+class HalfCover extends Component {
   state = {
     darkMode: false,
     fontSize: 14
@@ -83,42 +87,36 @@ class FullCover extends Component {
   render() {
     const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = this.props
     const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
-    const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
-    const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
+    const X = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
+    const Y = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
     const colors = this.state.darkMode ? dark : light
     const __color = Object.values(mainImage.asset.metadata)[0].vibrant.color
-    // const fluidBG_colored = [
-    //   bgSrc,
-    //   `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`
-    // ].reverse()
 
     return (
       <article style={{overflow: 'hidden'}}>
-        <PostNav 
+        <PostNav
+          pos={-80} 
           title={title} 
           category={categories[0]} 
-          pos={-70}
           colors={colors} 
           darkMode={{func: this.handleDarkMode, status: this.state.darkMode }} 
          />
-        {mainImage && mainImage.asset !== null &&
-          <CoverWrapper 
-            bg={{bgSrc, posX, posY}}
+        <Wrapper colors={colors}>
+          {mainImage && mainImage.asset !== null && 
+          <Photo 
+            pos={{X, Y}}
             Tag="section"
-            className={'background'}
-            fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}
+            className={'cover'}
+            fluid={bgSrc}
             backgroundColor={__color}
-            >
-            <ContentWrapper>
-              <Subject>{categories[0].title}</Subject>
-              <Title>{title}</Title>
-              <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} postdate={publishedAt} isUpdate={isUpdated} update={_updatedAt} />
-              <Author>
-                {authors && authors.map(({author}, index) =>  <div key={index}>por <Link to={`/autores/${author.slug.current}`} style={{ textDecoration: 'none', color: 'white' }}>{author.name}</Link></div>)}
-              </Author>
-            </ContentWrapper>
-          </CoverWrapper>
-        }
+            />}
+          <PostInfo>
+            <Subject>{categories[0].title}</Subject>
+            <Title cartola={categories[0].title}>{title}</Title>
+            <DisplayDate showUpdate prefix={"publicado"} sFormat={"d' 'MMM' 'yy"} dateInfo={{publishedAt, isUpdated, _updatedAt}} />
+            {authors && <Author items={authors}/>}
+          </PostInfo>
+        </Wrapper>
         <MainContent colors={colors} link={__color}>
           {_rawBody && <PortableText blocks={_rawBody} />}
         </MainContent>
@@ -127,4 +125,4 @@ class FullCover extends Component {
   }
 }
 
-export default FullCover
+export default HalfCover

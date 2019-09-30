@@ -25,7 +25,7 @@ const Image = styled(Img)`
 
 
 export default ({node}) => {
-  console.log(node)
+  // console.log(node)
   const fluidProps = getFluidGatsbyImage(
     node.asset._id,
     { maxWidth: node.isFullWidth ? 1600 : 800 },

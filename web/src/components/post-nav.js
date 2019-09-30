@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components' 
 import { Link } from '../lib/link'
-
 import Logo from '../images/logo'
 import Switch from './Switch'
 import styles from './header.module.css'
@@ -10,17 +9,19 @@ const Bar = styled.nav`
   display: flex;
   justify-content: space-between;
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 80px;
   background-color: ${props => props.colors.bg};
   color: ${props => props.colors.color};
+  font-weight: 500;
   padding: 0 20px;
   box-sizing: border-box;
   transition: transform 250ms ease-in-out;
   box-shadow: 0 4px 12px 0 rgba(0,-1,0,.05);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   @media (min-width: 1024px) {
     padding: 0 100px;
   }
@@ -42,28 +43,20 @@ const CenterSlot = styled.span`
   text-overflow: ellipsis;
 `
 const NavTitle = styled.span`
-  font-size: .8rem;
-  font-weight: 500;
+  font-size: 10pt;
   letter-spacing: -.01rem;
   margin: 0 0 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: default;
-  @media (max-width: 500px) {
-    border-left: solid 1.25pt rgb(20,20,20);
-    padding-left: 1rem;
-  }
 `
 
 const Subject = styled.span`
   display: inline-block;
   font-size: 10pt; 
-  border-width: 1pt;
-  border-style: solid;
-  border-color: ${props => props.color};
-  border-radius: 2pt;
-	font-weight: 600;
-  padding: 2pt;
+  border: 1pt solid ${props => props.color};
+  border-radius: .2rem;
+  padding: 4pt;
   color: ${props => props.color};
   transition: all 190ms ease;
   &:hover {
@@ -76,13 +69,15 @@ const Subject = styled.span`
 `
 class PostNav extends Component {
   state = {
-    navPos: -70,
+    navPos: 0,
     lastY: 0,
   }
 
   componentDidMount() {
-    this.setState({ navPos: this.props.pos })
-    window.addEventListener('scroll', this.handleScroll)
+    const { pos: setPos } = this.props
+    setPos &&
+      this.setState({ navPos: setPos })
+      window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
@@ -90,15 +85,16 @@ class PostNav extends Component {
   }
 
   handleScroll = () => {
+    const { pos: setPos } = this.props
     const { lastY } = this.state; 
     const currentY = window.scrollY;
 
-    if ((lastY - currentY) < 0) { this.setState({ navPos: -70}) } 
-      else if (currentY === 0) { this.setState({ navPos: this.props.pos}) } 
+    if ((lastY - currentY) < 0) { this.setState({ navPos: -80}) } 
+      else if (currentY === 0 && setPos !== undefined) { this.setState({ navPos: setPos}) } 
       else { this.setState({ navPos: 0 }) }
 
     this.setState({ lastY: currentY })
-      if (window.scrollY <= 0) { this.setState({ navPos: this.props.pos }) }
+      if (window.scrollY <= 0) { this.setState({ navPos: setPos }) }
   } 
 
   render() {

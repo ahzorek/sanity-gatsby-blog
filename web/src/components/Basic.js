@@ -45,7 +45,7 @@ function Basic (props) {
           <aside className={styles.metaContent}>
             {publishedAt && (
               <div className={styles.publishedAt}>
-                <DisplayDate postdate={publishedAt} isUpdate={isUpdated ? isUpdated : false} update={_updatedAt} />
+                <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} postdate={publishedAt} isUpdate={isUpdated} update={_updatedAt} />
               </div>
             )}
             {authors && <AuthorList items={authors} title='Publicado por' />}

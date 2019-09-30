@@ -9,7 +9,11 @@ export default {
       name: 'title',
       type: 'string',
       title: 'Título',
-      description: 'Títulos devem ser curtos, criativos e chamativos.'
+      validation: Rule => [
+        Rule.required().min(20).error(`Um título de no minimo 25 caracteres é necessário. Entre 40 e 65 é o ideal.`),
+        Rule.max(66).warning('Talvez seja grande demais. Se puder reduzir. :)'),
+        Rule.required().max(90).error(`Muito grande. A partir de agora a slug não pode ser gerada.`),
+      ] 
     },
     {
       name: 'slug',
@@ -17,7 +21,7 @@ export default {
       title: 'Slug',
       options: {
         source: 'title',
-        maxLength: 96
+        maxLength: 90
       }
     },
     {
@@ -42,7 +46,7 @@ export default {
     },
     {
       name: 'viewFormat',
-      title: 'Formato de visualização',
+      title: 'Formato de capa para o artigo.',
       type: 'reference',
       to: {
         type: 'viewFormat'

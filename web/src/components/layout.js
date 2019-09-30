@@ -12,9 +12,11 @@ const query = graphql`
   }
 `
 
-const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle}) => {
+const Layout = props => {
+  const {children, onHideNav, onShowNav, showNav, siteTitle} = props
   return(
     <Fragment>
+      {/* {console.log(props)} */}
       {/* <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} /> */}
               
       <div style={{backgroundColor: 'rgb(235,236,238)'}} className={styles.content}>

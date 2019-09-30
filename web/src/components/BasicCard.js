@@ -101,6 +101,7 @@ const BasicCard = (props) => {
         <Category color={{r,g,b}}>{categories[0].title}</Category>
       </Link>
       <Link to={getBlogUrl(props.publishedAt, props.slug.current)}>
+        {console.log(title.length, ' for:  ', title)}
         <Title color={{r,g,b}}>{title}</Title>
       </Link>
       {/* <Author>{'----'}</Author> */}

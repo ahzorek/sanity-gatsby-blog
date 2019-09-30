@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {graphql} from 'gatsby'
-import {mapEdgesToNodes} from '../lib/helpers'
+import {mapEdgesToNodes,
+  filterOutDocsWithoutSlugs,
+  filterOutDocsPublishedInTheFuture} from '../lib/helpers'
 import BlogPostPreviewList from '../components/blog-post-preview-list'
 import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
@@ -22,7 +24,11 @@ const ArchivePage = props => {
     )
   }
 
-  const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
+  const postNodes = (data || {}).posts
+  ? mapEdgesToNodes(data.posts)
+    .filter(filterOutDocsWithoutSlugs)
+    .filter(filterOutDocsPublishedInTheFuture)
+  : []
 
   return (
     <DocContainer>
@@ -47,22 +53,20 @@ export const query = graphql`
       edges {
         node {
           id
+          title
+          slug { current }
+          _rawExcerpt
           publishedAt
           isUpdated
           _updatedAt
-          categories {
-          title
-          color: _rawCatColor
-          slug: _rawSlug
-          }
           mainImage {
             ...SanityImage
             alt
           }
+          categories {
           title
-          _rawExcerpt
-          slug {
-            current
+          color: _rawCatColor
+          slug: _rawSlug
           }
         }
       }

@@ -5,6 +5,7 @@ import {StaticQuery, graphql} from 'gatsby'
 const LogoWrapper = styled.span`
   display: flex;
   max-width: 180px;
+  margin: 2pt 4pt;
   align-items: center;
   justify-content: space-around;
   @media (max-width: 700px) {
@@ -14,7 +15,7 @@ const LogoWrapper = styled.span`
 const HibernativosTitle = styled.h1`
   font-size: 1.4rem;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 500;
   font-family: BWHaasGrotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: ${props => props.fontcolor};
   margin-block-start: 0;
@@ -35,12 +36,8 @@ const Logo = (props) => {
         return (
           <LogoWrapper>
             <span style={{width: 30, height: 42}}>
-              <svg viewBox="0 0 42 60">
-                <path fill={color} d="M41.62,43.46,33.48,30.17V1.67A1.68,1.68,0,0,0,31.8,0H1.67A1.67,1.67,0,0,0,0,1.67V58.33A1.67,1.67,0,0,0,1.67,60h30.2a1.06,1.06,0,0,0,.31,0l.19-.05.14-.06a1.55,1.55,0,0,0,.22-.12l0,0a1.6,1.6,0,0,0,.48-.49l8.37-13.66a2.47,2.47,0,0,0,0-2.08ZM3.35,3.33H30.13V29H3.35Zm0,33.23L8.21,44.5,3.35,52.44ZM33.48,52.44l-2.59,4.23H4.67L11,46.33H37.22Zm0-9.77H11L4.67,32.33H30.89l2.59,4.23,3.74,6.11Z"/>
-                <rect fill={fill} x="3.35" y="3.33" width="26.78" height="25.67"/>
-                <polygon fill={fill} points="37.22 42.67 11 42.67 4.66 32.33 30.89 32.33 37.22 42.67"/>
-                <polygon fill={fill} points="37.22 46.33 11 46.33 4.67 56.67 30.89 56.67 37.22 46.33"/>
-                <polygon fill={fill} points="3.35 52.44 3.35 36.56 8.21 44.5 3.35 52.44"/>
+              <svg viewBox="0 0 30 42">
+                <path fill={color} d="M29.26,30.52l-6-8.69a.74.74,0,0,1-.14-.43V2.22A2.23,2.23,0,0,0,20.88,0H2.22A2.21,2.21,0,0,0,0,2.22V39.78A2.24,2.24,0,0,0,2.22,42H21.81a2.21,2.21,0,0,0,1.81-.94l5.63-8A2.21,2.21,0,0,0,29.26,30.52Zm-7.63-9.08H1.47V2.22a.75.75,0,0,1,.75-.75H20.88a.76.76,0,0,1,.75.75ZM6.06,32.92,1.47,39.56V23.92l4.6,6.74A2,2,0,0,1,6.06,32.92Zm21.71-.36L22.4,40.18a.75.75,0,0,1-.61.31H2.65l5.49-7.93Zm0-1.53H8.15L2.64,23H22.17Z"/>
               </svg>
             </span>
             <HibernativosTitle fontcolor={color}>{title}</HibernativosTitle>

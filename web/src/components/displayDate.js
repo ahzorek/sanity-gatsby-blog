@@ -1,29 +1,42 @@
 import React from 'react'
 import {format, formatDistanceToNow, differenceInDays, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import styled from 'styled-components'
 
-const DisplayDate = ({postdate, update, isUpdate}) => {
-  const defaultDate = format(parseISO(postdate), "d 'de' MMMM 'de' yyyy", { locale: ptBR })
-  const relativeDate = formatDistanceToNow(parseISO(postdate), { addSuffix: true, locale: ptBR })
+const RelDate = styled.div`
+  font-size: 12pt;
+`
 
-  const UpdateBlock = () => {
-    return <h6>atualizado em {isUpdate && format(parseISO(update), "d 'de' MMMM @ hh:mm", { locale: ptBR })}</h6>
-  }
-  
-  if(differenceInDays(new Date(), parseISO(postdate)) < 16) {
-    return (
-      <>
-        <span>publicado {relativeDate} </span>
-        {isUpdate && <UpdateBlock />}
-      </>
+const DefDate = styled.div`
+  font-size: 12pt;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
 
-    )
-  } else return (
-      <>
-        <span>publicado em {defaultDate} </span> 
-        {isUpdate && <UpdateBlock />}
-      </>
-    )
+`
+
+const Update = styled.div`
+  font-size: 8pt;
+
+`
+
+const DisplayDate = ({ showUpdate, relative, prefix, sFormat, dateInfo:{publishedAt, isUpdated, _updatedAt}}) => {
+  const displayFormat = sFormat ? sFormat : "d 'de' MMMM 'de' yyyy"
+  const defaultDate = format(parseISO(publishedAt), `${displayFormat}`, { locale: ptBR })
+  const relativeDate = formatDistanceToNow(parseISO(publishedAt), { addSuffix: true, locale: ptBR })
+
+
+
+  return (
+    <>
+      { (differenceInDays(new Date(), parseISO(publishedAt)) < 16) && relative  ?
+        <RelDate title={defaultDate}>{prefix && prefix || ''}{' '}{relativeDate}</RelDate> :
+        <DefDate title={relativeDate}>{prefix && prefix || ''}{' em '}{defaultDate} </DefDate> }
+      {showUpdate === true && isUpdated && 
+        <Update>atualizado em {format(parseISO(_updatedAt), "d 'de' MMMM @ hh:mm", { locale: ptBR })}</Update>
+      }
+    </>
+  )
   }
 
 export default DisplayDate
