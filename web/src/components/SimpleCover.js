@@ -54,7 +54,7 @@ const CoverCaption = styled.figcaption`
   opacity: .5;
 `
 const SimpleCover = props => {
-  const stateDark = localStorage ? JSON.parse(localStorage.getItem('dark__mode')) : false;
+  const stateDark = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('dark__mode')) : false;
   const [isDark, setDark] = useState(stateDark)
   const handleDarkMode = () => {
     setDark(!isDark)
