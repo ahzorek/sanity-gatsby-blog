@@ -1,12 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import Img from 'gatsby-image'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
 import DisplayDate from './displayDate'
 import Author from './author'
-import PostNav from './post-nav'
 import { dark, light } from '../lib/color_modes'
 import clientConfig from '../../client-config'
-import Img from 'gatsby-image'
 
 const ContentWrapper = styled.section`
   box-sizing: border-box;

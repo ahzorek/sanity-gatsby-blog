@@ -6,9 +6,8 @@ import Basic from '../components/Basic'
 import FullCover from '../components/FullCover'
 import HalfCover from '../components/HalfCover'
 import SimpleCover from '../components/SimpleCover'
-import MainContent from '../components/layouts/main-content'
+import MainContent from '../components/main-content'
 import SEO from '../components/seo'
-//import DocContainer from '../containers/doc-container'
 import {toPlainText} from '../lib/helpers'
 
 
@@ -31,8 +30,7 @@ const BlogPostTemplate = props => {
         <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />
         <PostNav
           title={post.title} 
-          category={post.categories[0]} 
-          pos={0}
+          category={post.categories[0]}
           layoutType={viewFormat}
           darkModeToggle={handleDarkMode} 
           isDark={isDark}

@@ -21,12 +21,6 @@ const Grid = styled.ul`
     grid-template-columns: repeat(3,1fr);
   }
 `
-
-// @custom-media --media-min-small (min-width: 450px);
-// @custom-media --media-max-small (max-width: 449px);
-// @custom-media --media-min-medium (min-width: 675px);
-// @custom-media --media-min-large (min-width: 900px);
-
 import styles from './blog-post-preview-grid.module.css'
 
 function BlogPostPreviewGrid (props) {

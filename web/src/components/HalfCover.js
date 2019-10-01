@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
+import BackgroundImage from 'gatsby-background-image'
 import DisplayDate from './displayDate'
 import clientConfig from '../../client-config'
 import Author from './author'
-import BackgroundImage from 'gatsby-background-image'
 import { dark, light } from '../lib/color_modes'
 
 const Wrapper = styled.header`

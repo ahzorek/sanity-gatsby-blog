@@ -1,7 +1,5 @@
 import React from 'react';
 
-//import './cardLab-styles.css'
-
 const cardLab = () => {
     return (
         <div className="example-2 card">

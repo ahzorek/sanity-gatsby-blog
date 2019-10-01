@@ -19,10 +19,4 @@ const Layout = props => {
     </BodyWrapper>
   )
 }
-
 export default Layout
-
-
-{/* <footer className={styles.footer}>
-<div className={styles.footerWrapper}></div>
-</footer> */}

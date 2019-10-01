@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import PortableText from '../portableText'
-import { dark, light } from '../../lib/color_modes'
+import PortableText from './portableText'
+import { dark, light } from '../lib/color_modes'
 
 const Wrapper = styled.main`
     color: ${props => props.colors.ink};
