@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import PortableText from '../portableText'
+import { dark, light } from '../../lib/color_modes'
 
 const Wrapper = styled.main`
     color: ${props => props.colors.ink};
@@ -57,9 +59,13 @@ const Wrapper = styled.main`
     }
 `
 
-const MainContent = ({colors, children, link}) => {
+const MainContent = ({children, isDark}) => {
+  const colors = isDark ? dark : light
+
   return (
-    <Wrapper colors={colors} link={link}>{children}</Wrapper>
+    <Wrapper colors={colors}>
+      <PortableText blocks={children} />
+    </Wrapper>
   )
 }
 

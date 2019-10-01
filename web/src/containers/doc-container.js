@@ -1,36 +1,7 @@
 import {graphql, StaticQuery} from 'gatsby'
-import React, {useState} from 'react'
-import { createGlobalStyle } from 'styled-components'
+import React from 'react'
 import Layout from '../components/layout'
 
-const GlobalStyle = createGlobalStyle`
-  @font-face {
-      font-family: 'BWHaasGrotesk';
-      src: url('../fonts/BWHaasGrotesk-55Roman.woff2') format('woff2'),
-      url('../fonts/BWHaasGrotesk-55Roman.woff') format('woff'),
-      url('../fonts/BWHaasGrotesk-55Roman.eot') format('eot');
-      font-style: normal;
-      font-weight: 500; 
-      font-display: fallback; 
-    }
-
-  @font-face {
-      font-family: 'BWHaasGrotesk';
-      src: url('../fonts/BWHaasGrotesk-75Bold.woff2') format('woff2'),
-      url('../fonts/BWHaasGrotesk-75Bold.woff') format('woff');
-      font-style: normal;
-      font-weight: 700;  
-      font-display: fallback;
-  }
-  @font-face {
-      font-family: 'BWHaasGrotesk';
-      src: url('../fonts/BWHaasGrotesk-95Black.woff2') format('woff2'),
-      url('../fonts/BWHaasGrotesk-95Black.woff') format('woff');
-      font-style: normal;
-      font-weight: 900;  
-      font-display: fallback;
-  }
-`
 const query = graphql`
   query SiteTitleQuery {
     site: sanitySiteSettings(_id: {regex: "/(drafts.|)siteSettings/"}) {
@@ -50,10 +21,7 @@ function DocContainer (props) {
           )
         }
         return (
-          <Layout
-            {...props}
-            siteTitle={data.site.title}
-          />
+          <Layout {...props} siteTitle={data.site.title}/>
         )
       }}
     />

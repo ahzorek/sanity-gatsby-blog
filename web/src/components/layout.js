@@ -1,33 +1,28 @@
-import React, {Fragment} from 'react'
-import { createGlobalStyle } from 'styled-components'
-//import Header from './header'
+import React from 'react'
+import styled from 'styled-components'
 import '../styles/layout.css'
-import styles from './layout.module.css'
 
-const query = graphql`
-  query SiteTitleQuery {
-    site: sanitySiteSettings(_id: {regex: "/(drafts.|)siteSettings/"}) {
-      title
-    }
+const BodyWrapper = styled.div`
+  background-color: #e7ebed;
+  min-height: calc(100% - 73px - 120px);
+  overflow: hidden;
+  @media (min-width: 450px) {
+    min-height: calc(100% - 91px - 155px);
   }
 `
-
 const Layout = props => {
-  const {children, onHideNav, onShowNav, showNav, siteTitle} = props
+  const {children} = props
+
   return(
-    <Fragment>
-      {/* {console.log(props)} */}
-      {/* <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} /> */}
-              
-      <div style={{backgroundColor: 'rgb(235,236,238)'}} className={styles.content}>
-        {children}
-      </div>
-  
-      <footer className={styles.footer}>
-        <div className={styles.footerWrapper}></div>
-      </footer>
-    </Fragment>
+    <BodyWrapper>              
+      {children}
+    </BodyWrapper>
   )
 }
 
 export default Layout
+
+
+{/* <footer className={styles.footer}>
+<div className={styles.footerWrapper}></div>
+</footer> */}

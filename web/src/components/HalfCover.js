@@ -1,15 +1,11 @@
-import React, {Component} from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
-import PortableText from './portableText'
 import DisplayDate from './displayDate'
-import PostNav from './post-nav'
-import { dark, light } from '../lib/color_modes'
-import MainContent from './layouts/main-content'
 import clientConfig from '../../client-config'
 import Author from './author'
 import BackgroundImage from 'gatsby-background-image'
+import { dark, light } from '../lib/color_modes'
 
 const Wrapper = styled.header`
   display: grid;
@@ -57,72 +53,31 @@ const Subject = styled.span`
 	text-transform: uppercase;
   font-weight: 600;
 `
-class HalfCover extends Component {
-  state = {
-    darkMode: false,
-    fontSize: 14
-  }
+const HalfCover = props => {
+  const {title, categories, authors, mainImage, publishedAt, isUpdated, _updatedAt, isDark} = props
+  const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
+  const X = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
+  const Y = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
+  const colors = isDark ? dark : light
 
-  handleDarkMode = () => {
-    this.setState({ darkMode: !this.state.darkMode })
-    localStorage.setItem('dark__mode', !this.state.darkMode)
-    }
-  biggerFont = () => {
-    this.state.fontSize < 24 && this.setState({fontSize: this.state.fontSize + 2})
-    localStorage.setItem('font__size', this.state.fontSize + 2)
-  }
-  smallerFont = () => {
-    this.state.fontSize > 12 && this.setState({fontSize: this.state.fontSize - 2})
-    localStorage.setItem('font__size', this.state.fontSize)
-  }
-
-  componentDidMount(){
-    localStorage.getItem('dark__mode') &&
-      this.setState({ darkMode: JSON.parse(localStorage.getItem('dark__mode')) })
-    localStorage.getItem('font__size') &&
-      this.setState({fontSize: parseInt(localStorage.getItem('font__size'))})
-
-  }
-
-  render() {
-    const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = this.props
-    const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
-    const X = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
-    const Y = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
-    const colors = this.state.darkMode ? dark : light
-    const __color = Object.values(mainImage.asset.metadata)[0].vibrant.color
-
-    return (
-      <article style={{overflow: 'hidden'}}>
-        <PostNav
-          pos={-80} 
-          title={title} 
-          category={categories[0]} 
-          colors={colors} 
-          darkMode={{func: this.handleDarkMode, status: this.state.darkMode }} 
-         />
-        <Wrapper colors={colors}>
-          {mainImage && mainImage.asset !== null && 
-          <Photo 
-            pos={{X, Y}}
-            Tag="section"
-            className={'cover'}
-            fluid={bgSrc}
-            backgroundColor={__color}
-            />}
-          <PostInfo>
-            <Subject>{categories[0].title}</Subject>
-            <Title cartola={categories[0].title}>{title}</Title>
-            <DisplayDate showUpdate prefix={"publicado"} sFormat={"d' 'MMM' 'yy"} dateInfo={{publishedAt, isUpdated, _updatedAt}} />
-            {authors && <Author items={authors}/>}
-          </PostInfo>
-        </Wrapper>
-        <MainContent colors={colors} link={__color}>
-          {_rawBody && <PortableText blocks={_rawBody} />}
-        </MainContent>
-      </article>
-    )
-  }
+  return (
+    <Wrapper colors={colors}>
+      {mainImage && mainImage.asset !== null && 
+      <Photo 
+        pos={{X, Y}}
+        Tag="section"
+        className={'cover'}
+        fluid={bgSrc}
+        backgroundColor={Object.values(mainImage.asset.metadata)[0].vibrant.color}
+        />}
+      <PostInfo>
+        <Subject>{categories[0].title}</Subject>
+        <Title cartola={categories[0].title}>{title}</Title>
+        <DisplayDate showUpdate prefix={"publicado"} sFormat={"d' 'MMM' 'yy"} dateInfo={{publishedAt, isUpdated, _updatedAt}} />
+        {authors && <Author items={authors}/>}
+      </PostInfo>
+    </Wrapper>
+  )
 }
 
 export default HalfCover

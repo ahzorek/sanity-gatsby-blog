@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components' 
 import { Link } from '../lib/link'
 import Logo from '../images/logo'
 import Switch from './Switch'
-import styles from './header.module.css'
 
 const Bar = styled.nav`
   display: flex;
@@ -13,8 +12,8 @@ const Bar = styled.nav`
   align-items: center;
   width: 100%;
   height: 80px;
-  background-color: ${props => props.colors.bg};
-  color: ${props => props.colors.color};
+  background-color: ${props => props.isDark ? 'rgba(13, 14, 14, 0.98)' : 'rgba(252,252,252,.92)'};
+  color: ${props => props.isDark ? 'rgb(230, 240, 240)' : 'rgb(23,23,23)'};
   font-weight: 500;
   padding: 0 20px;
   box-sizing: border-box;
@@ -22,6 +21,12 @@ const Bar = styled.nav`
   box-shadow: 0 4px 12px 0 rgba(0,-1,0,.05);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
+  && a {
+    display: inline-block;
+    padding: 0.5em;
+    color: inherit;
+    text-decoration: none;
+  }
   @media (min-width: 1024px) {
     padding: 0 100px;
   }
@@ -50,9 +55,7 @@ const NavTitle = styled.span`
   text-overflow: ellipsis;
   cursor: default;
 `
-
 const Subject = styled.span`
-  display: inline-block;
   font-size: 10pt; 
   border: 1pt solid ${props => props.color};
   border-radius: .2rem;
@@ -67,55 +70,44 @@ const Subject = styled.span`
     display: none;
   }
 `
-class PostNav extends Component {
-  state = {
-    navPos: 0,
-    lastY: 0,
-  }
 
-  componentDidMount() {
-    const { pos: setPos } = this.props
-    setPos &&
-      this.setState({ navPos: setPos })
-      window.addEventListener('scroll', this.handleScroll)
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-  }
+  const PostNav = ({ title, category, darkModeToggle, isDark, layoutType }) => {
+    let navStart = true
+      if(layoutType === 'fullCover') { navStart = false }
+      if(layoutType === 'halfCover') { navStart = false }
+      
+    const [showNav, setNav] = useState(navStart)
+    const [lastY, setYpos] = useState(0)
+    
+    useEffect(() => {
+      const handleScroll = () => {
+        const currentY = typeof window !== 'undefined' ? window.scrollY : 0;
+        if ((lastY - currentY) < 0) { setNav(false) } 
+          else if (currentY === 0) { setNav(navStart) } 
+          else { setNav(true)}
+        
+        setYpos(currentY) ; if (currentY <= 0) { setNav(navStart)}
+      }
+      window.addEventListener('scroll', handleScroll)
+      return () => {
+        window.removeEventListener('scroll', handleScroll)
+      }
+    })
 
-  handleScroll = () => {
-    const { pos: setPos } = this.props
-    const { lastY } = this.state; 
-    const currentY = window.scrollY;
-
-    if ((lastY - currentY) < 0) { this.setState({ navPos: -80}) } 
-      else if (currentY === 0 && setPos !== undefined) { this.setState({ navPos: setPos}) } 
-      else { this.setState({ navPos: 0 }) }
-
-    this.setState({ lastY: currentY })
-      if (window.scrollY <= 0) { this.setState({ navPos: setPos }) }
-  } 
-
-  render() {
-    const { title, category, colors: {paper}, darkMode: { func: handleDark, status } } = this.props 
-    const navColors = status ? {bg: 'rgba(13, 14, 14, 0.98)', color: 'rgb(230, 240, 240)'} : {bg: 'rgba(252,252,252,.92)', color: 'rgb(23,23,23)'}
-    const accentColor = category.catColor ? category.catColor.hex : 'rgb(128,128,128)'
-
+    const accentColor = category.catColor ? category.catColor.hex : 'rgb(128,128,128)'    
+    
+    
     return (
-        <Bar colors={navColors} style={{top: 0, transform: `translateY(${this.state.navPos}px)`}}>
+        <Bar isDark={isDark} style={{top: 0, transform: `translateY(${showNav ? 0 : -80}px)`}}>
           {/* LEFT */}
-          <SideSlot className={styles.branding}>
+          <SideSlot>
             <Link to='/' color={accentColor}><Logo color={accentColor} /></Link>
           </SideSlot>
   
           {/* CENTER */}
           <CenterSlot>
-            <Link 
-              to={`/${category._rawSlug.current}`} 
-              style={{ textDecoration: 'none' }} 
-              color={accentColor}
-            >
+            <Link to={`/${category._rawSlug.current}`} color={accentColor}>
               <Subject color={accentColor} >{category.title}</Subject>
             </Link>      
             <NavTitle ariaHidden={'true'} title={title}>{title}</NavTitle>
@@ -123,13 +115,47 @@ class PostNav extends Component {
   
           {/* RIGHT */}
           <SideSlot style ={{justifyContent: 'flex-end'}} >
-            {handleDark && 
-              <Switch status={status} baseColor={paper} accentColor={accentColor} functionToRun={handleDark}/>
+            {darkModeToggle && 
+              <Switch 
+                status={isDark} 
+                baseColor={isDark ? 'rgb(23, 22, 22)' : 'rgb(245, 245, 251)'} 
+                accentColor={accentColor} 
+                functionToRun={darkModeToggle}/>
             }
           </SideSlot>
         </Bar>
       )
   }
-} 
+ 
 
 export default PostNav
+
+// class PostNav extends Component {
+//   state = {
+//     navPos: 0,
+//     lastY: 0,
+//   }
+
+//   componentDidMount() {
+//     const { pos: setPos } = this.props
+//     setPos &&
+//       this.setState({ navPos: setPos })
+//       window.addEventListener('scroll', this.handleScroll)
+//   }
+
+//   componentWillUnmount() {
+//     window.removeEventListener('scroll', this.handleScroll)
+//   }
+
+//   handleScroll = () => {
+//     const { pos: setPos } = this.props
+//     const { lastY } = this.state; 
+//     const currentY = window.scrollY;
+
+//     if ((lastY - currentY) < 0) { this.setState({ navPos: -80}) } 
+//       else if (currentY === 0 && setPos !== undefined) { this.setState({ navPos: setPos}) } 
+//       else { this.setState({ navPos: 0 }) }
+
+//     this.setState({ lastY: currentY })
+//       if (window.scrollY <= 0) { this.setState({ navPos: setPos }) }
+//   } 

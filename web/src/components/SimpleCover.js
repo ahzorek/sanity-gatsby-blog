@@ -1,13 +1,10 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
-import PortableText from './portableText'
 import DisplayDate from './displayDate'
 import Author from './author'
 import PostNav from './post-nav'
 import { dark, light } from '../lib/color_modes'
-import MainContent from './layouts/main-content'
 import clientConfig from '../../client-config'
 import Img from 'gatsby-image'
 
@@ -54,42 +51,22 @@ const CoverCaption = styled.figcaption`
   opacity: .5;
 `
 const SimpleCover = props => {
-  const stateDark = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('dark__mode')) : false;
-  const [isDark, setDark] = useState(stateDark)
-  const handleDarkMode = () => {
-    setDark(!isDark)
-    localStorage.setItem('dark__mode', !isDark)
-  }
-  const colors = isDark ? dark : light
-  const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = props
-
+  const {title, categories, authors, mainImage, publishedAt, isUpdated, _updatedAt, isDark} = props
+  
+  if (mainImage && mainImage.asset !== null)
   return (
-    <article style={{overflow: 'hidden'}}>
-      <PostNav 
-        title={title} 
-        category={categories[0]} 
-        pos={0}
-        colors={colors} 
-        darkMode={{func: handleDarkMode, status: isDark }} 
-      />
-      {mainImage && mainImage.asset !== null &&
-          <ContentWrapper colors={colors}>
-            <Subject>{categories[0].title}</Subject>
-            <Title>{title}</Title>
-            <div style={{maxWidth: 620, margin: '0 auto', display: 'flex', flexFlow: 'row wrap'}}>
-              <Author items={authors}/>
-              <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} />
-            </div>
-            <figure style={{margin: 'auto'}}>
-              <CoverImage fluid={getFluidGatsbyImage(mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity)} alt={title} />
-              <CoverCaption>{mainImage.caption}</CoverCaption>
-            </figure>
-          </ContentWrapper>
-      }
-      <MainContent colors={colors}>
-        {_rawBody && <PortableText blocks={_rawBody} />}
-      </MainContent>
-    </article>
+    <ContentWrapper colors={isDark ? dark : light}>
+      <Subject>{categories[0].title}</Subject>
+      <Title>{title}</Title>
+      <section style={{maxWidth: 620, margin: '0 auto', display: 'flex', flexFlow: 'row wrap'}}>
+        <Author items={authors}/>
+        <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} />
+      </section>
+      <figure style={{margin: 'auto'}}>
+        <CoverImage fluid={getFluidGatsbyImage(mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity)} alt={title} />
+          <CoverCaption>{mainImage.caption}</CoverCaption>
+      </figure>
+    </ContentWrapper>
   )
 }
 export default SimpleCover

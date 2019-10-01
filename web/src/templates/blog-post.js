@@ -1,35 +1,53 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {graphql} from 'gatsby'
-
+import Layout from '../components/layout'
+import PostNav from '../components/post-nav'
 import Basic from '../components/Basic'
 import FullCover from '../components/FullCover'
 import HalfCover from '../components/HalfCover'
 import SimpleCover from '../components/SimpleCover'
+import MainContent from '../components/layouts/main-content'
 import SEO from '../components/seo'
-import DocContainer from '../containers/doc-container'
+//import DocContainer from '../containers/doc-container'
 import {toPlainText} from '../lib/helpers'
 
+
 const BlogPostTemplate = props => {
-  const {data, errors} = props
-  const {next, previous} = props.pageContext
+  const stateDark = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('dark__mode')) : false;
+  const [isDark, setDark] = useState(stateDark)
+  const handleDarkMode = () => {
+    setDark(!isDark)
+    localStorage.setItem('dark__mode', !isDark)
+  }  
+  const {data, errors, pageContext} = props
   const post = data && data.post
   const viewFormat = post.viewFormat._rawViewFormat.current
   const readTime = Math.ceil((toPlainText(post._rawBody).split(" ").length) / 150);
-  
   //console.log('~', readTime, (readTime > 1 ?'minutos': 'minuto'))
-
-  return (
-    <DocContainer>
-      {errors && <SEO title='GraphQL Error' />}
-      {post && <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />}
-      { viewFormat === 'basic' && <Basic {...post} /> }
-      { viewFormat === 'fullCover' && <FullCover {...post} /> }
-      { viewFormat === 'halfCover' && <HalfCover {...post} /> }
-      { viewFormat === 'simpleCover' && <SimpleCover {...post} /> }
-    </DocContainer>
-
-  )
+  
+  if(post){
+    return (
+      <Layout>
+        <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />
+        <PostNav
+          title={post.title} 
+          category={post.categories[0]} 
+          pos={0}
+          layoutType={viewFormat}
+          darkModeToggle={handleDarkMode} 
+          isDark={isDark}
+        />
+        { viewFormat === 'basic' && <Basic {...post} /> }
+        { viewFormat === 'fullCover' && <FullCover {...post} /> }
+        { viewFormat === 'halfCover' && <HalfCover isDark={isDark} {...post} /> }
+        { viewFormat === 'simpleCover' && <SimpleCover isDark={isDark} {...post} /> }
+        <MainContent isDark={isDark} >{post._rawBody}</MainContent>
+      </Layout>
+    )
+  } else errors && <SEO title='GraphQL Error' />
 }
+
+export default BlogPostTemplate
 
 export const query = graphql`
   query BlogPostTemplateQuery($id: String!) {
@@ -99,4 +117,3 @@ export const query = graphql`
     }
   }
 `
-export default BlogPostTemplate

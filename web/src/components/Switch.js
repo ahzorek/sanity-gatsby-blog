@@ -24,7 +24,7 @@ const SwitchLabel = styled.label`
   }
 `
 
-const Switch = ({functionToRun, status, accentColor, baseColor}) => {
+const Switch = ({status, baseColor, accentColor, functionToRun}) => {
     return(
       <form style={{display: 'flex'}}>
         <input style={{display: 'none'}}

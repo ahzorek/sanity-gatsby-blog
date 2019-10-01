@@ -20,34 +20,6 @@ function SEO ({description, lang, meta, keywords, title, image}) {
             htmlAttributes={{lang}}
             title={title}
             titleTemplate={title === siteTitle ? '%s' : `%s | ${siteTitle}`}
-            // link={[
-            //   {
-            //     rel: 'apple-touch-icon',
-            //     sizes: '180x180',
-            //     href: `static/apple-touch-icon.png`
-            //   },
-            //   {
-            //     rel: 'icon',
-            //     type: 'image/png',
-            //     sizes: '32x32',
-            //     href: 'static/favicon-32x32.png'
-            //   },
-            //   {
-            //     rel: 'icon',
-            //     type: 'image/png',
-            //     sizes: '16x16',
-            //     href: 'static/favicon-16x16.png'
-            //   },
-            //   {
-            //     rel: 'manifest',
-            //     href: 'static/site.webmanifest'
-            //   },
-            //   {
-            //     rel: "mask-icon",
-            //     href: "static/safari-pinned-tab.svg",
-            //     color: "#db1041"
-            //   }
-            // ].concat()}
             meta={[
               {
                 name: 'apple-mobile-web-app-title',

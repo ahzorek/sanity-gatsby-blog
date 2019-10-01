@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
@@ -9,9 +9,8 @@ import { dark, light } from '../lib/color_modes'
 import MainContent from './layouts/main-content'
 import clientConfig from '../../client-config'
 import BackgroundImage from 'gatsby-background-image'
-// import styles from './fullCover-post.module.css'
 
-const CoverWrapper = styled(BackgroundImage)`
+const BGImageWrapper = styled(BackgroundImage)`
 	min-height: 500px;
 	width: 100vw;
 	top: 0;
@@ -23,7 +22,7 @@ const CoverWrapper = styled(BackgroundImage)`
   background-position-x: ${props => props.bg.posX};   
   height: 100vh;
 `
-const ContentWrapper = styled.section`
+const CoverContent = styled.section`
 	width: 100%;
 	max-width: 1000px;
 	margin: 0 auto;
@@ -53,78 +52,110 @@ const Subject = styled.span`
 	font-size: 1rem;
 	color: rgb(250,250,250);
 `
-class FullCover extends Component {
-  state = {
-    darkMode: false,
-    fontSize: 14
-  }
+// class FullCover extends Component {
+//   state = {
+//     darkMode: false,
+//     fontSize: 14
+//   }
 
-  handleDarkMode = () => {
-    this.setState({ darkMode: !this.state.darkMode })
-    localStorage.setItem('dark__mode', !this.state.darkMode)
-    }
-  biggerFont = () => {
-    this.state.fontSize < 24 && this.setState({fontSize: this.state.fontSize + 2})
-    localStorage.setItem('font__size', this.state.fontSize + 2)
-  }
-  smallerFont = () => {
-    this.state.fontSize > 12 && this.setState({fontSize: this.state.fontSize - 2})
-    localStorage.setItem('font__size', this.state.fontSize)
-  }
+//   handleDarkMode = () => {
+//     this.setState({ darkMode: !this.state.darkMode })
+//     localStorage.setItem('dark__mode', !this.state.darkMode)
+//     }
+//   biggerFont = () => {
+//     this.state.fontSize < 24 && this.setState({fontSize: this.state.fontSize + 2})
+//     localStorage.setItem('font__size', this.state.fontSize + 2)
+//   }
+//   smallerFont = () => {
+//     this.state.fontSize > 12 && this.setState({fontSize: this.state.fontSize - 2})
+//     localStorage.setItem('font__size', this.state.fontSize)
+//   }
 
-  componentDidMount(){
-    localStorage.getItem('dark__mode') &&
-      this.setState({ darkMode: JSON.parse(localStorage.getItem('dark__mode')) })
-    localStorage.getItem('font__size') &&
-      this.setState({fontSize: parseInt(localStorage.getItem('font__size'))})
+//   componentDidMount(){
+//     localStorage.getItem('dark__mode') &&
+//       this.setState({ darkMode: JSON.parse(localStorage.getItem('dark__mode')) })
+//     localStorage.getItem('font__size') &&
+//       this.setState({fontSize: parseInt(localStorage.getItem('font__size'))})
 
-  }
+//   }
 
-  render() {
-    const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = this.props
-    const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
-    const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
-    const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
-    const colors = this.state.darkMode ? dark : light
-    const __color = Object.values(mainImage.asset.metadata)[0].vibrant.color
-    // const fluidBG_colored = [
-    //   bgSrc,
-    //   `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`
-    // ].reverse()
+//   render() {
+//     console.log(this.props)
+//     const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = this.props
+//     const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
+//     const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
+//     const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
+//     const colors = this.state.darkMode ? dark : light
+//     const __color = Object.values(mainImage.asset.metadata)[0].vibrant.color
+//     // const fluidBG_colored = [
+//     //   bgSrc,
+//     //   `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`
+//     // ].reverse()
 
-    return (
-      <article style={{overflow: 'hidden'}}>
-        <PostNav 
-          title={title} 
-          category={categories[0]} 
-          pos={-70}
-          colors={colors} 
-          darkMode={{func: this.handleDarkMode, status: this.state.darkMode }} 
-         />
-        {mainImage && mainImage.asset !== null &&
-          <CoverWrapper 
-            bg={{bgSrc, posX, posY}}
-            Tag="section"
-            className={'background'}
-            fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}
-            backgroundColor={__color}
-            >
-            <ContentWrapper>
-              <Subject>{categories[0].title}</Subject>
-              <Title>{title}</Title>
-              <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} postdate={publishedAt} isUpdate={isUpdated} update={_updatedAt} />
-              <Author>
-                {authors && authors.map(({author}, index) =>  <div key={index}>por <Link to={`/autores/${author.slug.current}`} style={{ textDecoration: 'none', color: 'white' }}>{author.name}</Link></div>)}
-              </Author>
-            </ContentWrapper>
-          </CoverWrapper>
-        }
-        <MainContent colors={colors} link={__color}>
-          {_rawBody && <PortableText blocks={_rawBody} />}
-        </MainContent>
-      </article>
-    )
-  }
+//     return (
+//       <article style={{overflow: 'hidden'}}>
+//         <PostNav 
+//           title={title} 
+//           category={categories[0]} 
+//           pos={-70}
+//           colors={colors} 
+//           darkMode={{func: this.handleDarkMode, status: this.state.darkMode }} 
+//          />
+//         {mainImage && mainImage.asset !== null &&
+//           <CoverWrapper 
+//             bg={{bgSrc, posX, posY}}
+//             Tag="section"
+//             className={'background'}
+//             fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}
+//             backgroundColor={__color}
+//             >
+//             <ContentWrapper>
+//               <Subject>{categories[0].title}</Subject>
+//               <Title>{title}</Title>
+//               <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} postdate={publishedAt} isUpdate={isUpdated} update={_updatedAt} />
+//               <Author>
+//                 {authors && authors.map(({author}, index) =>  <div key={index}>por <Link to={`/autores/${author.slug.current}`} style={{ textDecoration: 'none', color: 'white' }}>{author.name}</Link></div>)}
+//               </Author>
+//             </ContentWrapper>
+//           </CoverWrapper>
+//         }
+//         <MainContent colors={colors} link={__color}>
+//           {_rawBody && <PortableText blocks={_rawBody} />}
+//         </MainContent>
+//       </article>
+//     )
+//   }
+// }
+
+const FullCover = props => {
+
+  const {title, categories, authors, mainImage, publishedAt, isUpdated, _updatedAt } = props
+  const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
+  const posX = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
+  const posY = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
+  
+  if(mainImage && mainImage.asset !== null)
+  return (
+    <header>
+      <BGImageWrapper 
+        bg={{bgSrc, posX, posY}}
+        Tag="section"
+        className={'background'}
+        fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}
+        backgroundColor={Object.values(mainImage.asset.metadata)[0].vibrant.color}
+        >
+        <CoverContent>
+          <Subject>{categories[0].title}</Subject>
+          <Title>{title}</Title>
+          <DisplayDate dateInfo={{publishedAt, isUpdated, _updatedAt}} postdate={publishedAt} isUpdate={isUpdated} update={_updatedAt} />
+          <Author>
+            {authors && authors.map(({author}, index) =>  <div key={index}>por <Link to={`/autores/${author.slug.current}`} style={{ textDecoration: 'none', color: 'white' }}>{author.name}</Link></div>)}
+          </Author>
+        </CoverContent>
+      </BGImageWrapper>
+    </header>
+
+  )
 }
 
 export default FullCover
