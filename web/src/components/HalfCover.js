@@ -59,25 +59,25 @@ const HalfCover = props => {
   const X = mainImage.hotspot && Math.round(mainImage.hotspot.x * 100) + '%' || 'center'
   const Y = mainImage.hotspot && Math.round(mainImage.hotspot.y * 100) + '%' || 'center'
   const colors = isDark ? dark : light
-
-  return (
-    <Wrapper colors={colors}>
-      {mainImage && mainImage.asset !== null && 
-      <Photo 
-        pos={{X, Y}}
-        Tag="section"
-        className={'cover'}
-        fluid={bgSrc}
-        backgroundColor={Object.values(mainImage.asset.metadata)[0].vibrant.color}
-        />}
-      <PostInfo>
-        <Subject>{categories[0].title}</Subject>
-        <Title cartola={categories[0].title}>{title}</Title>
-        <DisplayDate showUpdate prefix={"publicado"} sFormat={"d' 'MMM' 'yy"} dateInfo={{publishedAt, isUpdated, _updatedAt}} />
-        {authors && <Author items={authors}/>}
-      </PostInfo>
-    </Wrapper>
-  )
+  if(mainImage) {
+    return (
+      <Wrapper colors={colors}>
+        {mainImage && mainImage.asset !== null && 
+        <Photo 
+          pos={{X, Y}}
+          Tag="section"
+          fluid={bgSrc}
+          backgroundColor={Object.values(mainImage.asset.metadata)[0].vibrant.color}
+          />}
+        <PostInfo>
+          <Subject>{categories[0].title}</Subject>
+          <Title cartola={categories[0].title}>{title}</Title>
+          <DisplayDate showUpdate prefix={"publicado"} sFormat={"d' 'MMM' 'yy"} dateInfo={{publishedAt, isUpdated, _updatedAt}} />
+          {authors && <Author items={authors}/>}
+        </PostInfo>
+      </Wrapper>
+    )
+  }
 }
 
 export default HalfCover

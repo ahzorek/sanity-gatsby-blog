@@ -9,6 +9,7 @@ import SimpleCover from '../components/SimpleCover'
 import MainContent from '../components/main-content'
 import SEO from '../components/seo'
 import {toPlainText} from '../lib/helpers'
+import CommentBox from '../components/CommentBox'
 
 
 const BlogPostTemplate = props => {
@@ -33,13 +34,15 @@ const BlogPostTemplate = props => {
           category={post.categories[0]}
           layoutType={viewFormat}
           darkModeToggle={handleDarkMode} 
-          isDark={isDark}
+          isDark={viewFormat === 'basic' ? false : isDark}
+          hideToggle={viewFormat === 'basic' ? true : false}
         />
         { viewFormat === 'basic' && <Basic {...post} /> }
         { viewFormat === 'fullCover' && <FullCover {...post} /> }
         { viewFormat === 'halfCover' && <HalfCover isDark={isDark} {...post} /> }
         { viewFormat === 'simpleCover' && <SimpleCover isDark={isDark} {...post} /> }
-        <MainContent isDark={isDark} >{post._rawBody}</MainContent>
+        { viewFormat !== 'basic' && <MainContent isDark={isDark} >{post._rawBody}</MainContent> }
+        <CommentBox {...post} />
       </Layout>
     )
   } else errors && <SEO title='GraphQL Error' />

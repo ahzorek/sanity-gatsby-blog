@@ -12,12 +12,13 @@ const Wrapper = styled.main`
     padding: 2em 0;
     & p:first-child:first-letter {
         float: left;
-        font-size: 7rem;
+        font-size: 6.5rem;
         line-height: 4rem;
-        padding-top: 16px;
-        padding-right: 10px;
-        padding-left: 2px;
-        border-radius: 3px;
+        padding-top: .9rem;
+        padding-right: .4rem;
+        padding-left: .1rem;
+        font-family: sans-serif;
+        font-weight: 600;
     }
     & h1, h2, h3, h4, h5, h6 {
       text-align: left;
@@ -45,16 +46,16 @@ const Wrapper = styled.main`
     & a {
       color: ${props => props.colors.link};
       text-decoration: none;
-      padding: .4rem;
-      margin: -.4rem;
       transition: all 400ms ease-out;
+      /* padding: .4rem;
+      margin: -.4rem; */
       & :hover, :focus {
         text-decoration: underline;
-        background-color: ${props => props.colors.link};
+        transition: all 300ms ease-in;
+        /* background-color: ${props => props.colors.link};
         color: ${props => props.colors.paper}; 
         padding: .2rem;
-        margin: -.2rem;
-        transition: all 300ms ease-in;
+        margin: -.2rem; */
       }
     }
 `

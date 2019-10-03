@@ -5,6 +5,7 @@ import {Link} from 'gatsby'
 import clientConfig from '../../client-config'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
 import {getBlogUrl} from '../lib/helpers'
+import AddToRead from './AddToRead'
 
 const Card = styled.li`
   display: block;
@@ -13,7 +14,7 @@ const Card = styled.li`
   font-family: BWHaasGrotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   transition: all 200ms ease-out;
   height: max-content;
-  border-radius: .4rem;
+  border-radius: .02rem;
   /* background-color: rgba(252,252,252,1); */
   & a {
     text-decoration: none;
@@ -33,24 +34,11 @@ const Card = styled.li`
         ${props.color.b || 128})`
       };
     }
-    & :last-child:hover{
-      background-color: ${props => `rgb(
-        ${props.color.r || 128},
-        ${props.color.g || 128},
-        ${props.color.b || 128})`
-      };
-      & a {
-        color: white;
-      }
-    }
   }
 `
-
 const Image = styled(Img)`
   max-width: 100%;
   min-height: 200px;
-  margin: .8rem .8rem 0;
-  border-radius: .3rem;
   overflow: hidden;
   object-fit: cover;
 `
@@ -76,35 +64,38 @@ const Category = styled.span`
       };
 `
 const Author = styled.span`
-
 `
 
 const BasicCard = (props) => {
-  const {title, categories, mainImage} = props
+  const {title, slug, publishedAt, categories, mainImage} = props
   
-  const fluidProps = getFluidGatsbyImage(
+  const fluidProps = mainImage !== null && getFluidGatsbyImage(
     mainImage.asset._id,
     { maxWidth: 400 },
     clientConfig.sanity
   )
 
-  if (categories[0].color !== null){
-    var { r, g, b } = categories[0].color.rgb
-  }
+  const { r, g, b } = categories[0] !== undefined
+   && categories[0].color !== null 
+   && categories[0].color.rgb
 
   return (
     <Card color={{r, g, b}}> 
-      <Link to={getBlogUrl(props.publishedAt, props.slug.current)}>
-        <Image fluid={fluidProps} alt={props.mainImage.alt}/>
-      </Link>
-      <Link to={`/${categories[0].slug.current}`}>
-        <Category color={{r,g,b}}>{categories[0].title}</Category>
-      </Link>
-      <Link to={getBlogUrl(props.publishedAt, props.slug.current)}>
+      {mainImage !== null && 
+        <Link to={getBlogUrl(publishedAt, slug.current)}>
+          <Image fluid={fluidProps} alt={mainImage.alt}/>
+        </Link>
+      }
+      {categories[0] !== undefined && 
+        <Link to={`/${categories[0].slug.current}`}>
+          <Category color={{r,g,b}}>{categories[0].title}</Category>
+        </Link>
+      }
+      <Link to={getBlogUrl(props.publishedAt, slug.current)}>
         <Title color={{r,g,b}}>{title}</Title>
       </Link>
+      <AddToRead node={props} />
       {/* <Author>{'----'}</Author> */}
-
     </Card>
   )
 }

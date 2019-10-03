@@ -8,14 +8,16 @@ const AuthorsList = styled.ul`
   display: block;
   width: max-content;
   list-style: none;
-  margin: 1rem 0;
   padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 `
 const AuthorBox = styled.li`
   display: flex;
   flex-flow: row wrap;
   margin: .5rem 0;
   & a {
+    color: inherit;
     text-decoration: none;
     line-height: 10px;
   }
@@ -25,13 +27,17 @@ const Avatar = styled.div`
   display: inline-block;
   width: 35px;
   height: 35px;
-  background: rgb(126,126,126);
+  background: transparent;
   border-radius: 50px;
   overflow: hidden;
   & img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: .85;
+  ${AuthorBox}:hover & {
+      opacity: 1;
+    }
   }
 `
 const Name = styled.span`

@@ -72,7 +72,7 @@ const Subject = styled.span`
 `
 
 
-  const PostNav = ({ title, category, darkModeToggle, isDark, layoutType }) => {
+  const PostNav = ({ title, category, darkModeToggle, isDark, layoutType, hideToggle }) => {
     let navStart = true
       if(layoutType === 'fullCover') { navStart = false }
       if(layoutType === 'halfCover') { navStart = false }
@@ -115,7 +115,7 @@ const Subject = styled.span`
   
           {/* RIGHT */}
           <SideSlot style ={{justifyContent: 'flex-end'}} >
-            {darkModeToggle && 
+            {!hideToggle && 
               <Switch 
                 status={isDark} 
                 baseColor={isDark ? 'rgb(23, 22, 22)' : 'rgb(245, 245, 251)'} 
