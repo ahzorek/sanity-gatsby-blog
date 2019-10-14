@@ -1,37 +1,29 @@
 import React from 'react'
 import {graphql} from 'gatsby'
-import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
-import DocContainer from '../containers/doc-container'
 import {toPlainText, mapEdgesToNodes} from '../lib/helpers'
-import SEO from '../components/seo'
+import {SEO} from '../components/'
 import BlogPostPreviewGrid from '../components/blog-post-preview-grid'
-import Header from '../components/header'
 
+import ErrorLayout from '../layouts/errorLayout'
+import Layout from '../layouts/mainLayout'
 
 const TopicsTemplate = props => {
   const {data, errors} = props
-  const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
-  const topic = data.topic
+  if(errors) { return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> }
+  
+  else {
+    const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
+    const topic = data.topic
 
-  return (
-  <DocContainer>
-    {errors && <SEO title='GraphQL Error' />}
-    {topic && <SEO title={topic.title || 'Assunto'} description={'Hibernativos'} image={'undefined'} />}
-
-    {errors && (
-      <Container>
-        <GraphQLErrorList errors={errors} />
-      </Container>
-    )}
-    <Header siteTitle={data.site.title || 'Hibernativos'} />
-    {data && (
-      <Container>
-        {postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes} />}
-      </Container>
-    )}
-  </DocContainer>
-  )
+    //console.log(topic)
+    return (
+      <Layout navigation hideNav nodes={postNodes}>
+        <SEO title={topic.title || 'Assunto'} description={'Hibernativos'} image={'undefined'} />
+        { postNodes && postNodes.length > 0 && <BlogPostPreviewGrid hideCat nodes={postNodes} /> }
+      </Layout>
+    )   
+  }
 }
 
 export const query = graphql`

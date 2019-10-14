@@ -1,32 +1,53 @@
 import React from 'react'
-import BlogPostPreview from './blog-post-preview'
+import styled from 'styled-components'
+//import BlogPostPreview from './blog-post-preview'
 import {Link} from '../lib/link'
+import {Button} from '@material-ui/core'
 
-import styles from './blog-post-preview-list.module.css'
+import ListMediumPic from './cards/ListMediumPic'
+import Container from '../containers/container__1024'
+//import styles from './blog-post-preview-list.module.css'
 
-function BlogPostPreviewList (props) {
-  return (
-    <div className={styles.root}>
-      {props.title && <h2 className={styles.headline}>{props.title}</h2>}
-      <ul className={styles.list}>
-        {props.nodes &&
-          props.nodes.map(node => (
-            <li key={node.id}>
-              <BlogPostPreview {...node} isInList />
-            </li>
-          ))}
-      </ul>
-      {props.browseMoreHref && (
-        <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref} color={'#232323'}>Ver mais</Link>
-        </div>
-      )}
-    </div>
-  )
-}
+const BlogPostPreviewList = ({title, subTitle, nodes, hideCat, browseMoreHref, loadMore}) => (
+  <Container>
+    {title && <LargeTitle>{title}</LargeTitle> }
+    {subTitle && <SubTitle>{subTitle}</SubTitle> }
+    <List>
+      {nodes && nodes.map(node => (
+        <ListMediumPic key={node.id} {...node}/>
+      ))}
+    </List>
+    { browseMoreHref && <Link to={browseMoreHref}>Ver mais</Link> }
+    { loadMore && <Button onClick={loadMore}>Carregar Mais Artigos</Button> }
+  </Container>
+)
+
+const List = styled.ul`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  & > * {
+    margin: 2rem 0 0;
+    width: 100%;
+    height: max-content;
+  }
+`
+const LargeTitle = styled.h2`
+  font-size: calc(1.4rem + 2vw);
+  margin: 1.2rem 0 0;
+  padding: 0;
+`
+const SubTitle = styled.h3`
+  font-size: calc(.8rem + 1vw);
+  margin: .6rem 0 0;
+  padding: 0;
+`
 
 BlogPostPreviewList.defaultProps = {
   title: '',
+  subTitle: '',
   nodes: [],
   browseMoreHref: ''
 }

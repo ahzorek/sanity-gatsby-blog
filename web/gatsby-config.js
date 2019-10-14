@@ -4,23 +4,30 @@ require('dotenv').config({
 })
 
 const clientConfig = require('./client-config')
-
 const isProd = process.env.NODE_ENV === 'production'
+const queries = require("./src/lib/algolia")
 
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-plugin-material-ui`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-        name: `fonts`,
-        path: `${__dirname}/src/fonts`
+        stylesProvider: {
+          injectFirst: true,
+        },
       },
     },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `images`,
+    //     path: `${__dirname}/src/images`,
+    //     name: `fonts`,
+    //     path: `${__dirname}/src/fonts`
+    //   },
+    // },
     'gatsby-plugin-transition-link',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-antd',
     'gatsby-plugin-postcss',
     'gatsby-plugin-styled-components',
     {
@@ -31,6 +38,23 @@ module.exports = {
         watchMode: !isProd,
         overlayDrafts: !isProd
       }
+    },
+    // {
+    //   resolve: `gatsby-plugin-netlify-functions`,
+    //   options: {
+    //     functionsSrc: `${__dirname}/src/functions`,
+    //     functionsOutput: `${__dirname}/functions`,
+    //   },
+    // },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        indexName: `Artigos`,
+        queries,
+        chunkSize: 10000, // default: 1000
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -51,12 +75,12 @@ module.exports = {
         shortname: `hibernativos-blog`
       }
     },
-    {
-      resolve: `gatsby-plugin-hotjar`,
-      options: {
-        id: 1507351,
-        sv: 6
-      }
-    },
+    // {
+    //   resolve: `gatsby-plugin-hotjar`,
+    //   options: {
+    //     id: 1507351,
+    //     sv: 6
+    //   }
+    // },
   ]
 }

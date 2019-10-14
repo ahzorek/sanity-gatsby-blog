@@ -86,3 +86,14 @@ export const Widths = {
   Large: '860px',
   Medium: '520px',
 }
+
+export function readTime(post, wPm = 150){
+  return Math.ceil((toPlainText(post._rawBody).split(" ").length) / wPm)
+}
+
+export function getPos(img){
+  return {
+    X: img.hotspot ? Math.round(img.hotspot.x * 100) + '%' : 'center', 
+    Y: img.hotspot ? Math.round(img.hotspot.y * 100) + '%' : 'center'
+  }
+}

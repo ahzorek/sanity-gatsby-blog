@@ -1,44 +1,55 @@
-import React, {Component} from 'react'
+import React, {useState, useEffect} from 'react'
 import {graphql} from 'gatsby'
-import {mapEdgesToNodes,
-  filterOutDocsWithoutSlugs,
-  filterOutDocsPublishedInTheFuture} from '../lib/helpers'
+
+import {mapEdgesToNodes, filterOutDocsWithoutSlugs, filterOutDocsPublishedInTheFuture} from '../lib/helpers'
 import BlogPostPreviewList from '../components/blog-post-preview-list'
-import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
-import SEO from '../components/seo'
-import DocContainer from '../containers/doc-container'
-import Header from '../components/header'
+import {SEO} from '../components/'
 
-
-import {responsiveTitle1} from '../components/typography.module.css'
+import Layout from '../layouts/mainLayout'
+import ErrorLayout from '../layouts/errorLayout'
 
 const ArchivePage = props => {
   const {data, errors} = props
+  if (errors) { <ErrorLayout><GraphQLErrorList errors={errors} /></ErrorLayout> }
+  const site = (data || {}).site
+  const postNodes = (data || {}).posts? mapEdgesToNodes(data.posts).filter(filterOutDocsWithoutSlugs).filter(filterOutDocsPublishedInTheFuture) : []
+  if(!site) { throw new Error('Faltam ser configuradas as informações do site.') }
+  
+  const initial = 4
+  const increment = 2
+  const allPosts = data.posts.edges.length
+  
+  const [postsLoaded, loadPosts] = useState(allPosts > initial ? initial : allPosts)
+  const [postsToLoad, setPosts] = useState((allPosts - postsLoaded) > increment 
+    ? increment 
+    : (allPosts - postsLoaded))
 
-  if (errors) {
-    return (
-      <DocContainer>
-        <GraphQLErrorList errors={errors} />
-      </DocContainer>
-    )
-  }
-
-  const postNodes = (data || {}).posts
-  ? mapEdgesToNodes(data.posts)
-    .filter(filterOutDocsWithoutSlugs)
-    .filter(filterOutDocsPublishedInTheFuture)
-  : []
+  useEffect(() => setPosts((allPosts - postsLoaded) > increment 
+    ? increment 
+    : (allPosts - postsLoaded)
+  ), [postsLoaded])
+  
+  useEffect(() => {
+    document.title = `Arquivo | Exibindo ${postsLoaded} de ${allPosts} artigos | Hibernativos`;
+  }, [postsLoaded])
+  
+  const loadMorePosts = () => loadPosts(postsLoaded + postsToLoad)
 
   return (
-    <DocContainer>
-      <SEO title='Arquivo' />
-      <Header siteTitle={data.site.title || 'Hibernativos'} />
-      <Container>
-        <h1 style={{fontSize: '4em'}}className={responsiveTitle1}>Arquivo</h1>
-        {postNodes && postNodes.length > 0 && <BlogPostPreviewList nodes={postNodes} />}
-      </Container>
-    </DocContainer>
+    <Layout navigation nodes={postNodes}>
+      <SEO title={`Arquivo | Exibindo ${postsLoaded} de ${allPosts} artigos`} />
+      <h1 hidden>Arquivo de artigos do {site.title}</h1>
+      {postNodes && postNodes.length > 0 && (
+        <BlogPostPreviewList 
+          title={`Arquivo`} 
+          subTitle={`Exibindo ${postsLoaded} de ${allPosts} artigos`}
+          nodes={postNodes.slice(0, postsLoaded)}
+          loadMore={postsLoaded < allPosts ? loadMorePosts : false}
+           />
+        )}
+    </Layout>
+
   )
 }
 
@@ -49,7 +60,7 @@ export const query = graphql`
       description
       keywords
     }
-    posts: allSanityPost(limit: 12, sort: {fields: [publishedAt], order: DESC}) {
+    posts: allSanityPost(sort: {fields: [publishedAt], order: DESC}) {
       edges {
         node {
           id
@@ -67,6 +78,32 @@ export const query = graphql`
           title
           color: _rawCatColor
           slug: _rawSlug
+          }
+          authors {
+            _key
+            author {
+              name
+              slug { current }
+              image {
+                crop {
+                  _key
+                  _type
+                  top
+                  bottom
+                  left
+                  right
+                }
+                hotspot {
+                  _key
+                  _type
+                  x
+                  y
+                  height
+                  width
+                }
+                asset { _id }
+              }
+            }
           }
         }
       }

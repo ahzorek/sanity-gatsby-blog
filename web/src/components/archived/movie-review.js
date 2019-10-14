@@ -106,7 +106,7 @@ class MovieReview extends Component {
     const { rating: rate, id: movieID } = this.props.node
 
     return (
-      <Wrapper hidden>
+      <Wrapper aria-hidden="true">
         <MovieTitle>{title} ({format(parseISO(release), "yyyy")})</MovieTitle>
           { poster !== null && 
           <Poster alt={`Poster de ${title}`} src={`https://image.tmdb.org/t/p/w400/${poster}`}/>

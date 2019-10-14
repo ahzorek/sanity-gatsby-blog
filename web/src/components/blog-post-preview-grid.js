@@ -1,41 +1,46 @@
-import {Link} from '../lib/link'
 import React from 'react'
 import styled from 'styled-components'
-import BlogPostPreview from './blog-post-preview'
-import BasicCard from './BasicCard'
-import {Widths} from '../lib/helpers'
 
-const { Medium, Large } = Widths
+import GridMediumPic from './cards/GridMediumPic'
+import {Link} from '../lib/link'
+import {minQueries} from '../lib/media'
+import Container from '../containers/container__1024'
 
 const Grid = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 2rem;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-flow: wrap row;
   list-style: none;
-  @media (min-width: ${Medium}) {
+  padding-inline-start: 0;
+  @supports(display: grid) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem; 
+  }
+  @media ${minQueries.Md} {
     grid-template-columns: repeat(2,1fr);
   }
-  @media (min-width: ${Large}) {
+  @media ${minQueries.Lg} {
     grid-template-columns: repeat(3,1fr);
   }
 `
-import styles from './blog-post-preview-grid.module.css'
-
-function BlogPostPreviewGrid (props) {
+function BlogPostPreviewGrid ({title, nodes, hideCat, browseMoreHref}) {
   return (
-    <div className={styles.root}>
-      {props.title && <h2 className={styles.headline}>{props.title}</h2>}
+    <>
+    <Container>
+      {title && <h2>{title}</h2>}
       <Grid>
-        {props.nodes && props.nodes.map(node => <BasicCard key={node.id} {...node} /> )}
+        {nodes && nodes.map(node => <GridMediumPic 
+          hideCat={hideCat} 
+          key={node.id} 
+          {...node} /> )}
       </Grid>
-      {props.browseMoreHref && (
-        <div className={styles.browseMoreNav}>
-          <Link to={props.browseMoreHref} color={'#232323'}>Ver mais</Link>
+      {browseMoreHref && (
+        <div>
+          <Link to={browseMoreHref} color={'#232323'}>Ver mais</Link>
         </div>
       )}
-    </div>
+    </Container>
+    </>
   )
 }
 

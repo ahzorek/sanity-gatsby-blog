@@ -2,28 +2,39 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import { Disqus } from 'gatsby-plugin-disqus'
 import {getBlogUrl} from '../lib/helpers'
+import {Button} from '@material-ui/core'
 
+const ExpandButton = styled(Button)`
+  display: block;
+  width: 100%;
+  padding: 1rem 4rem;
+  background-color: ${props => props.theme.contrastPlus};
+  color: ${props => props.theme.primaryText};
+  margin: 0 auto;
+  font-weight: 100;
+`
 const Wrapper = styled.div`
   height: max-content;
-  /* min-height: ${props => props.commentBox ? '600px' : '0px'}; */
-  padding: 6rem calc(calc(100vw - 960px)/2);
-  margin: 6rem auto;
-`
-const Button = styled.button`
-  display: block;
-  width: 400px;
-  margin: auto;
-  border: none;
+  padding: 3rem calc(calc(100vw - 960px)/2);
+  /* background-color: ${props =>  props.theme.contrastPlus}; */
 `
 const CommentBox = ({id: identifier, title, publishedAt, slug}) => {
   const [commentBox, toggleBox] = useState(false)
-  const handleCommentBox = e => toggleBox(true)
   const url = `https://hibernativos.ml${getBlogUrl(publishedAt, slug.current)}`
 
+  const handleCommentBox = () => {
+    toggleBox(prev => !prev)
+  }
+
+
   return (
-    <Wrapper commentBox={commentBox}>
+    <Wrapper>
       {!commentBox && 
-        <Button onClick={handleCommentBox}>Mostrar Comentários </Button>
+        <ExpandButton 
+          onClick={e => setTimeout(handleCommentBox, 1000)}
+          >
+            Mostrar Comentários 
+        </ExpandButton>
       }
       
       {commentBox && <Disqus config={{url, identifier, title}} />}

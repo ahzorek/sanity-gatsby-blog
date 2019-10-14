@@ -2,8 +2,8 @@ export const widths = {
     XXLarge: '1600px',
     XLarge: '1230px',
     Large: '960px',
-    Medium: '640px',
-    Small: '420px',
+    Medium: '680px',
+    Small: '480px',
     XSmall: '280px'
   }
 

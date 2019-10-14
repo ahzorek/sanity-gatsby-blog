@@ -157,7 +157,7 @@ class TvReview extends Component {
     const { rating: rate, id } = this.props.node
 
     return (
-      <Wrapper hidden>
+      <Wrapper aria-hidden="true">
         <TvTitle>{title}</TvTitle>
         {network && <LogoNetwork alt={network.name} src={`https://image.tmdb.org/t/p/w200${network.logo_path}`}/>}
           { poster !== null &&

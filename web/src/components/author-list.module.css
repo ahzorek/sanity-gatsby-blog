@@ -6,7 +6,6 @@
 }
 
 .headline {
-  composes: base from './typography.module.css';
   font-weight: 600;
   margin: 0.5rem 0 0;
 }
@@ -21,9 +20,14 @@
   font-size: var(--font-small-size);
   margin: 1rem 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-
+  
+  @nest & a {
+    color: var(--color-gray);
+    text-decoration: none;
+    text-align: start;
+  }
   @nest & > div:last-child {
     flex: 1;
     margin-left: 0.5rem;

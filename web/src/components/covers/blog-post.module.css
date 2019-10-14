@@ -1,10 +1,11 @@
-@import '../styles/custom-media.css';
-@import '../styles/custom-properties.css';
+@import '../../styles/custom-media.css';
+@import '../../styles/custom-properties.css';
 
-.root {}
+.root {
+}
 
 .title {
-  composes: responsiveTitle1 from './typography.module.css';
+  composes: title1 from '../../styles/typography.module.css';
 }
 
 .mainImage {
@@ -37,6 +38,7 @@
 .mainContent {
   @nest & a {
     color: var(--color-accent);
+    text-decoration: none;
 
     @media (hover: hover) {
       @nest &:hover {
@@ -63,7 +65,7 @@
 }
 
 .publishedAt {
-  composes: small from './typography.module.css';
+  composes: small from '../../styles/typography.module.css';
   margin: 2rem 0 0;
   color: var(--color-gray);
 }
@@ -78,12 +80,14 @@
     padding: 0;
   }
 
-  @nest & ul li {
+  @nest & ul li a {
     padding: 0.25rem 0;
+    text-decoration: none;
+    color: var(--color-black);
   }
 }
 
 .categoriesHeadline {
-  composes: base from './typography.module.css';
+  composes: base from '../../styles/typography.module.css';
   margin: 0.5rem 0 0;
 }

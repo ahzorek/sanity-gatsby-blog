@@ -4,6 +4,19 @@ import {getFluidGatsbyImage} from 'gatsby-source-sanity'
 import styled from 'styled-components' 
 import clientConfig from '../../client-config'
 
+export default ({node}) => {
+  const fluidProps = getFluidGatsbyImage(
+    node.asset._id,
+    { maxWidth: node.isFullWidth ? 1920 : 960 },
+    clientConfig.sanity
+  )
+  return (
+    <figure style={{padding: 0, margin: 0}}>
+      <Image width={node.isFullWidth} fluid={fluidProps} alt={node.alt} />
+      { node.showCaption && <Caption width={node.isFullWidth ? '100%' : '700px'}>{node.caption}</Caption>}
+    </figure>
+  )
+}
 const Caption = styled.figcaption`
   display: block;
   font-size: .8rem;
@@ -22,20 +35,3 @@ const Image = styled(Img)`
   box-shadow: 0 4px 12px 0 rgba(0,-1,0,.05);
   overflow: hidden;
 `
-
-
-export default ({node}) => {
-  // console.log(node)
-  const fluidProps = getFluidGatsbyImage(
-    node.asset._id,
-    { maxWidth: node.isFullWidth ? 1600 : 800 },
-    clientConfig.sanity
-  )
-
-  return (
-    <figure style={{padding: 0, margin: 0}}>
-      <Image width={node.isFullWidth} fluid={fluidProps} alt={node.alt} />
-      { node.showCaption && <Caption width={node.isFullWidth ? '100%' : '700px'}>{node.caption}</Caption>}
-    </figure>
-  )
-}

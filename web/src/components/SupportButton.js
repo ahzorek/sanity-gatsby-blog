@@ -14,7 +14,7 @@ const SupportButton = ({accentColor = '#fa0a32', baseColor = '#f6f6f6', size = '
     height: ${size};
     border-radius: 50%; 
     border: solid ${border} ${accentColor};
-    background-color: ${baseColor};
+    background-color: ${props => props.theme.mainBg};
     transition: all 400ms ease;
     & :hover, :focus { 
       animation: ${clinchedFist} 800ms infinite alternate both; 

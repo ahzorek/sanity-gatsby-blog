@@ -1,12 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import PortableText from './portableText'
-import { dark, light } from '../lib/color_modes'
 
 const Wrapper = styled.main`
-    color: ${props => props.colors.ink};
-    background-color: ${props => props.colors.paper};
-    min-height: 800px;
+    min-height: max-content;
     box-sizing: border-box;
     transition: all 250ms ease-in-out;
     padding: 2em 0;
@@ -21,6 +18,8 @@ const Wrapper = styled.main`
         font-weight: 600;
     }
     & h1, h2, h3, h4, h5, h6 {
+      color: ${props => props.theme.primaryText};
+      font-family: BWHaasGrotesk;
       text-align: left;
       max-width: 680px;
       margin: inherit;
@@ -30,6 +29,7 @@ const Wrapper = styled.main`
     }
 
     & p, li {
+      color: ${props => props.theme.primaryText};
       font-family: Georgia,Cambria,Times,serif;
       font-style: normal;
       font-size: 21px;
@@ -42,29 +42,21 @@ const Wrapper = styled.main`
     & li {
       list-style-type: square;
       padding: 0 1rem;
-    }
+    } 
     & a {
-      color: ${props => props.colors.link};
+      color: ${props => props.theme.link};
       text-decoration: none;
       transition: all 400ms ease-out;
-      /* padding: .4rem;
-      margin: -.4rem; */
       & :hover, :focus {
         text-decoration: underline;
         transition: all 300ms ease-in;
-        /* background-color: ${props => props.colors.link};
-        color: ${props => props.colors.paper}; 
-        padding: .2rem;
-        margin: -.2rem; */
       }
     }
 `
 
-const MainContent = ({children, isDark}) => {
-  const colors = isDark ? dark : light
-
+const MainContent = ({children}) => {
   return (
-    <Wrapper colors={colors}>
+    <Wrapper>
       <PortableText blocks={children} />
     </Wrapper>
   )

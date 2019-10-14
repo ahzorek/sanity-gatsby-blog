@@ -1,16 +1,16 @@
 import React from 'react'
-import {buildImageObj} from '../lib/helpers'
-import {imageUrlFor} from '../lib/image-url'
-import PortableText from './portableText'
-import DisplayDate from './displayDate'
-import Container from './container'
-import AuthorList from './author-list'
 import { Link } from 'gatsby'
+
+import {buildImageObj} from '../../lib/helpers'
+import {imageUrlFor} from '../../lib/image-url'
+import PortableText from '../portableText'
+import DisplayDate from '../displayDate'
+import AuthorList from '../author-list'
 
 import styles from './blog-post.module.css'
 
-function Basic (props) {
-  const {_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt} = props
+function Basic ({_rawBody, authors, categories, title, mainImage, publishedAt, isUpdated, _updatedAt}) {
+
   return (
     <article className={styles.root}>
       {mainImage && mainImage.asset && (
@@ -26,7 +26,7 @@ function Basic (props) {
           />
         </div>
       )}
-      <Container>
+      <div style={{maxWidth: '960px', margin: '0 auto'}}>
         <div className={styles.grid}>
           <div className={styles.mainContent}>
             <h1 className={styles.title}>{title}</h1>
@@ -53,7 +53,7 @@ function Basic (props) {
             )}
           </aside>
         </div>
-      </Container>
+      </div>
     </article>
   )
 }

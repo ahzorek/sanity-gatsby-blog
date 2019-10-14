@@ -3,71 +3,45 @@ import {Link} from 'gatsby'
 import styled from 'styled-components'
 import {buildImageObj} from '../lib/helpers'
 import {imageUrlFor} from '../lib/image-url'
+import {Avatar} from '@material-ui/core/';
+
 
 const AuthorsList = styled.ul`
-  display: block;
-  width: max-content;
   list-style: none;
   padding: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
+  /* margin-block-start: 0;
+  margin-block-end: 0; */
 `
 const AuthorBox = styled.li`
   display: flex;
   flex-flow: row wrap;
-  margin: .5rem 0;
+  align-items: center;
   & a {
     color: inherit;
     text-decoration: none;
-    line-height: 10px;
   }
 
-`
-const Avatar = styled.div`
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  background: transparent;
-  border-radius: 50px;
-  overflow: hidden;
-  & img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: .85;
-  ${AuthorBox}:hover & {
-      opacity: 1;
-    }
-  }
 `
 const Name = styled.span`
-  display: inline;
-  margin: 0 1rem;
-  padding: 0;
-  line-height: 35px;
-  vertical-align: middle; 
-  /* vertical-align: top;
-  margin-top: 25px;
-  transform: translateY(-50%); */
-
+  padding: 0 1rem 0 10px;
 `
-
-const Author = ({items}) => {
+const Author = ({items, style, hidePic, prefix = 'por'}) => {
   return (
     <AuthorsList>
       {items.map(({author, _key}) => {
         const authorName = author && author.name
         const authorPhoto = author && imageUrlFor(buildImageObj(author.image)).width(100).height(100).fit('crop').url()
+
         return (
-          <AuthorBox key={_key} >
-            <Link to={`/autores/${author.slug.current}`}>
-              <Avatar>
-                <img src={authorPhoto} alt={authorName}/>
-              </Avatar>
-              </Link>
+          <AuthorBox style={style} key={_key} >
+            <i>{prefix}  </i>
+            {!hidePic && (
               <Link to={`/autores/${author.slug.current}`}>
-                <Name>{authorName}</Name>
-              </Link>
+                <Avatar style={{width: 30, height: 30, margin: '0px 0px 0px 10px'}} src={authorPhoto} alt={authorName}/>
+              </Link> )}
+            <Link to={`/autores/${author.slug.current}`}>
+              <Name>{authorName}</Name>
+            </Link>
           </AuthorBox>
         )
       })}

@@ -1,7 +1,7 @@
 import React from 'react'
 import Figure from './Figure'
-import MovieReview from './movie-review'
-import TvReview from './tv-review'
+import MovieReview from './MovieReview'
+import TvReview from './TvReview'
 
 
 const serializers = {

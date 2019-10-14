@@ -32,7 +32,7 @@
 }
 
 .browseMoreNav {
-  composes: small from './typography.module.css';
+  composes: small from '../styles/typography.module.css';
   margin-top: 1rem;
   text-align: right;
 

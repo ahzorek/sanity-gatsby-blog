@@ -1,48 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {graphql} from 'gatsby'
-import Layout from '../components/layout'
-import PostNav from '../components/post-nav'
-import Basic from '../components/Basic'
-import FullCover from '../components/FullCover'
-import HalfCover from '../components/HalfCover'
-import SimpleCover from '../components/SimpleCover'
-import MainContent from '../components/main-content'
-import SEO from '../components/seo'
-import {toPlainText} from '../lib/helpers'
-import CommentBox from '../components/CommentBox'
 
+import Layout from '../layouts/mainLayout'
+import { SEO, Basic, FullCover, HalfCover, SimpleCover, MainContent, CommentBox, PostKeywords } from '../components'
+import {toPlainText, readTime} from '../lib/helpers'
 
 const BlogPostTemplate = props => {
-  const stateDark = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('dark__mode')) : false;
-  const [isDark, setDark] = useState(stateDark)
-  const handleDarkMode = () => {
-    setDark(!isDark)
-    localStorage.setItem('dark__mode', !isDark)
-  }  
   const {data, errors, pageContext} = props
-  const post = data && data.post
-  const viewFormat = post.viewFormat._rawViewFormat.current
-  const readTime = Math.ceil((toPlainText(post._rawBody).split(" ").length) / 150);
-  //console.log('~', readTime, (readTime > 1 ?'minutos': 'minuto'))
+  const node = data && data.post
+  const viewFormat = node.viewFormat._rawViewFormat.current
+  const timeToRead = readTime(node, 100)
+  // console.log('~', timeToRead, (timeToRead > 1 ?'minutos': 'minuto'))
   
-  if(post){
+  if(node){
     return (
-      <Layout>
-        <SEO title={post.title || 'Sem título'} description={toPlainText(post._rawExcerpt)} image={post.mainImage} />
-        <PostNav
-          title={post.title} 
-          category={post.categories[0]}
-          layoutType={viewFormat}
-          darkModeToggle={handleDarkMode} 
-          isDark={viewFormat === 'basic' ? false : isDark}
-          hideToggle={viewFormat === 'basic' ? true : false}
-        />
-        { viewFormat === 'basic' && <Basic {...post} /> }
-        { viewFormat === 'fullCover' && <FullCover {...post} /> }
-        { viewFormat === 'halfCover' && <HalfCover isDark={isDark} {...post} /> }
-        { viewFormat === 'simpleCover' && <SimpleCover isDark={isDark} {...post} /> }
-        { viewFormat !== 'basic' && <MainContent isDark={isDark} >{post._rawBody}</MainContent> }
-        <CommentBox {...post} />
+      <Layout post {...node} >
+        <SEO title={node.title || 'Sem título'} description={toPlainText(node._rawExcerpt)} image={node.mainImage} />
+        { viewFormat === 'basic' && <Basic {...node} /> }
+        { viewFormat === 'fullCover' && <FullCover {...node} /> }
+        { viewFormat === 'halfCover' && <HalfCover {...node} /> }
+        { viewFormat === 'simpleCover' && <SimpleCover readTime={readTime(node, 100)} {...node} /> }
+        { viewFormat !== 'basic' && <MainContent>{node._rawBody}</MainContent> }
+        {node.keywords && <PostKeywords items={node.keywords}/>}
+        <CommentBox {...node} />
       </Layout>
     )
   } else errors && <SEO title='GraphQL Error' />

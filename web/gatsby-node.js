@@ -71,7 +71,7 @@ async function createBlogPostPages (graphql, actions, reporter) {
       const { next, previous } = edge
       const path = `/${URLDate}/${slug.current}/`
 
-      reporter.info(`Criando a página ${index} em: ${path}`)
+      reporter.info(`Criando a página ${index+1} em: ${path}`)
       createPage({
         path,
         component: require.resolve('./src/templates/blog-post.js'),
@@ -84,7 +84,7 @@ async function createBlogPostPages (graphql, actions, reporter) {
       const {id, slug = {}} = edge.node
       const path = `/autores/${slug.current}/`
 
-      reporter.info(`Criando a página ${index} em: ${path}`)
+      reporter.info(`Criando a página ${index+1} em: ${path}`)
 
       createPage({
         path,
@@ -98,7 +98,7 @@ async function createBlogPostPages (graphql, actions, reporter) {
       const {id, slug = {}} = edge.node
       const path = `/${slug.current}/`
 
-      reporter.info(`Criando a página ${index} em: ${path}`)
+      reporter.info(`Criando a página ${index+1} em: ${path}`)
 
       createPage({
         path,
