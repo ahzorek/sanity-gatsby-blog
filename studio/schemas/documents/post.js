@@ -59,20 +59,8 @@ export default {
     },
     {
       name: 'videoCoverURL',
-      title: 'URL para Capa com Video (caso selecionada).',
-      type: 'object',
-      fields: [
-        {
-          name: 'videoURL',
-          type: 'url',
-          title: 'URL do video (YouTube, Facebook, Vimeo, Twitch, Streamable, Wistia, DailyMotion, Mixcloud)'
-        }
-      ]
-    },
-    {
-      name: 'videoURL_v2',
       type: 'url',
-      title: 'URL do video (YouTube, Facebook, Vimeo, Twitch, Streamable, Wistia, DailyMotion, Mixcloud)'
+      title: 'URL para Capa com Video (caso selecionada)'
     },
     {
       name: 'mainImage',
