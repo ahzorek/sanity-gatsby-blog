@@ -3,6 +3,7 @@ import Basic from './covers/Basic'
 import FullCover from './covers/FullCover'
 import HalfCover from './covers/HalfCover'
 import SimpleCover from './covers/SimpleCover'
+import VideoCover from './covers/VideoCover'
 //readlist
 import AddToRead from './read-list/AddToRead'
 import ReadList from './read-list/ReadList'
@@ -23,6 +24,7 @@ export {
     FullCover,
     HalfCover,
     SimpleCover,
+    VideoCover,
     AddToRead,
     ReadList,
     DrawerBox,    

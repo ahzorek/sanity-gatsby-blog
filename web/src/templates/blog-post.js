@@ -2,7 +2,7 @@ import React from 'react'
 import {graphql} from 'gatsby'
 
 import Layout from '../layouts/mainLayout'
-import { SEO, Basic, FullCover, HalfCover, SimpleCover, MainContent, CommentBox, PostKeywords } from '../components'
+import { SEO, Basic, FullCover, HalfCover, SimpleCover, VideoCover, MainContent, CommentBox, PostKeywords } from '../components'
 import {toPlainText, readTime} from '../lib/helpers'
 
 const BlogPostTemplate = props => {
@@ -11,21 +11,26 @@ const BlogPostTemplate = props => {
   const viewFormat = node.viewFormat._rawViewFormat.current
   const timeToRead = readTime(node, 100)
   // console.log('~', timeToRead, (timeToRead > 1 ?'minutos': 'minuto'))
+    
+  if(errors) { 
+    console.error(errors)
+    return <SEO title='GraphQL Error' /> 
+  }
+
+  return (
+    <Layout post {...node} >
+      <SEO title={node.title || 'Sem título'} description={toPlainText(node._rawExcerpt)} image={node.mainImage} />
+      { viewFormat === 'basic' && <Basic {...node} /> }
+      { viewFormat === 'fullCover' && <FullCover {...node} /> }
+      { viewFormat === 'halfCover' && <HalfCover {...node} /> }
+      { viewFormat === 'simpleCover' && <SimpleCover readTime={readTime(node, 100)} {...node} /> }
+      { viewFormat === 'videoCover' && <VideoCover readTime={readTime(node, 100)} {...node} /> }
+      { viewFormat !== 'basic' && <MainContent>{node._rawBody}</MainContent> }
+      {node.keywords && <PostKeywords items={node.keywords}/>}
+      <CommentBox {...node} />
+    </Layout>
+  )
   
-  if(node){
-    return (
-      <Layout post {...node} >
-        <SEO title={node.title || 'Sem título'} description={toPlainText(node._rawExcerpt)} image={node.mainImage} />
-        { viewFormat === 'basic' && <Basic {...node} /> }
-        { viewFormat === 'fullCover' && <FullCover {...node} /> }
-        { viewFormat === 'halfCover' && <HalfCover {...node} /> }
-        { viewFormat === 'simpleCover' && <SimpleCover readTime={readTime(node, 100)} {...node} /> }
-        { viewFormat !== 'basic' && <MainContent>{node._rawBody}</MainContent> }
-        {node.keywords && <PostKeywords items={node.keywords}/>}
-        <CommentBox {...node} />
-      </Layout>
-    )
-  } else errors && <SEO title='GraphQL Error' />
 }
 
 export default BlogPostTemplate

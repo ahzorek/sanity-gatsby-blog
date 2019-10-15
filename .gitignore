@@ -15,3 +15,4 @@ node_cheat_sheet.txt
 # Tokens
 
 /web/.env.development
+/web/.env.production

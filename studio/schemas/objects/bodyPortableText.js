@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default {
   name: 'bodyPortableText',
@@ -34,11 +34,11 @@ export default {
           { title: "Code", value: "code" },
           { title: "Underline", value: "underline" },
           { title: "Strike", value: "strike-through" },
-          {title: 'Sup', value: 'sup',
-            blockEditor: { 
-              icon: () => 'ˆª',
-              render: props => <sup>{props.children}</sup> 
-            }
+          { title: 'Sup', value: 'sup',
+              blockEditor: { 
+                icon: () => 'ˆª',
+                render: props => <sup>{props.children}</sup> 
+              }
           }
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
@@ -69,6 +69,9 @@ export default {
     {
       type: 'bodyImage',
       options: {hotspot: true}
+    },
+    {
+      type: 'videoSource'
     },
     {
       type: 'movieID'

@@ -11,9 +11,14 @@ export default {
       title: 'Título',
       validation: Rule => [
         Rule.required().min(20).error(`Um título de no minimo 25 caracteres é necessário. Entre 40 e 65 é o ideal.`),
-        Rule.max(66).warning('Talvez seja grande demais. Se puder reduzir. :)'),
-        Rule.required().max(90).error(`Muito grande. A partir de agora a slug não pode ser gerada.`),
+        Rule.max(66).warning('Talvez seja grande demais. Se puder reduzir.'),
+        Rule.max(90).error(`Muito grande. A partir de agora a slug não pode ser gerada.`),
       ] 
+    },
+    {
+      name: 'customizedTitle',
+      type: 'titlePortableText',
+      title: `Título 'customizado'`
     },
     {
       name: 'slug',
@@ -51,6 +56,23 @@ export default {
       to: {
         type: 'viewFormat'
       }
+    },
+    {
+      name: 'videoCoverURL',
+      title: 'URL para Capa com Video (caso selecionada).',
+      type: 'object',
+      fields: [
+        {
+          name: 'videoURL',
+          type: 'url',
+          title: 'URL do video (YouTube, Facebook, Vimeo, Twitch, Streamable, Wistia, DailyMotion, Mixcloud)'
+        }
+      ]
+    },
+    {
+      name: 'videoURL_v2',
+      type: 'url',
+      title: 'URL do video (YouTube, Facebook, Vimeo, Twitch, Streamable, Wistia, DailyMotion, Mixcloud)'
     },
     {
       name: 'mainImage',

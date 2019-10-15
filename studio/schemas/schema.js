@@ -14,12 +14,14 @@ import viewFormat from './documents/format'
 // Object types
 import bodyPortableText from './objects/bodyPortableText'
 import bioPortableText from './objects/bioPortableText'
+import titlePortableText from './objects/titlePortableText'
 import excerptPortableText from './objects/excerptPortableText'
 import mainImage from './objects/mainImage'
 import bodyImage from './objects/bodyImage'
 import authorReference from './objects/authorReference'
 import movieID from './objects/movieID'
 import tvID from './objects/tvID'
+import videoSource from './objects/videoSource'
 
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -41,9 +43,11 @@ export default createSchema({
     authorReference,
     bodyPortableText,
     bioPortableText,
+    titlePortableText,
     excerptPortableText,
     movieID,
-    tvID
+    tvID,
+    videoSource
 
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas

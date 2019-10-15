@@ -1,7 +1,7 @@
 export default {
     name: 'tvID',
     type: 'object',
-    title: 'Box Série de TV',
+    title: 'Box Série',
     fields: [
         {
           name: 'id',

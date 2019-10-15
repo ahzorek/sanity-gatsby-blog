@@ -1,7 +1,7 @@
 export default {
     name: 'movieID',
     type: 'object',
-    title: 'Movie Review',
+    title: 'Box Filme',
     fields: [
         {
           name: 'id',
