@@ -11,22 +11,24 @@ import Layout from '../layouts/mainLayout'
 
 const AuthorTemplate = props => {
   const {data, errors} = props
-  if (errors) { return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> }
   
-  else {
-    const author = data && data.author
-    const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
-
-    return (
-      <Layout navigation nodes={postNodes}>
-        <SEO title={author.name || 'Autor'} description={toPlainText(author._rawBio) || 'Autor do Hibernativos'} image={'undefined'} />
-        <h1>{author.name}</h1>
-        <h2>{toPlainText(author._rawBio) || 'Autor do Hibernativos'}</h2>
-        { postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes}/> }
-      </Layout>
-    )
+  if(errors) { 
+    console.error(errors)
+    return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> 
   }
+  const author = data && data.author
+  const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
+
+  return (
+    <Layout navigation nodes={postNodes}>
+      <SEO title={author.name || 'Autor'} description={toPlainText(author._rawBio) || 'Autor do Hibernativos'} image={'undefined'} />
+      <h1>{author.name}</h1>
+      <h2>{toPlainText(author._rawBio) || 'Autor do Hibernativos'}</h2>
+      { postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes}/> }
+    </Layout>
+  )
 }
+
 export default AuthorTemplate
 
 export const query = graphql`

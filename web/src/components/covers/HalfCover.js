@@ -9,18 +9,11 @@ import { minQueries } from '../../lib/media'
 import { getPos } from '../../lib/helpers'
 import {Link} from '../../lib/link'
 import Logo from '../../images/logo'
+import MiniLogoMenu from '../menus/mini-logo-menu'
 
 const HalfCover = props => {
   const {title, categories, authors, mainImage, publishedAt, isUpdated, _updatedAt} = props
   const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
-  const [posY, setY] = useState(true)
-  
-  const setBar = () => setY(window.scrollY < 10 ? true : false)
-
-  useEffect(() => {
-    window.addEventListener('scroll', setBar)
-    return () => window.removeEventListener('scroll', setBar)
-  })
 
   if(mainImage) {
     return (
@@ -31,9 +24,7 @@ const HalfCover = props => {
             Tag="section"
             fluid={bgSrc}
             backgroundColor={Object.values(mainImage.asset.metadata)[0].vibrant.color}>
-            <MiniLogoBar pos={posY}>
-              <Link to='/'><Logo hideText/></Link>
-            </MiniLogoBar>
+            <MiniLogoMenu right />
           </Photo>
         )}
 
@@ -70,38 +61,6 @@ const Photo = styled(BackgroundImage)`
     height: 100vh;
   }
 `
-const MiniLogoBar = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: .6rem .6rem .6rem .8rem;
-  margin: 1rem;
-  transform: ${props => props.pos ? 'translateY(0%)' : 'translateY(-100%)'};
-  transition: transform 260ms ease-in-out;
-  background-color: rgba(20,20,20,.92);
-  background-color: ${props => props.theme.navBg};
-  ${props => props.theme.myLogoBlend};
-
-  backdrop-filter: blur(5px);
-  & a {
-    text-decoration: none;
-  }
-
-  /* background-image: linear-gradient(  
-    to bottom,
-    rgba(20,20,20, 1),
-    rgba(20,20,20,.8),
-    rgba(20,20,20,.5),
-    rgba(20,20,20,.3),
-    rgba(20,20,20,.2),
-    rgba(20,20,20,.1),
-    rgba(20,20,20,.0)
-  ); */
-`
-
 const PostInfo = styled.section`
   grid-area: info;
   display: flex;

@@ -6,10 +6,22 @@ import DuoToneImage from '../lib/duotone'
 
 const ImageRenderer = ({mainImage, altColor}) => {
   const paletes = Object.values(mainImage.asset.metadata)[0]
-  //console.log(paletes)  
+
   return (
     <div>
-      {Object.values(paletes).map((x, index) => <div key={index} style={{ display: 'inline-block',width: '70px', height: '40px', background: x.color, color: 'white' }} >{x.color}</div>)}
+      {Object.values(paletes).map((x, index) => (
+        <div 
+          key={index} 
+          style={{ 
+              display: 'inline-block',
+              width: '70px', 
+              height: '40px', 
+              background: x.color, 
+              color: 'white' 
+            }}>
+          {x.color}
+        </div>
+      ))}
       <DuoToneImage 
         imageUrl={imageUrlFor(buildImageObj(mainImage))
           .width(1200)

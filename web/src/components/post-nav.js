@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import IosMenu from 'react-ionicons/lib/IosMenu'
@@ -7,8 +7,11 @@ import Switch from './Switch'
 import Logo from '../images/logo'
 import {Link} from '../lib/link'
 import {minQueries} from '../lib/media'
+import DarkContext from '../lib/dark-context'
 
-const PostNav = ({ title, category, darkModeToggle, layoutType, handleDrawer, mode }) => {
+
+const PostNav = ({ title, category, layoutType, handleDrawer }) => {
+  const {isDark, handleDarkMode} = useContext(DarkContext);
   let navStart
   if((layoutType === 'fullCover') || (layoutType === 'halfCover')){ 
     navStart = false 
@@ -43,7 +46,7 @@ const PostNav = ({ title, category, darkModeToggle, layoutType, handleDrawer, mo
         <Link to='/' color={accentColor}><Logo color={accentColor}/></Link>
       </SideSlot>
 
-      <CenterSlot display={displayTitle}>
+      <CenterSlot display={displayTitle ? 'translateY(0)' : 'translateY(-300%)'}>
         <Link to={`/${category._rawSlug.current}`} color={accentColor}>
           <Subject title={`Ver mais artigos em ${category.title}`} color={accentColor} >{category.title}</Subject>
         </Link>      
@@ -52,7 +55,7 @@ const PostNav = ({ title, category, darkModeToggle, layoutType, handleDrawer, mo
 
       <SideSlot style ={{justifyContent: 'flex-end', alignItems: 'center'}} >
         <SwitchWrapper>
-          <Switch isOn={mode} accentColor={accentColor} functionToRun={darkModeToggle}/>
+          <Switch isOn={isDark} accentColor={accentColor} functionToRun={handleDarkMode}/>
         </SwitchWrapper>
         <IconButton onClick={handleDrawer}>
           <IosMenu fontSize="24pt" color={accentColor} />
@@ -108,7 +111,7 @@ const CenterSlot = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transform: ${props => props.display ? 'translateY(0)' : 'translateY(-300%)'};
+  transform: ${props => props.display};
   transition: transform 300ms ease-in-out;
 `
 const NavTitle = styled.span`

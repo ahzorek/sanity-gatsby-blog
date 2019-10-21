@@ -16,9 +16,9 @@ export default {
       ] 
     },
     {
-      name: 'customizedTitle',
+      name: 'stylizedTitle',
       type: 'titlePortableText',
-      title: `Título 'customizado'`
+      title: `Título 'estilizado'`
     },
     {
       name: 'slug',

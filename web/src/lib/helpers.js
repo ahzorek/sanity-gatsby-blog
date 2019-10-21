@@ -97,3 +97,7 @@ export function getPos(img){
     Y: img.hotspot ? Math.round(img.hotspot.y * 100) + '%' : 'center'
   }
 }
+
+export function isBrowser(){
+  return typeof window !== 'undefined'
+}

@@ -3,6 +3,8 @@ import Figure from './Figure'
 import MovieReview from './MovieReview'
 import TvReview from './TvReview'
 
+const VideoEmbed = (props) => <div>Bloco de video aqui</div>
+
 
 const serializers = {
   types: {
@@ -10,7 +12,8 @@ const serializers = {
     mainImage: Figure,
     bodyImage: Figure,
     movieID:  MovieReview,
-    tvID: TvReview
+    tvID: TvReview,
+    videoSource: VideoEmbed
   },
   marks: {
     sup: ({children}) => <sup>{children[0]}</sup>

@@ -27,14 +27,14 @@ const Wrapper = styled.main`
       margin-right: auto;
       padding: 1rem 2rem .5rem;
     }
-
     & p, li {
       color: ${props => props.theme.primaryText};
       font-family: Georgia,Cambria,Times,serif;
       font-style: normal;
-      font-size: 21px;
+      font-size: calc(1rem + .4vw);
       letter-spacing: -.003em;
       text-align: left;
+      width: 50ch;
       max-width: 680px;
       margin: 1rem auto;
       padding: 0 2rem;

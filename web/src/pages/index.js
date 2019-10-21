@@ -5,6 +5,8 @@ import { mapEdgesToNodes, filterOutDocsWithoutSlugs, filterOutDocsPublishedInThe
 import BlogPostPreviewGrid from '../components/blog-post-preview-grid'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
+import TopHeadline from '../components/TopHeadline'
+
 
 import Layout from '../layouts/mainLayout'
 import ErrorLayout from '../layouts/errorLayout'
@@ -18,14 +20,15 @@ const IndexPage = props => {
   if(!site) { throw new Error('Faltam ser configuradas as informações do site.') }
   
   return (   
-    <Layout navigation nodes={postNodes}>
+    <Layout nodes={postNodes}>
       <SEO title={site.title} description={site.description} keywords={site.keywords}/>
       <h1 hidden>Bem-vindx ao {site.title}</h1>  
+        <TopHeadline node={postNodes[0]}/>
         {postNodes && (
           <BlogPostPreviewGrid
             title='Últimos Artigos'
-            nodes={postNodes.slice([0])}
-            browseMoreHref='/archive/'
+            nodes={postNodes.slice(1,4)}
+            browseMoreHref='/arquivo/'
           />
         )}
     </Layout>

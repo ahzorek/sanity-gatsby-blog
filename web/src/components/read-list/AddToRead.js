@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack'
 
 const AddToRead = ({node, style}) => {
   const [buttonIsAdding, setButton] = useState(true) 
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar()
 
   useEffect(() => {
     if(localStorage.getItem(node.id) !== null) {
@@ -27,19 +27,19 @@ const AddToRead = ({node, style}) => {
     }
   }
   return (
-    <div style={{...style}}>
-      <IosBookmark  
+    <span style={{...style}}>
+      <IosBookmark
         fontSize="14pt"
         color={buttonIsAdding ? 'black' : 'rgb(224, 22, 22)' }
         style={{
-          transform: buttonIsAdding ? 'none' : 'scaleY(1.2)',
+          transform: !buttonIsAdding ? 'scaleY(1.4)' : 'scaleY(1)',
           transition: 'transform 100ms ease',
           transformOrigin: 'center top'
         }}
         onClick={handleReadList}
         title={ `${buttonIsAdding ? 'Adicionar a ' : 'Remover da '} Lista de Leitura`}
         />
-      </div>
+      </span>
   )
 }
 export default AddToRead

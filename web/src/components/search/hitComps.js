@@ -16,7 +16,7 @@ import { Link } from "gatsby"
 // )
 
 export const PostHit = ({ hit }) => (
-    <Link to={`/${hit.link}`}>
+    <Link to={hit.link}>
       <h4>
         <Highlight attribute="title" hit={hit} tagName="mark" />
       </h4>

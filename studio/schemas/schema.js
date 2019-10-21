@@ -10,6 +10,7 @@ import category from './documents/category'
 import post from './documents/post'
 import siteSettings from './documents/siteSettings'
 import viewFormat from './documents/format'
+import testEnv from './documents/testEnv'
 
 // Object types
 import bodyPortableText from './objects/bodyPortableText'
@@ -36,6 +37,7 @@ export default createSchema({
     siteSettings,
     post,
     viewFormat,
+    testEnv,
     category,
     author,
     mainImage,

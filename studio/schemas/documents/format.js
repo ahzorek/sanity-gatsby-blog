@@ -1,7 +1,7 @@
 export default {
     name: 'viewFormat',
     type: 'document',
-    title: 'Formatos de Visualização',
+    title: 'Formatos de Capa',
     fields: [
       {
         name: 'title',

@@ -10,21 +10,23 @@ import Layout from '../layouts/mainLayout'
 
 const TopicsTemplate = props => {
   const {data, errors} = props
-  if(errors) { return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> }
-  
-  else {
-    const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
-    const topic = data.topic
 
-    //console.log(topic)
-    return (
-      <Layout navigation hideNav nodes={postNodes}>
-        <SEO title={topic.title || 'Assunto'} description={'Hibernativos'} image={'undefined'} />
-        { postNodes && postNodes.length > 0 && <BlogPostPreviewGrid hideCat nodes={postNodes} /> }
-      </Layout>
-    )   
+  if(errors) { 
+    console.error(errors)
+    return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> 
   }
-}
+  
+  const postNodes = data && data.posts && mapEdgesToNodes(data.posts)
+  const topic = data.topic
+
+  return (
+    <Layout navigation hideNav nodes={postNodes}>
+      <SEO title={topic.title || 'Assunto'} description={'Hibernativos'} image={'undefined'} />
+      { postNodes && postNodes.length > 0 && <BlogPostPreviewGrid hideCat nodes={postNodes} /> }
+    </Layout>
+  )   
+  }
+
 
 export const query = graphql`
   query TopicsQuery($id: String!) {

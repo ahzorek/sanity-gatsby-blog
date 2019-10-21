@@ -2,6 +2,7 @@ import React from 'react'
 import {graphql} from 'gatsby'
 
 import Layout from '../layouts/mainLayout'
+import ErrorLayout from '../layouts/errorLayout'
 import { SEO, Basic, FullCover, HalfCover, SimpleCover, VideoCover, MainContent, CommentBox, PostKeywords } from '../components'
 import {toPlainText, readTime} from '../lib/helpers'
 
@@ -12,9 +13,9 @@ const BlogPostTemplate = props => {
   const timeToRead = readTime(node, 100)
   // console.log('~', timeToRead, (timeToRead > 1 ?'minutos': 'minuto'))
     
-  if(errors) { 
+  if (errors) { 
     console.error(errors)
-    return <SEO title='GraphQL Error' /> 
+    return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> 
   }
 
   return (
@@ -55,6 +56,7 @@ export const query = graphql`
       viewFormat {
         _rawViewFormat
       }
+      videoCoverURL
       categories {
         id
         title

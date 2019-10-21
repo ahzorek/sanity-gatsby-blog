@@ -9,6 +9,7 @@ import clientConfig from '../../../client-config'
 import Author from '../author'
 import {minQueries, maxQueries} from '../../lib/media'
 import {getPos} from '../../lib/helpers'
+import MiniLogoMenu from '../menus/mini-logo-menu'
 
 const FullCover = props => {
   const {title, categories, authors, mainImage, publishedAt, isUpdated, _updatedAt } = props
@@ -25,6 +26,7 @@ const FullCover = props => {
           fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}
           backgroundColor={Object.values(mainImage.asset.metadata)[0].vibrant.color}
           >
+          <MiniLogoMenu />
           <CoverContent>
             <Subject>{categories[0].title}</Subject>
             <Title>{title}</Title>

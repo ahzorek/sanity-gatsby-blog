@@ -4,18 +4,25 @@ import {graphql} from 'gatsby'
 import {mapEdgesToNodes, filterOutDocsWithoutSlugs, filterOutDocsPublishedInTheFuture} from '../lib/helpers'
 import BlogPostPreviewList from '../components/blog-post-preview-list'
 import GraphQLErrorList from '../components/graphql-error-list'
-import {SEO} from '../components/'
+import {SEO} from '../components'
 
 import Layout from '../layouts/mainLayout'
 import ErrorLayout from '../layouts/errorLayout'
 
-const ArchivePage = props => {
-  const {data, errors} = props
-  if (errors) { <ErrorLayout><GraphQLErrorList errors={errors} /></ErrorLayout> }
-  const site = (data || {}).site
+const PaginaArquivo = ({data, errors}) => {
+
+  if (errors) { console.error(errors)
+  return ( 
+    <ErrorLayout>
+      <GraphQLErrorList errors={errors} />
+    </ErrorLayout> 
+  )
+}
+const site = (data || {}).site; if(!site) { 
+    throw new Error('Faltam ser configuradas as informações do site.') 
+  }
+
   const postNodes = (data || {}).posts? mapEdgesToNodes(data.posts).filter(filterOutDocsWithoutSlugs).filter(filterOutDocsPublishedInTheFuture) : []
-  if(!site) { throw new Error('Faltam ser configuradas as informações do site.') }
-  
   const initial = 4
   const increment = 2
   const allPosts = data.posts.edges.length
@@ -25,20 +32,20 @@ const ArchivePage = props => {
     ? increment 
     : (allPosts - postsLoaded))
 
-  useEffect(() => setPosts((allPosts - postsLoaded) > increment 
-    ? increment 
-    : (allPosts - postsLoaded)
-  ), [postsLoaded])
-  
+  let docTitle = `Arquivo | Exibindo ${postsLoaded} de ${allPosts} artigos`
+
   useEffect(() => {
-    document.title = `Arquivo | Exibindo ${postsLoaded} de ${allPosts} artigos | Hibernativos`;
+    setPosts((allPosts - postsLoaded) > increment 
+      ? increment 
+      : (allPosts - postsLoaded));
+    docTitle = `Arquivo | Exibindo ${postsLoaded} de ${allPosts} artigos`
   }, [postsLoaded])
   
   const loadMorePosts = () => loadPosts(postsLoaded + postsToLoad)
 
   return (
     <Layout navigation nodes={postNodes}>
-      <SEO title={`Arquivo | Exibindo ${postsLoaded} de ${allPosts} artigos`} />
+      <SEO title={docTitle} />
       <h1 hidden>Arquivo de artigos do {site.title}</h1>
       {postNodes && postNodes.length > 0 && (
         <BlogPostPreviewList 
@@ -111,4 +118,4 @@ export const query = graphql`
   }
 `
 
-export default ArchivePage
+export default PaginaArquivo

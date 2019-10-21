@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import IosMenu from 'react-ionicons/lib/IosMenu'
@@ -7,14 +7,14 @@ import NavMenu from './NavMenu'
 import { Link } from '../lib/link'
 import Logo from '../images/logo.js'
 
-const Header = ({handleDrawer, nodes, mode, hideNav}) => (
+const Header = ({handleDrawer, nodes, hideNav}) => (
   <HeaderBox>
     <Flexer>
       <Branding>
         <Link to='/' color={'#232323'}><Logo/></Link>
       </Branding>
       <Nav>
-        {!hideNav && <NavMenu mode={mode} nodes={nodes}/> }
+        {!hideNav && <NavMenu nodes={nodes}/> }
         <IconButton style={{justifySelf: 'flex-end'}} onClick={handleDrawer} >
           <IosMenu color={mode ? '#fff' : '#000'} fontSize="24pt"/>
         </IconButton>
