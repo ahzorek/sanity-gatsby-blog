@@ -7,7 +7,7 @@ import NavMenu from './NavMenu'
 import { Link } from '../lib/link'
 import Logo from '../images/logo.js'
 
-const Header = ({handleDrawer, nodes, hideNav}) => (
+const Header = ({handleDrawer, mode, nodes, hideNav}) => (
   <HeaderBox>
     <Flexer>
       <Branding>

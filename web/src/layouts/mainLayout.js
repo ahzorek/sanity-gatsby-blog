@@ -43,6 +43,7 @@ const Layout = props => {
               nodes={nodes}
               hideNav={hideNav}
               handleDrawer={handleDrawer}
+              mode={isDark}
             />
           )}
           {post && (
