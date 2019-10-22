@@ -50,6 +50,22 @@ export default {
       }
     },
     {
+      name: "coverFormat",
+      title: 'Formato de capa para o artigo.',
+      type: "string",
+      options: {
+        list: [
+          { title: "Capa com video", value: "videoCover" },
+          { title: "Capa básica", value: "basic" },
+          { title: "Capa em meia página", value: "halfCover" },
+          { title: "Capa página cheia", value: "fullCover" },
+          { title: `Capa estilo joarnal 'NYT'`, value: "simpleCover" }
+        ],
+        layout: "radio"
+      },
+      validation: Rule => Rule.error('Precisa ser selecionado.').required()
+    },
+    {
       name: 'viewFormat',
       title: 'Formato de capa para o artigo.',
       type: 'reference',

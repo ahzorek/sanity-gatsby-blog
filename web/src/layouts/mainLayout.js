@@ -6,7 +6,7 @@ import Drawer from '@material-ui/core/Drawer'
 import { SnackbarProvider } from 'notistack';
 //internal components and helpers
 import { dark, light } from '../styles/themes'
-import { PostNav, Header, Switch, DrawerBox, ReadList } from '../components/'
+import { PostNav, Header, Switch, DrawerBox, ReadList } from '../components'
 import {isBrowser} from '../lib/helpers'
 import useDark from '../lib/dark-hook'
 import DarkContext from '../lib/dark-context'
