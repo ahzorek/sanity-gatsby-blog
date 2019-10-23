@@ -17,7 +17,7 @@ export default {
             { title: "Awaiting publication", value: "awaiting" },
             { title: "Published", value: "published" }
           ],
-          layout: "radio"
+          layout: "checkbox"
         }
       }
     ]

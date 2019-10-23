@@ -21,11 +21,11 @@ const DisplayDate = ({ showUpdate, relative, prefix, sFormat, dateInfo:{publishe
   )
 }
 
-const RelDate = styled.div`
+const RelDate = styled.span`
   font-size: 12pt;
 `
 
-const DefDate = styled.div`
+const DefDate = styled.span`
   font-size: 12pt;
   display: flex;
   flex-flow: row wrap;
@@ -33,7 +33,7 @@ const DefDate = styled.div`
 
 `
 
-const Update = styled.div`
+const Update = styled.span`
   font-size: 8pt;
 
 `

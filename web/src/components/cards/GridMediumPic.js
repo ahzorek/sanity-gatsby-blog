@@ -8,11 +8,22 @@ import clientConfig from '../../../client-config'
 import { getBlogUrl, getPos } from '../../lib/helpers'
 import AddToRead from '../read-list/AddToRead'
 import {Link} from '../../lib/link'
-
-
 //import '../blog-post-preview-grid.module.css'
 
+function hasVideo({bodyText}){
+  let videoBlocks = bodyText.filter(({_type}) => (
+    _type === 'videoSource' ? true : false ))
+  if(videoBlocks.length > 0){
+    return true
+  } else 
+  return false
+}
+
 const GridMediumPic = props => {
+  //console.log(props.title, hasVideo(props))
+  //console.log('esse é o controle', props.bodyText)
+
+  //console.log('essa é a função',hasVideo(props))
   const { title, slug, publishedAt, categories, mainImage, authors, hideCat, hideRead } = props
 
   const imagePos = getPos(mainImage)

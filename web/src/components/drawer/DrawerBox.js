@@ -2,10 +2,24 @@ import React from 'react'
 import styled from 'styled-components'
 import {maxQueries} from '../../lib/media'
 
-const Wrapper = styled.div`
-  width: 350px;
-  min-height: max-content;
+const Wrapper = styled.aside`
+  width: 100vw;
   height: 100%;
+  display: flex;
+  flex-flow: collumn no-wrap;
+`
+const CloseButton = styled.div`
+  width: 100%;
+  height: 100%;
+  @media ${maxQueries.Sm}{
+    display: none;
+  }
+`
+const SideBar = styled.div`
+  min-width: 320px;
+  max-width: 480px;
+  min-height: 100%;
+  height: max-content;
   padding: 1rem;
   box-sizing: border-box;
   background-color: ${props => props.theme.navBg};
@@ -14,6 +28,7 @@ const Wrapper = styled.div`
     width: 100vw;
   }
 `
+
 const CloseDrawer = styled.button`
   all: reset;
   background-color: black;
@@ -27,8 +42,11 @@ const CloseDrawer = styled.button`
 const DrawerBox = ({children, handleDrawer}) => {
     return (
         <Wrapper>
+          <SideBar>
           <CloseDrawer onClick={handleDrawer}>Fechar Barra</CloseDrawer>
           {children}
+          </SideBar>
+          <CloseButton onClick={handleDrawer}/>
         </Wrapper>
     )
 }

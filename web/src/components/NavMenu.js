@@ -18,8 +18,8 @@ const NavMenu = ({ nodes }) => {
   
   return (
     <Wrapper>
+      <TrendingUpRoundedIcon fontSize="large"/>
       <LinkWrapper>
-        <TrendingUpRoundedIcon fontSize="large"/>
         {categories !== null && categories.slice(0,4).map((category, index) => (
           <li title={`Mais em ${category.title}`} key={'link__',index} style={{listStyle: 'none'}}>
             <Link color={category.color ? category.color.hex : 'rgb(128,128,128'} to={`/${category.slug.current}/`}>
@@ -39,16 +39,16 @@ const Wrapper = styled.nav`
   align-items: center;
   font-size: 10pt;
   text-transform: uppercase;
-`
-const LinkWrapper = styled.ul`
   @media ${maxQueries.Md} {
     display: none;
   }
-  @media ${maxQueries.Lg} { 
+`
+const LinkWrapper = styled.ul`
+  /* @media ${maxQueries.Lg} { 
     & li :last-of-type {
       display: none;
     }
-  }
+  } */
   display: contents;
   width: auto;
   &:hover {

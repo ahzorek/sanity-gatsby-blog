@@ -77,7 +77,7 @@ const Bar = styled.nav`
   z-index: 10;
   align-items: center;
   width: 100%;
-  height: 70px;
+  height: 80px;
   background-color: ${props => props.theme.navBg};
   color: ${props => props.theme.navText};
   font-weight: 500;
@@ -89,7 +89,6 @@ const Bar = styled.nav`
   backdrop-filter: blur(5px);
   && a {
     display: inline-block;
-    padding: 0.5em;
     color: inherit;
     text-decoration: none;
   }

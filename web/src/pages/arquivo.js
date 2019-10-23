@@ -23,8 +23,8 @@ const site = (data || {}).site; if(!site) {
   }
 
   const postNodes = (data || {}).posts? mapEdgesToNodes(data.posts).filter(filterOutDocsWithoutSlugs).filter(filterOutDocsPublishedInTheFuture) : []
-  const initial = 4
-  const increment = 2
+  const initial = 6
+  const increment = 4
   const allPosts = data.posts.edges.length
   
   const [postsLoaded, loadPosts] = useState(allPosts > initial ? initial : allPosts)

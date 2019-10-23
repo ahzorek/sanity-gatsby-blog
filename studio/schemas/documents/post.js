@@ -51,7 +51,7 @@ export default {
     },
     {
       name: "coverFormat",
-      title: 'Formato de capa para o artigo.',
+      title: 'Formato da capa usada no artigo',
       type: "string",
       options: {
         list: [
@@ -61,18 +61,18 @@ export default {
           { title: "Capa página cheia", value: "fullCover" },
           { title: `Capa estilo joarnal 'NYT'`, value: "simpleCover" }
         ],
-        layout: "radio"
+        layout: "checkbox"
       },
       validation: Rule => Rule.error('Precisa ser selecionado.').required()
     },
-    {
-      name: 'viewFormat',
-      title: 'Formato de capa para o artigo.',
-      type: 'reference',
-      to: {
-        type: 'viewFormat'
-      }
-    },
+    // {
+    //   name: 'viewFormat',
+    //   title: 'Formato de capa para o artigo.',
+    //   type: 'reference',
+    //   to: {
+    //     type: 'viewFormat'
+    //   }
+    // },
     {
       name: 'videoCoverURL',
       type: 'url',

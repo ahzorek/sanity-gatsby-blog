@@ -38,11 +38,11 @@ export default () =>
         .icon(MdStyle)
         .schemaType('category')
         .child(S.documentTypeList('category').title('Categorias')),
-      S.listItem()
-        .title('Formatos de Capa')
-        .icon(MdVignette)
-        .schemaType('viewFormat')
-        .child(S.documentTypeList('viewFormat').title('Capas')),
+      // S.listItem()
+      //   .title('Formatos de Capa')
+      //   .icon(MdVignette)
+      //   .schemaType('viewFormat')
+      //   .child(S.documentTypeList('viewFormat').title('Capas')),
       S.listItem()
         .title('Ambiente de Testes **')
         .icon(IoIosMdFlask)

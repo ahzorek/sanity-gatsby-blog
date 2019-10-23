@@ -1,24 +1,22 @@
 import React, {useContext} from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
-import IosMenu from 'react-ionicons/lib/IosMenu'
+import MenuIcon from '@material-ui/icons/Menu';
 
 import NavMenu from './NavMenu'
 import { Link } from '../lib/link'
 import Logo from '../images/logo.js'
 
-const Header = ({handleDrawer, mode, nodes, hideNav}) => (
+const Header = ({handleDrawer, nodes, hideNav}) => (
   <HeaderBox>
     <Flexer>
       <Branding>
+        <MenuButton onClick={handleDrawer} >
+          <MenuIcon/>
+        </MenuButton>
         <Link to='/' color={'#232323'}><Logo/></Link>
       </Branding>
-      <Nav>
-        {!hideNav && <NavMenu nodes={nodes}/> }
-        <IconButton style={{justifySelf: 'flex-end'}} onClick={handleDrawer} >
-          <IosMenu color={mode ? '#fff' : '#000'} fontSize="24pt"/>
-        </IconButton>
-      </Nav>
+      {!hideNav && <NavMenu nodes={nodes}/> }
     </Flexer>
   </HeaderBox>
 )
@@ -33,26 +31,28 @@ const HeaderBox = styled.header`
 `
 const Flexer = styled.section`
   display: flex;
-  align-items: stretch;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 1.6rem .5rem;
-  `
+  display: flex;
+  height: 80px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
 
+`
 const Branding = styled.section`
+  justify-self: flex-start;
+  display: flex;
+  justify-content: flex-end;
   font-weight: 600;
-  align-self: center;
   & a {
     color: inherit;
     text-decoration: none; 
   }
 `
-
-const Nav = styled.nav`
-  display: flex;
-  justify-content: flex-end;
+const MenuButton = styled(IconButton)`
+  justify-self: flex-start;
+  color: ${props => props.theme.primaryText};
 `
-
 export default Header

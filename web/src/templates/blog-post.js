@@ -9,7 +9,7 @@ import {toPlainText, readTime} from '../lib/helpers'
 const BlogPostTemplate = props => {
   const {data, errors, pageContext} = props
   const node = data && data.post
-  const viewFormat = node.viewFormat._rawViewFormat.current
+  const {coverFormat} = node
   const timeToRead = readTime(node, 100)
   // console.log('~', timeToRead, (timeToRead > 1 ?'minutos': 'minuto'))
     
@@ -21,12 +21,12 @@ const BlogPostTemplate = props => {
   return (
     <Layout post {...node} >
       <SEO title={node.title || 'Sem título'} description={toPlainText(node._rawExcerpt)} image={node.mainImage} />
-      { viewFormat === 'basic' && <Basic {...node} /> }
-      { viewFormat === 'fullCover' && <FullCover {...node} /> }
-      { viewFormat === 'halfCover' && <HalfCover {...node} /> }
-      { viewFormat === 'simpleCover' && <SimpleCover readTime={readTime(node, 100)} {...node} /> }
-      { viewFormat === 'videoCover' && <VideoCover readTime={readTime(node, 100)} {...node} /> }
-      { viewFormat !== 'basic' && <MainContent>{node._rawBody}</MainContent> }
+      { coverFormat === 'basic' && <Basic {...node} /> }
+      { coverFormat === 'fullCover' && <FullCover {...node} /> }
+      { coverFormat === 'halfCover' && <HalfCover {...node} /> }
+      { coverFormat === 'simpleCover' && <SimpleCover readTime={readTime(node, 100)} {...node} /> }
+      { coverFormat === 'videoCover' && <VideoCover readTime={readTime(node, 100)} {...node} /> }
+      { coverFormat !== 'basic' && <MainContent>{node._rawBody}</MainContent> }
       {node.keywords && <PostKeywords items={node.keywords}/>}
       <CommentBox {...node} />
     </Layout>
@@ -53,9 +53,7 @@ export const query = graphql`
         current
       }
       keywords
-      viewFormat {
-        _rawViewFormat
-      }
+      coverFormat
       videoCoverURL
       categories {
         id
@@ -72,6 +70,7 @@ export const query = graphql`
       }
       _rawExcerpt(resolveReferences: {maxDepth: 5})
       _rawBody(resolveReferences: {maxDepth: 5})
+      bodyText: _rawBody(resolveReferences: {maxDepth: 5})
       authors {
         _key
         author {

@@ -6,23 +6,6 @@ import {Link} from '../lib/link'
 import {minQueries} from '../lib/media'
 import Container from '../containers/container__1024'
 
-const Grid = styled.ul`
-  display: flex;
-  flex-flow: wrap row;
-  list-style: none;
-  padding-inline-start: 0;
-  @supports(display: grid) {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 2rem; 
-  }
-  @media ${minQueries.Md} {
-    grid-template-columns: repeat(2,1fr);
-  }
-  @media ${minQueries.Lg} {
-    grid-template-columns: repeat(3,1fr);
-  }
-`
 function BlogPostPreviewGrid ({title, nodes, hideCat, browseMoreHref}) {
   return (
     <>
@@ -43,7 +26,23 @@ function BlogPostPreviewGrid ({title, nodes, hideCat, browseMoreHref}) {
     </>
   )
 }
-
+const Grid = styled.ul`
+  display: flex;
+  flex-flow: wrap row;
+  list-style: none;
+  padding-inline-start: 0;
+  @supports(display: grid) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem; 
+  }
+  @media ${minQueries.Md} {
+    grid-template-columns: repeat(2,1fr);
+  }
+  @media ${minQueries.Lg} {
+    grid-template-columns: repeat(3,1fr);
+  }
+`
 BlogPostPreviewGrid.defaultProps = {
   title: '',
   nodes: [],
