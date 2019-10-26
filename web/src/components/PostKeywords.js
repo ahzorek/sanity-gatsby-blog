@@ -7,11 +7,11 @@ import SlugiFy from '../lib/slugs'
 import Container from '../containers/container_960'
 
 
-const PostKeywords = ({ items }) => (
+const PostKeywords = ({ items = [] }) => (
   <Container>
     {items.length > 0 && <h4>Este artigo foi marcado como</h4>}
     <TagBlock>
-      {items.map((keyword, index) => (
+      {items.length > 0 && items.map((keyword, index) => (
         <li style={{dislay: 'inline-block'}} key={keyword+index}>
           <Link style={{textDecoration: 'none'}} to={`/busca?tag=${SlugiFy(keyword)}`} ><Tag label={keyword}/></Link>
         </li>

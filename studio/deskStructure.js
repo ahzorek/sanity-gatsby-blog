@@ -4,7 +4,7 @@ import MdPerson from 'react-icons/lib/md/person'
 //import MdTab from 'react-icons/lib/md/tab'
 import MdLibraryBooks from 'react-icons/lib/md/library-books'
 import MdStyle from 'react-icons/lib/md/style'
-import MdVignette from 'react-icons/lib/md/vignette'
+//import MdVignette from 'react-icons/lib/md/vignette'
 import IoIosMdFlask from 'react-icons/lib/io/ios-flask'
 
 const hiddenDocTypes = listItem =>

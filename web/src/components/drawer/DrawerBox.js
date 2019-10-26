@@ -2,6 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import {maxQueries} from '../../lib/media'
 
+const DrawerBox = ({children, handleDrawer}) => {
+    return (
+        <Wrapper>
+          <SideBar>
+          <CloseDrawer onClick={handleDrawer}>Fechar Barra</CloseDrawer>
+          {children}
+          </SideBar>
+          <CloseButton onClick={handleDrawer}/>
+        </Wrapper>
+    )
+}
+
 const Wrapper = styled.aside`
   width: 100vw;
   height: 100%;
@@ -38,17 +50,5 @@ const CloseDrawer = styled.button`
   height: 20px;
   padding: 1rem;
 `
-
-const DrawerBox = ({children, handleDrawer}) => {
-    return (
-        <Wrapper>
-          <SideBar>
-          <CloseDrawer onClick={handleDrawer}>Fechar Barra</CloseDrawer>
-          {children}
-          </SideBar>
-          <CloseButton onClick={handleDrawer}/>
-        </Wrapper>
-    )
-}
 
 export default DrawerBox

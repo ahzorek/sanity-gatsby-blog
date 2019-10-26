@@ -2,8 +2,13 @@ import {format} from 'date-fns'
 
 export default {
   name: 'post',
-  type: 'document',
   title: 'Artigo',
+  type: 'document',
+  initialValue: () => ({
+    publishedAt: new Date().toISOString(),
+    isUpdated: false,
+
+  }),
   fields: [
     {
       name: 'title',
@@ -15,11 +20,11 @@ export default {
         Rule.max(90).error(`Muito grande. A partir de agora a slug não pode ser gerada.`),
       ] 
     },
-    {
+    /*{
       name: 'stylizedTitle',
       type: 'titlePortableText',
       title: `Título 'estilizado'`
-    },
+    },*/
     {
       name: 'slug',
       type: 'slug',
@@ -36,7 +41,7 @@ export default {
       description: 'Pode ser usado para agendar publicações no futuro.',
       options: {
         calendarTodayLabel: 'Agora',
-        timeStep: 1
+        timeStep: 13
       }
     },
     {

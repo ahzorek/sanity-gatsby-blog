@@ -102,14 +102,15 @@ export const query = graphql`
           publishedAt
           isUpdated
           _updatedAt
+          videoCoverURL
           mainImage {
             ...SanityImage
             alt
           }
           categories {
-          title
-          color: _rawCatColor
-          slug: _rawSlug
+            title
+            color: _rawCatColor
+            slug: _rawSlug
           }
           authors {
             _key

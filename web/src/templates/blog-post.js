@@ -3,13 +3,14 @@ import {graphql} from 'gatsby'
 
 import Layout from '../layouts/mainLayout'
 import ErrorLayout from '../layouts/errorLayout'
-import { SEO, Basic, FullCover, HalfCover, SimpleCover, VideoCover, MainContent, CommentBox, PostKeywords } from '../components'
+import PostCover from '../components/covers/'
+import { SEO, MainContent, CommentBox, PostKeywords } from '../components'
 import {toPlainText, readTime} from '../lib/helpers'
 
 const BlogPostTemplate = props => {
   const {data, errors, pageContext} = props
+  console.log(pageContext)
   const node = data && data.post
-  const {coverFormat} = node
   const timeToRead = readTime(node, 100)
   // console.log('~', timeToRead, (timeToRead > 1 ?'minutos': 'minuto'))
     
@@ -20,14 +21,10 @@ const BlogPostTemplate = props => {
 
   return (
     <Layout post {...node} >
-      <SEO title={node.title || 'Sem título'} description={toPlainText(node._rawExcerpt)} image={node.mainImage} />
-      { coverFormat === 'basic' && <Basic {...node} /> }
-      { coverFormat === 'fullCover' && <FullCover {...node} /> }
-      { coverFormat === 'halfCover' && <HalfCover {...node} /> }
-      { coverFormat === 'simpleCover' && <SimpleCover readTime={readTime(node, 100)} {...node} /> }
-      { coverFormat === 'videoCover' && <VideoCover readTime={readTime(node, 100)} {...node} /> }
-      { coverFormat !== 'basic' && <MainContent>{node._rawBody}</MainContent> }
-      {node.keywords && <PostKeywords items={node.keywords}/>}
+      <SEO title={node.title || 'Sem título'} description={toPlainText(node.excerptText)} image={node.mainImage} />
+      <PostCover node={node} />
+      { node.coverFormat !== 'basic' && <MainContent>{node.bodyText}</MainContent> }
+      <PostKeywords items={node.keywords}/>
       <CommentBox {...node} />
     </Layout>
   )
@@ -68,8 +65,7 @@ export const query = graphql`
           }
         }
       }
-      _rawExcerpt(resolveReferences: {maxDepth: 5})
-      _rawBody(resolveReferences: {maxDepth: 5})
+      excerptText: _rawExcerpt(resolveReferences: {maxDepth: 5})
       bodyText: _rawBody(resolveReferences: {maxDepth: 5})
       authors {
         _key

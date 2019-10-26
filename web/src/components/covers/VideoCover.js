@@ -1,16 +1,26 @@
-import React from 'react'
-import styled from 'styled-components'
-import Img from 'gatsby-image'
+import React from 'react' 
+import styled from 'styled-components' 
+import Img from 'gatsby-image' 
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
-import DisplayDate from '../displayDate'
-import Author from '../author'
-import clientConfig from '../../../client-config'
-import {minQueries, maxQueries}  from '../../lib/media'
+import DisplayDate from '../displayDate' 
+import Author from '../author' 
+import clientConfig from '../../../client-config' 
+import {minQueries, maxQueries} from '../../lib/media' 
 import ReactPlayer from 'react-player'
 
 
+const Media = styled.section`
+  max-width: 960px;
+  height: 720px;
+  margin: 0 auto;
+  position: relative;
+  /* padding-top: 56.25%; Player ratio: 100 / (1280 / 720) */
+  overflow: hidden;
+`
+
 const VideoBlock = ({source, staticCover = true}) => {
-  if(!source) { return false }
+  if(!source)
+    return false
   
   return (
     <Media>
@@ -26,15 +36,6 @@ const VideoBlock = ({source, staticCover = true}) => {
     </Media>
   )
 }
-
-const Media = styled.section`
-  max-width: 960px;
-  height: 720px;
-  margin: 0 auto;
-  position: relative;
-  /* padding-top: 56.25%; Player ratio: 100 / (1280 / 720) */
-  overflow: hidden;
-`
 
 const VideoCover = ({title, categories, authors, mainImage, videoCoverURL, publishedAt, isUpdated, _updatedAt }) => {
   const coverBg = getFluidGatsbyImage(mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity)

@@ -9,23 +9,15 @@ import clientConfig from '../../client-config'
 import Logo from '../images/logo'
 import NavMenu from './NavMenu'
 
-function hasVideo({bodyText}){
-  let videoBlocks = bodyText.filter(({_type}) => (
+function hasVideo({bodyText, videoCoverURL = false}){
+  let videoBlocks = bodyText && bodyText.filter(({_type}) => (
     _type === 'videoSource' ? true : false ))
-  if(videoBlocks.length > 0){
+  if(videoBlocks.length > 0 || videoCoverURL !== false){
     return true
-  } else 
-  return false
+  } else return false
 }
 
-
 const SpotLight = ({nodes}) => {
-  const node = nodes[0]
-  const colors = node.categories.map(c => c.color.rgb)
-
-  const {r, g, b, a} = colors[0]
-  const linearGradient = `linear-gradient(to bottom, rgba(${r},${g},${b},${a}), transparent)`
-
   return (
     <>
     <Bar>
@@ -34,9 +26,9 @@ const SpotLight = ({nodes}) => {
     </Bar>
     <Box>
       <Grid>
-        {nodes.slice(0,4).map(({id, title, mainImage, categories, publishedAt, slug, bodyText}) => {
-          console.log(hasVideo({bodyText}))
+        {nodes.slice(0,4).map(({id, title, mainImage, categories, publishedAt, slug, bodyText, videoCoverURL}) => {
           const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
+          console.log(hasVideo({bodyText, videoCoverURL}))
           return (
             <li key={id}>
               <Link to={getBlogUrl(publishedAt, slug.current)}>

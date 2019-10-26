@@ -2,6 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import PortableText from './portableText'
 
+const MainContent = ({children}) => {
+  return (
+    <Wrapper>
+      <PortableText blocks={children} />
+    </Wrapper>
+  )
+}
+
 const Wrapper = styled.main`
     min-height: max-content;
     box-sizing: border-box;
@@ -53,13 +61,5 @@ const Wrapper = styled.main`
       }
     }
 `
-
-const MainContent = ({children}) => {
-  return (
-    <Wrapper>
-      <PortableText blocks={children} />
-    </Wrapper>
-  )
-}
 
 export default MainContent
