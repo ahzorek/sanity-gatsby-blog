@@ -87,8 +87,8 @@ export const Widths = {
   Medium: '520px',
 }
 
-export function readTime(post, wPm = 150){
-  return Math.ceil((toPlainText(post._rawBody).split(" ").length) / wPm)
+export function readTime(source, wordsPerMinute = 150){
+  return Math.ceil((toPlainText(source.bodyText).split(" ").length) / wordsPerMinute)
 }
 
 export function getPos(img){
