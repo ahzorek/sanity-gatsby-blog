@@ -9,9 +9,9 @@ import {toPlainText, readTime} from '../lib/helpers'
 
 const BlogPostTemplate = props => {
   const {data, errors, pageContext} = props
-  console.log(pageContext)
   const node = data && data.post
-  const timeToRead = readTime(node, 100)
+  //const timeToRead = readTime(node, 100)
+  //console.log(pageContext)
   // console.log('~', timeToRead, (timeToRead > 1 ?'minutos': 'minuto'))
     
   if (errors) { 

@@ -28,7 +28,7 @@ const SpotLight = ({nodes}) => {
       <Grid>
         {nodes.slice(0,4).map(({id, title, mainImage, categories, publishedAt, slug, bodyText, videoCoverURL}) => {
           const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
-          console.log(hasVideo({bodyText, videoCoverURL}))
+          //console.log(hasVideo({bodyText, videoCoverURL}))
           return (
             <li key={id}>
               <Link to={getBlogUrl(publishedAt, slug.current)}>

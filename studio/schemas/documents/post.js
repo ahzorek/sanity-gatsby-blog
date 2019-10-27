@@ -20,7 +20,7 @@ export default {
         Rule.max(90).error(`Muito grande. A partir de agora a slug não pode ser gerada.`),
       ] 
     },
-    /*{
+    /*s({
       name: 'stylizedTitle',
       type: 'titlePortableText',
       title: `Título 'estilizado'`

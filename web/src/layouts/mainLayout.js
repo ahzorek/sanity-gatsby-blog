@@ -1,5 +1,5 @@
 //external packages
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import GlobalStyle from '../styles/global-styles'
 //import Drawer from '@material-ui/core/Drawer'
@@ -10,14 +10,26 @@ import { PostNav, Header, Switch, DrawerBox, ReadList } from '../components'
 import {isBrowser} from '../lib/helpers'
 import useDark from '../lib/dark-hook'
 import DarkContext from '../lib/dark-context'
+import logUser from '../lib/log-user'
 import SideBar from '../components/SideBar'
 
 import '../styles/layout.css'
 
-const Layout = props => {
+
+
+function Layout(props){
   //darkmode
   const [isDark, setDark] = useDark()
   const handleDarkMode = () => setDark(prev => !prev)
+
+  //handle user info with effect
+  const [user] = logUser()
+  useEffect(() =>{
+    console.log( user.isLoged 
+      ? `User is logged with the ID ${user.id}`
+      : "User is not logged, will be assigned a new ID."
+    )
+  }, [user])
 
   //drawer
   const [drawer, setDrawer] = useState(false)

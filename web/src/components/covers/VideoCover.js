@@ -39,7 +39,7 @@ const VideoBlock = ({source, staticCover = true}) => {
 
 const VideoCover = ({title, categories, authors, mainImage, videoCoverURL, publishedAt, isUpdated, _updatedAt }) => {
   const coverBg = getFluidGatsbyImage(mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity)
-  console.log(coverBg)
+  //console.log(coverBg)
   return (
     <ContentWrapper>
       {/* <Subject>{categories[0].title}</Subject> */}
