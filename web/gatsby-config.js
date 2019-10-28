@@ -39,13 +39,13 @@ module.exports = {
         overlayDrafts: !isProd
       }
     },
-    // {
-    //   resolve: `gatsby-plugin-netlify-functions`,
-    //   options: {
-    //     functionsSrc: `${__dirname}/src/functions`,
-    //     functionsOutput: `${__dirname}/functions`,
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-netlify-functions`,
+      options: {
+        functionsSrc: `${__dirname}/src/functions`,
+        functionsOutput: `${__dirname}/functions`,
+      },
+    },
     {
       resolve: `gatsby-plugin-algolia`,
       options: {

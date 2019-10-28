@@ -3,7 +3,7 @@
 
 # Dependency directories
 /node_modules
-
+/web/lambda
 node_cheat_sheet.txt
 
 
