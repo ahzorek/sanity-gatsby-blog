@@ -1,2 +1,4 @@
 [build]
-  functions = "lambda" #  netlify-lambda reads this
+  Functions = "lambda"
+  Publish = "lambda"
+  Command = "npm run build:lambda"
