@@ -6,7 +6,7 @@ import StarRatings from 'react-star-ratings'
 
 const MovieReview = ({ node: { id, rating: vote_hiber = null } }) => {
   const [movieInfo, setInfo] = useState({ isLoaded: false })
-    
+  
   async function fetchData() {
     let response = await axios({
         method: 'GET',

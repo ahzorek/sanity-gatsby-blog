@@ -35,6 +35,8 @@ function Layout(props){
   const [drawer, setDrawer] = useState(false)
   const handleDrawer = () => setDrawer(prev => !prev)
 
+  console.log("este é o processo", process.env)
+
   //props
   const { children, post, navigation, hideNav } = props //global definitions
   const { nodes } = navigation ? props : false // if layout is for navigation, load navigation props
