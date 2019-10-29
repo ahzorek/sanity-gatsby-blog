@@ -1,4 +1,4 @@
 [build]
-  Functions = "web/lambda"
-  Publish = "web/lambda"
+  Functions = "lambda"
+  Publish = "lambda"
   Command = "npm run build-web"
