@@ -10,7 +10,7 @@ const MovieReview = ({ node: { id, rating: vote_hiber = null } }) => {
   async function fetchData() {
     let response = await axios({
         method: 'GET',
-        url: 'http://localhost:9000/tmdb/',
+        url: 'https://hibernativos.ml/.netlify/functions/tmdb/',
         params: {
           id,
           type: "movie"

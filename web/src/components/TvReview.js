@@ -6,11 +6,11 @@ import StarRatings from 'react-star-ratings'
 
 const TvReview = ({ node: {id, rating: rate = null} }) => {
   const [showInfo, setInfo] = useState({ isLoaded: false })
-  
+
   async function fetchData() {
     let response = await axios({
       method: 'GET',
-      url: 'http://localhost:9000/tmdb/',
+      url: 'https://hibernativos.ml/.netlify/functions/tmdb/',
       params: {
         id,
         type: "tv"
