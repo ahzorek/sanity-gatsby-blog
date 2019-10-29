@@ -7,8 +7,8 @@ function useDark(){
     let value;
     try { 
       value = localStorage.getItem(key) !== null 
-        && localStorage.getItem(key) || matchMedia('(prefers-color-scheme: dark)').matches;
-    } catch(e) { value = false }   
+        && localStorage.getItem(key);
+    } catch(e) { value = matchMedia('(prefers-color-scheme: dark)').matches; }   
     return value
   })
   

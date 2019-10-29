@@ -6,11 +6,16 @@ import StarRatings from 'react-star-ratings'
 
 const TvReview = ({ node: {id, rating: rate = null} }) => {
   const [showInfo, setInfo] = useState({ isLoaded: false })
-  const __key = process.env.GATSBY_TMDB_KEY
-  const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${__key}&language=pt-BR`
-
+  
   async function fetchData() {
-    let response = await axios.get(url)
+    let response = await axios({
+      method: 'GET',
+      url: 'http://localhost:9000/tmdb/',
+      params: {
+        id,
+        type: "tv"
+      }
+    })
     const {data} = response
       setInfo({
         title: data.name,
