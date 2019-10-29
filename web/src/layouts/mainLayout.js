@@ -20,7 +20,7 @@ import '../styles/layout.css'
 function Layout(props){
   //darkmode
   const [isDark, setDark] = useDark()
-  const handleDarkMode = () => setDark(prev => !prev)
+  const handleDarkMode = () => setDark(isDark => !isDark)
 
   //handle user info with effect
   const [user] = logUser()
@@ -35,8 +35,6 @@ function Layout(props){
   const [drawer, setDrawer] = useState(false)
   const handleDrawer = () => setDrawer(prev => !prev)
 
-  console.log("este é o processo", process.env)
-
   //props
   const { children, post, navigation, hideNav } = props //global definitions
   const { nodes } = navigation ? props : false // if layout is for navigation, load navigation props
@@ -47,6 +45,7 @@ function Layout(props){
       <DarkContext.Provider value={{isDark, handleDarkMode}}>
         <GlobalStyle />
           <SnackbarProvider maxSnack={3}>
+
             <SideBar 
               drawer={drawer} 
               handleDrawer={handleDrawer} 
@@ -54,21 +53,22 @@ function Layout(props){
               handleDarkMode={handleDarkMode}
             />
             {navigation &&(
-              <Header
-                nodes={nodes}
-                hideNav={hideNav}
-                handleDrawer={handleDrawer}
-              />
+            <Header
+              nodes={nodes}
+              hideNav={hideNav}
+              handleDrawer={handleDrawer}
+            />
             )}
             {post && (
-              <PostNav
-                title={title}
-                category={categories[0]}
-                layoutType={coverFormat}
-                handleDrawer={handleDrawer}
-              />
+            <PostNav
+              title={title}
+              category={categories[0]}
+              layoutType={coverFormat}
+              handleDrawer={handleDrawer}
+            />
             )}
-            {children ? children : <div>Não há o que exibir.</div>}
+            {children && children}
+
           </SnackbarProvider>
       </DarkContext.Provider>
     </ThemeProvider>

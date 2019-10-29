@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react'
 import {isBrowser} from './helpers'
 
-function useDark(){
+export default function useDark(){
   const key = 'dark__mode'
-  const [state, setState] = useState(() => { 
-    let value;
-    try { 
-      value = localStorage.getItem(key) !== null 
-        && localStorage.getItem(key);
-    } catch(e) { value = isBrowser() ? matchMedia('(prefers-color-scheme: dark)').matches : false }   
-    return value
-  })
+
+  const prefersDark = isBrowser() && matchMedia('(prefers-color-scheme: dark)').matches ? true : false;
+
+  console.log("preferencia do ususario", prefersDark, typeof(prefersDark))
+
+  const stateOfDark = isBrowser() &&
+    localStorage.getItem(key) !== 'undefined' && localStorage.getItem(key) !== null
+    ? JSON.parse(localStorage.getItem(key)) 
+    : prefersDark;
+
+  const [state, setState] = useState(stateOfDark)
   
-  const handleLocalDark = () => setState(prev => !prev)
+  const handleLocalDark = () => setState(state => !state)
 
   useEffect(()=> {
     window.addEventListener('storage', handleLocalDark)
-    localStorage.setItem(key, state)
+    localStorage.setItem(key, state)    
     return () => { 
       window.removeEventListener('storage', handleLocalDark) 
     }
@@ -24,4 +27,5 @@ function useDark(){
   
   return [state, setState]
 }
-export default useDark
+
+//isBrowser() ? matchMedia('(prefers-color-scheme: dark)').matches : 
