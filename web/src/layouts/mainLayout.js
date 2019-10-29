@@ -19,9 +19,8 @@ import '../styles/layout.css'
 
 function Layout(props){
   //darkmode
-  const [isDark, setDark] = useDark()
-  const handleDarkMode = () => setDark(isDark => !isDark)
-
+  const [isDark, setDarkState] = useDark()
+  
   //handle user info with effect
   const [user] = logUser()
   useEffect(() =>{
@@ -42,7 +41,7 @@ function Layout(props){
 
   return (
     <ThemeProvider theme={isDark ? dark : light}>
-      <DarkContext.Provider value={{isDark, handleDarkMode}}>
+      <DarkContext.Provider value={{isDark, setDarkState}}>
         <GlobalStyle />
           <SnackbarProvider maxSnack={3}>
 
@@ -50,7 +49,7 @@ function Layout(props){
               drawer={drawer} 
               handleDrawer={handleDrawer} 
               isDark={isDark}
-              handleDarkMode={handleDarkMode}
+              handleDarkMode={setDarkState}
             />
             {navigation &&(
             <Header

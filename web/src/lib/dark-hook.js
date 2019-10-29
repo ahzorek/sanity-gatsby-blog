@@ -3,29 +3,29 @@ import {isBrowser} from './helpers'
 
 export default function useDark(){
   const key = 'dark__mode'
-
-  const prefersDark = isBrowser() && matchMedia('(prefers-color-scheme: dark)').matches ? true : false;
-
-  console.log("preferencia do ususario", prefersDark, typeof(prefersDark))
-
+  const prefersDark = isBrowser() && 
+    matchMedia('(prefers-color-scheme: dark)').matches ? true : false
+  
   const stateOfDark = isBrowser() &&
-    localStorage.getItem(key) !== 'undefined' && localStorage.getItem(key) !== null
-    ? JSON.parse(localStorage.getItem(key)) 
-    : prefersDark;
+    localStorage.getItem(key) !== null && 
+      localStorage.getItem(key) !== 'null'
+        ? JSON.parse(localStorage.getItem(key)) 
+        : prefersDark
 
   const [state, setState] = useState(stateOfDark)
   
-  const handleLocalDark = () => setState(state => !state)
+  const setDarkState = () => {
+      console.log("O estado de 'isDark' foi alterado de ", state, " para ", !state)
+    setState(state => !state)
+  }
 
   useEffect(()=> {
-    window.addEventListener('storage', handleLocalDark)
+    window.addEventListener('storage', setDarkState)
     localStorage.setItem(key, state)    
     return () => { 
-      window.removeEventListener('storage', handleLocalDark) 
+      window.removeEventListener('storage', setDarkState) 
     }
   },[state])
   
-  return [state, setState]
+  return [state, setDarkState]
 }
-
-//isBrowser() ? matchMedia('(prefers-color-scheme: dark)').matches : 

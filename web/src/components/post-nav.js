@@ -11,7 +11,7 @@ import DarkContext from '../lib/dark-context'
 
 
 const PostNav = ({ title, category, layoutType, handleDrawer }) => {
-  const {isDark, handleDarkMode} = useContext(DarkContext);
+  const {isDark, setDarkState} = useContext(DarkContext);
   let navStart
   if((layoutType === 'fullCover') || (layoutType === 'halfCover')){ 
     navStart = false 
@@ -55,7 +55,7 @@ const PostNav = ({ title, category, layoutType, handleDrawer }) => {
 
       <SideSlot style ={{justifyContent: 'flex-end', alignItems: 'center'}} >
         <SwitchWrapper>
-          <Switch isOn={isDark} accentColor={accentColor} functionToRun={handleDarkMode}/>
+          <Switch isOn={isDark} accentColor={accentColor} functionToRun={setDarkState}/>
         </SwitchWrapper>
         <IconButton onClick={handleDrawer}>
           <IosMenu fontSize="24pt" color={accentColor} />
