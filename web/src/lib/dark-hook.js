@@ -10,7 +10,7 @@ export default function useDark(){
     localStorage.getItem(key) !== null && 
       localStorage.getItem(key) !== 'null'
         ? JSON.parse(localStorage.getItem(key)) 
-        : prefersDark
+        : false
 
   const [state, setState] = useState(stateOfDark)
   

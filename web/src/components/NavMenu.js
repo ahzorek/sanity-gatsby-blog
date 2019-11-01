@@ -14,7 +14,10 @@ const NavMenu = ({ nodes }) => {
         if (isRepeated) { return a } 
         else return a.concat([b])
       },[])
-  } else { categories = null; console.error(`Há um problema com os 'nodes' recebidos: ${nodes}` ) }
+  } else { 
+    categories = null;
+    console.error(`Há um problema com os 'nodes' recebidos: ${nodes}`) 
+  }
   
   return (
     <Wrapper>

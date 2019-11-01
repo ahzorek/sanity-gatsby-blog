@@ -4,13 +4,18 @@ import styled from 'styled-components'
 import axios from 'axios'
 import StarRatings from 'react-star-ratings'
 
+const isDev = process.env.NODE_ENV && process.env.NODE_ENV == 'development'
+const url = isDev 
+  ? 'https://hibernativos.ml/.netlify/functions/tmdb/'
+  : '/.netlify/functions/tmdb/'
+
 const TvReview = ({ node: {id, rating: rate = null} }) => {
   const [showInfo, setInfo] = useState({ isLoaded: false })
 
   async function fetchData() {
     let response = await axios({
       method: 'GET',
-      url: 'https://hibernativos.ml/.netlify/functions/tmdb/',
+      url,
       params: {
         id,
         type: "tv"
