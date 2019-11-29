@@ -1,4 +1,6 @@
 import GIPHY from "part:sanity-plugin-asset-source-giphy/image-asset-source"
+import Default from 'part:@sanity/form-builder/input/image/asset-source-default'
+
 
 export default {
     name: 'testEnv',
@@ -27,7 +29,7 @@ export default {
         title: 'GIFS',
         type: 'image',
         options: {
-          sources: [GIPHY]
+          sources: [GIPHY, Default]
         }
       },
       {

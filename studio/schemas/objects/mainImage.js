@@ -1,9 +1,12 @@
+import Default from 'part:@sanity/form-builder/input/image/asset-source-default'
+
 export default {
   name: 'mainImage',
   type: 'image',
   title: 'Imagem',
   options: {
-    hotspot: true
+    hotspot: true,
+    sources: [Default]
   },
   fields: [
     {

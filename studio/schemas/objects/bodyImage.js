@@ -1,9 +1,15 @@
+import React from 'react'
+import MdPhotoLibrary from 'react-icons/lib/md/photo-library'
+import Default from 'part:@sanity/form-builder/input/image/asset-source-default'
+
+
 export default {
     name: 'bodyImage',
     type: 'image',
     title: 'Imagem de Corpo',
     options: {
-      hotspot: true
+      hotspot: true,
+      sources: [Default]
     },
     fields: [
       {
@@ -50,5 +56,6 @@ export default {
         imageUrl: 'asset.url',
         title: 'caption'
       }
-    }
+    },
+    icon: () => <MdPhotoLibrary/>
   }

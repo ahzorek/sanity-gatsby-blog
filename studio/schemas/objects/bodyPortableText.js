@@ -1,4 +1,9 @@
 import React from 'react'
+import GIPHY from "part:sanity-plugin-asset-source-giphy/image-asset-source"
+//icons
+import MdMovie from 'react-icons/lib/md/movie'
+import MdOndemandVideo from 'react-icons/lib/md/ondemand-video'
+import MdTv from 'react-icons/lib/md/tv'
 
 export default {
   name: 'bodyPortableText',
@@ -59,25 +64,34 @@ export default {
       },
       of: [{type: 'authorReference'}]
     },
-    // You can add additional types here. Note that you can't use
-    // primitive types such as 'string' and 'number' in the same array
-    // as a block type.
+    // {
+    //   type: 'mainImage',
+    //   options: {hotspot: true}
+    // },
     {
-      type: 'mainImage',
-      options: {hotspot: true}
+      type: 'bodyImage'
     },
     {
-      type: 'bodyImage',
-      options: {hotspot: true}
+      type: 'videoSource',
+      icon: () => <MdOndemandVideo/>
     },
     {
-      type: 'videoSource'
+      type: 'movieID',
+      icon: () => <MdMovie/>
     },
     {
-      type: 'movieID'
+      type: 'tvID',
+      icon: () => <MdTv/>
     },
     {
-      type: 'tvID'
+      name: 'giphy',
+      title: 'GIFS',
+      type: 'image',
+      description: 'Escolha um GIF diretamente do GIPHY ou faça upload do seu próprio',
+      options: {
+        sources: [GIPHY]
+      },
+      icon: () => 'GIF'
     }
   ]
 }
