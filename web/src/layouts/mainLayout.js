@@ -2,20 +2,16 @@
 import React, { useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import GlobalStyle from '../styles/global-styles'
-//import Drawer from '@material-ui/core/Drawer'
 import { SnackbarProvider } from 'notistack';
 //internal components and helpers
 import { dark, light } from '../styles/themes'
 import { PostNav, Header, Switch, DrawerBox, ReadList } from '../components'
 import {isBrowser} from '../lib/helpers'
-import useDark from '../lib/dark-hook'
-import DarkContext from '../lib/dark-context'
+import useDark, {DarkContext} from '../lib/dark-mode'
 import logUser from '../lib/log-user'
 import SideBar from '../components/SideBar'
 
 import '../styles/layout.css'
-
-
 
 function Layout(props){
   //darkmode

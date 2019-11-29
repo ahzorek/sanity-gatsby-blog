@@ -9,19 +9,21 @@ import DisplayDate from '../displayDate'
 import PortableText from '../portableText'
 
 function ListSmallNoPic(props) {
-  const { title, slug, publishedAt, isUpdated, _updatedAt, } = props
-
-  return (
-    <ListItem>
-      <Link style={{ display: 'contents' }} to={getBlogUrl(publishedAt, slug.current)}>
-        <Title>{title}</Title>
-      </Link>
-      <DateWrapper>
-        <DisplayDate dateInfo={{ publishedAt, isUpdated, _updatedAt }} />
-      </DateWrapper>
-    </ListItem>
-  )
+  if(props.slug){
+    const { title, slug, publishedAt, isUpdated, _updatedAt, } = props
+    return (
+      <ListItem>
+        <Link style={{ display: 'contents' }} to={getBlogUrl(publishedAt, slug.current)}>
+          <Title>{title}</Title>
+        </Link>
+        <DateWrapper>
+          <DisplayDate dateInfo={{ publishedAt, isUpdated, _updatedAt }} />
+        </DateWrapper>
+      </ListItem>
+    )
+  } else return false
 }
+
 const ListItem = styled.li`
   display: flex;
   flex-flow: row wrap;

@@ -1,43 +1,29 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import IosBookmark from 'react-ionicons/lib/IosBookmark'
-import { useSnackbar } from 'notistack'
+import useAddHook from './AddHook'
 
 const AddToRead = ({node, style}) => {
-  const [buttonIsAdding, setButton] = useState(true) 
-  const { enqueueSnackbar } = useSnackbar()
-
+  const [status, changes, setStatus, handleChange] = useAddHook()
+  const {isListed} = status
   useEffect(() => {
-    if(localStorage.getItem(node.id) !== null) {
-      setButton(false)
-    } else setButton(true)      
-  })
+    setStatus({
+      id: node.id, 
+      isListed: localStorage.getItem(node.id) !== null ? true : false
+    })
+  },[changes])
 
-  const handleReadList = e => {
-    if (typeof window !== 'undefined'){
-      if(localStorage.getItem(node.id) === null){
-        localStorage.setItem(node.id, JSON.stringify(node))
-        setButton(false)
-        enqueueSnackbar('Foi adicionado a sua lista.');
-      } else {
-          localStorage.removeItem(node.id)
-          setButton(true)
-          enqueueSnackbar('Foi removido da sua lista.');
-
-        }
-    }
-  }
   return (
     <span style={{...style}}>
       <IosBookmark
         fontSize="14pt"
-        color={buttonIsAdding ? 'black' : 'rgb(224, 22, 22)' }
+        color={isListed ? 'rgb(224, 22, 22)' : 'black' }
         style={{
-          transform: !buttonIsAdding ? 'scaleY(1.4)' : 'scaleY(1)',
+          transform: isListed ? 'scaleY(1.4)' : 'scaleY(1)',
           transition: 'transform 100ms ease',
           transformOrigin: 'center top'
         }}
-        onClick={handleReadList}
-        title={ `${buttonIsAdding ? 'Adicionar a ' : 'Remover da '} Lista de Leitura`}
+        onClick={e => handleChange(node)}
+        title={ `${isListed ? 'Remover da ' : 'Adicionar a '} Lista de Leitura`}
         />
       </span>
   )

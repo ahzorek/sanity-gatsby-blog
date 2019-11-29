@@ -6,6 +6,7 @@ import ErrorLayout from '../layouts/errorLayout'
 import PostCover from '../components/covers/'
 import { SEO, MainContent, CommentBox, PostKeywords } from '../components'
 import {toPlainText, readTime} from '../lib/helpers'
+//import SupportButton from '../components/SupportButton'
 
 const BlogPostTemplate = props => {
   const {data, errors, pageContext} = props
@@ -18,6 +19,9 @@ const BlogPostTemplate = props => {
     console.error(errors)
     return <ErrorLayout><SEO title='GraphQL Error' /><GraphQLErrorList errors={errors} /></ErrorLayout> 
   }
+  const color = node.categories[0].catColor
+      ? node.categories[0].catColor.hex 
+      : 'rgb(128,128,128)'
 
   return (
     <Layout post {...node} >

@@ -7,20 +7,25 @@ import Switch from './Switch'
 import Logo from '../images/logo'
 import {Link} from '../lib/link'
 import {minQueries} from '../lib/media'
-import DarkContext from '../lib/dark-context'
+import {DarkContext} from '../lib/dark-mode'
 
 
 const PostNav = ({ title, category, layoutType, handleDrawer }) => {
   const {isDark, setDarkState} = useContext(DarkContext);
-  let navStart
-  if((layoutType === 'fullCover') || (layoutType === 'halfCover')){ 
-    navStart = false 
-  } else navStart = true
-    
+  // let navStart
+  // if(layoutType == 'fullCover' || layoutType == 'halfCover'){ 
+  //   navStart = false 
+  // } else navStart = true
+
+  const navStart = layoutType == 'fullCover' || layoutType == 'halfCover'
+    ? false
+    : true
+  
   const [showNav, setNav] = useState(navStart)
   const [lastY, setY] = useState(0)
   const [displayTitle, setDisplay] = useState(false)
-  
+  const accentColor = category.catColor ? category.catColor.hex : 'rgb(128,128,128)'
+
   const handleScroll = () => {
     const currentY = typeof window !== 'undefined' ? window.scrollY : 0;
 
@@ -37,7 +42,6 @@ const PostNav = ({ title, category, layoutType, handleDrawer }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   })
 
-  const accentColor = category.catColor ? category.catColor.hex : 'rgb(128,128,128)'    
     
     
   return (

@@ -10,6 +10,7 @@ import { getPos } from '../../lib/helpers'
 import {Link} from '../../lib/link'
 import Logo from '../../images/logo'
 import MiniLogoMenu from '../menus/mini-logo-menu'
+import SupportButton from '../SupportButton'
 
 const HalfCover = props => {
   const {title, categories, authors, mainImage, publishedAt, isUpdated, _updatedAt} = props
@@ -33,6 +34,7 @@ const HalfCover = props => {
           <Title>{title}</Title>
           <DisplayDate showUpdate prefix={""} sFormat={"d' de 'MMMM' de 'yyyy"} dateInfo={{publishedAt, isUpdated, _updatedAt}} />
           {authors && <Author items={authors}/>}
+          <SupportButton accentColor={categories[0].catColor.hex} size={45}/>
         </PostInfo>
       </Wrapper>
     )

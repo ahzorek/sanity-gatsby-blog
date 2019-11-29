@@ -21,9 +21,9 @@ const AuthorTemplate = props => {
 
   return (
     <Layout navigation nodes={postNodes}>
-      <SEO title={author.name || 'Autor'} description={toPlainText(author._rawBio) || 'Autor do Hibernativos'} image={'undefined'} />
+      <SEO title={author.name || 'Autor'} description={author._rawBio ? toPlainText(author._rawBio) : 'Autor do Hibernativos'} image={'undefined'} />
       <h1>{author.name}</h1>
-      <h2>{toPlainText(author._rawBio) || 'Autor do Hibernativos'}</h2>
+      { author._rawBio && <h2>{toPlainText(author._rawBio)}</h2>}
       { postNodes && postNodes.length > 0 && <BlogPostPreviewGrid nodes={postNodes}/> }
     </Layout>
   )

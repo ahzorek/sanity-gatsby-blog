@@ -1,3 +1,5 @@
+import GIPHY from "part:sanity-plugin-asset-source-giphy/image-asset-source"
+
 export default {
     name: 'testEnv',
     type: 'document',
@@ -18,6 +20,28 @@ export default {
             { title: "Published", value: "published" }
           ],
           layout: "checkbox"
+        }
+      },
+      {
+        name: 'giphy',
+        title: 'GIFS',
+        type: 'image',
+        options: {
+          sources: [GIPHY]
+        }
+      },
+      {
+        name: 'editorialFunction',
+        type: 'array',
+        of: [ {type: 'string'} ],
+        options: {
+          list: [
+            { title: 'Building', value: 'building' },
+            { title: 'Master plan', value: 'masterPlan' },
+            { title: 'Infrastructure', value: 'infrastructure' },
+            { title: 'Private Home', value: 'privateHome' }
+          ],
+          layout: 'grid'
         }
       }
     ]

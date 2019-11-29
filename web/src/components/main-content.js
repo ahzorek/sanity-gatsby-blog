@@ -42,10 +42,10 @@ const Wrapper = styled.main`
       font-size: calc(1rem + .4vw);
       letter-spacing: -.003em;
       text-align: left;
-      width: 50ch;
+      width: 100%;
       max-width: 680px;
       margin: 1rem auto;
-      padding: 0 2rem;
+      padding: 0 1rem;
     }
     & li {
       list-style-type: square;

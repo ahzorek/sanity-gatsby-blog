@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {getFluidGatsbyImage} from 'gatsby-source-sanity'
 import BackgroundImage from 'gatsby-background-image'
@@ -8,6 +8,7 @@ import {Link} from '../lib/link'
 import clientConfig from '../../client-config'
 import Logo from '../images/logo'
 import NavMenu from './NavMenu'
+import useAddHook from './read-list/AddHook'
 
 function hasVideo({bodyText, videoCoverURL = false}){
   let videoBlocks = bodyText && bodyText.filter(({_type}) => (
@@ -26,20 +27,31 @@ const SpotLight = ({nodes}) => {
     </Bar>
     <Box>
       <Grid>
-        {nodes.slice(0,4).map(({id, title, mainImage, categories, publishedAt, slug, bodyText, videoCoverURL}) => {
+        {nodes.slice(0,4).map(node => {
+          const {id, title, mainImage, categories, publishedAt, slug, bodyText, videoCoverURL} = node
+          const [status, changes, setStatus, handleChange] = useAddHook()
+          
+          useEffect(() => {
+            setStatus({
+              id, 
+              isListed: localStorage.getItem(id) !== null ? true : false
+            })
+          },[changes])
+
           const bgSrc = getFluidGatsbyImage( mainImage.asset._id, { maxWidth: 1920 }, clientConfig.sanity )
           //console.log(hasVideo({bodyText, videoCoverURL}))
           return (
             <li key={id}>
-              <Link to={getBlogUrl(publishedAt, slug.current)}>
+              {/* <Link> */}
                 <Photo
                   Tag="section"
                   pos={getPos(mainImage)}
                   fluid={[bgSrc, `linear-gradient(to top,rgba(0,0,0,.95),rgba(0,0,0,.5),rgba(0,0,0,0))`].reverse()}>
                   {/* <span>{categories[0].title}</span> */}
                   <h1>{title}</h1>
+                  <button onClick={(e) => handleChange(node)} >{status.isListed ? 'Remover' : 'Adicionar'}</button>
                 </Photo>
-              </Link>
+              {/* </Link> */}
             </li>
           )
         })}

@@ -24,8 +24,8 @@ const NavMenu = ({ nodes }) => {
       <TrendingUpRoundedIcon fontSize="large"/>
       <LinkWrapper>
         {categories !== null && categories.slice(0,4).map((category, index) => (
-          <li title={`Mais em ${category.title}`} key={'link__',index} style={{listStyle: 'none'}}>
-            <Link color={category.color ? category.color.hex : 'rgb(128,128,128'} to={`/${category.slug.current}/`}>
+          <li title={`Mais em ${category.title}`} key={'link__',index} style={{listStyle: 'none', position: 'relative'}}>
+            <Link to={`/${category.slug.current}/`}>
               {category.title}
             </Link>
           </li>
@@ -47,11 +47,6 @@ const Wrapper = styled.nav`
   }
 `
 const LinkWrapper = styled.ul`
-  /* @media ${maxQueries.Lg} { 
-    & li :last-of-type {
-      display: none;
-    }
-  } */
   display: contents;
   width: auto;
   &:hover {
@@ -70,6 +65,17 @@ const LinkWrapper = styled.ul`
     &:hover {
       color: ${props => props.theme.primaryText};
       transition: all 500ms ease-in;
+      /* & ::after{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
+        background: red;
+      } */
     }
   }
 `

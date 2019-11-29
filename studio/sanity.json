@@ -17,7 +17,8 @@
     "dashboard-widget-structure-menu",
     "dashboard-widget-document-list",
     "dashboard-widget-netlify",
-    "@sanity/color-input"
+    "@sanity/color-input",
+    "giphy-source-sanity"
   ],
   "parts": [
     {

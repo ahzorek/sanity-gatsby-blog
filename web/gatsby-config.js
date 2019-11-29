@@ -17,15 +17,6 @@ module.exports = {
         },
       },
     },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `images`,
-    //     path: `${__dirname}/src/images`,
-    //     name: `fonts`,
-    //     path: `${__dirname}/src/fonts`
-    //   },
-    // },
     'gatsby-plugin-transition-link',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
@@ -39,13 +30,6 @@ module.exports = {
         overlayDrafts: !isProd
       }
     },
-    /* {
-      resolve: `gatsby-plugin-netlify-functions`,
-      options: {
-        functionsSrc: `${__dirname}/src/functions`,
-        functionsOutput: `${__dirname}/functions`,
-      },
-    }, */
     {
       resolve: `gatsby-plugin-algolia`,
       options: {

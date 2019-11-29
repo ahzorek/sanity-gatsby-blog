@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
+import {useSpring, animated} from 'react-spring'
 import { Disqus } from 'gatsby-plugin-disqus'
 import {getBlogUrl} from '../lib/helpers'
 import {Button} from '@material-ui/core'
@@ -20,24 +21,32 @@ const Wrapper = styled.div`
 `
 const CommentBox = ({id: identifier, title, publishedAt, slug}) => {
   const [commentBox, toggleBox] = useState(false)
+  const [props, set, stop] = useSpring(() => ({
+    opacity: 1,
+    transform: 'scaleY(1)'
+
+  }))
+
   const url = `https://hibernativos.ml${getBlogUrl(publishedAt, slug.current)}`
 
   const handleCommentBox = () => {
-    toggleBox(prev => !prev)
+    toggleBox(true)
   }
 
 
   return (
     <Wrapper>
-      {!commentBox && 
-        <ExpandButton 
-          onClick={e => setTimeout(handleCommentBox, 1000)}
-          >
+        <animated.div style={props}>
+          <ExpandButton disabled={commentBox} onClick={(e) => {
+            setTimeout(() => {
+              set({opacity: 0, transform: 'scaleY(0)'})
+                setTimeout(handleCommentBox, 600)
+            }, 400)
+          }}>
             Mostrar Comentários 
-        </ExpandButton>
-      }
-      
-      {commentBox && <Disqus config={{url, identifier, title}} />}
+          </ExpandButton>
+        </animated.div>      
+      {commentBox && <Disqus style={{transition: 'all 400ms ease-in'}} config={{url, identifier, title}} />}
     </Wrapper>
 
   )
