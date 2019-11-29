@@ -8,19 +8,20 @@ export default function GIPHYSearch(props){
         kind: 'url',
         value: item.images.preview_gif.url,
         assetDocumentProps: {
-          id: item.id,
           originalFilename: item.slug,
           source: {
-           name: item.url,
-           url: item.url
+           name: item.title,
+           url: item.url,
+           id: item.id
           },
-          description: item.title,
-          rating: item.rating
+          label: item.id,
+          title: item.title,
+          description: item.slug,
+          creditLine: item.source
         }
       }]
     )
   }
-
   return (
     <Dialog 
     	style={{padding: 10}} 
